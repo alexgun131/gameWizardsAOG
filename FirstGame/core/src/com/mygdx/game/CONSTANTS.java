@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Created by Alex on 29/06/2016.
@@ -40,7 +41,11 @@ public class CONSTANTS {
 
     public static final String TOP_FILE_NAME = "TOP_SCORES1";
 
-
+    // TEXTURES
+    // Background
+    public static final Texture RIVER_WATER = new Texture("RiverWater.png");
+    public static final Texture RIVER_BANK_TOP = new Texture("RiverBankTop.png");
+    public static final Texture RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
 
 
 }

@@ -77,10 +77,12 @@ public class GameScreen extends InputAdapter implements Screen {
         renderer.setProjectionMatrix(viewport.getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
+        drawBackground(); // draw river with animation
+
         renderer.setColor(CONSTANTS.SAND_COLOR);
-        renderer.rect(0,0,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
+        //renderer.rect(0,0,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
         //renderer.rect(0,0,CONSTANTS.FRAME_THIKNESS,viewport.getWorldHeight());
-        renderer.rect(0,viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
+        //renderer.rect(0,viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
         //renderer.rect(viewport.getWorldWidth()-CONSTANTS.FRAME_THIKNESS,
         //0, CONSTANTS.FRAME_THIKNESS, viewport.getWorldHeight());
 
@@ -201,5 +203,14 @@ public class GameScreen extends InputAdapter implements Screen {
                 topScore = 0;
             }
         }
+    }
+
+    /* Draw river with flow */
+    public void drawBackground() {
+        batch.begin();
+        batch.draw(CONSTANTS.RIVER_WATER, 0.0f, 0.0f, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.draw(CONSTANTS.RIVER_BANK_TOP, 0.0f, viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS*5, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
+        batch.draw(CONSTANTS.RIVER_BANK_BOTTOM, 0.0f, 0.0f, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
+        batch.end();
     }
 }
