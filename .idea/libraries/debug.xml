@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/FirstGame/android/build/intermediates/pre-dexed/debug/gdx-1.9.3_6a6cfe96901f624b1bad78f8e669715e2a3bd754.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FirstGame/android/build/intermediates/pre-dexed/debug/gdx-box2d-1.9.3_9b8b886da873d80426e396d3567ef75395d42e83.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FirstGame/android/build/intermediates/pre-dexed/debug/core-1.0_d341d077c3a63924c95883cf1db9125d8a359f91.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FirstGame/android/build/intermediates/pre-dexed/debug/gdx-backend-android-1.9.3_33b2ff5c39f147be2a60cde828e42ee9eb89807e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/FirstGame/android/build/intermediates/pre-dexed/debug/debug_afe021b452c4c5aa1d1a0c488f6ebe5fa1a16f3f.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -24,8 +24,8 @@ public class Point {
     }
 
     public void disappear(){
-        float posx = -1;
-        float posy = -1;
+        float posx = -CONSTANTS.WORLD_SIZE;
+        float posy = -CONSTANTS.WORLD_SIZE;
         position = new Vector2(posx, posy);
     }
 

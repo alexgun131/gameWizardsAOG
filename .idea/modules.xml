@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/android/android.iml" filepath="$PROJECT_DIR$/FirstGame/android/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/android/build/generated/source/buildConfig/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/FirstGame/android/build/generated/source/buildConfig/androidTest/androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/android/build/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/FirstGame/android/build/generated/source/buildConfig/buildConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/core/core.iml" filepath="$PROJECT_DIR$/FirstGame/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/desktop/desktop.iml" filepath="$PROJECT_DIR$/FirstGame/desktop/desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/html/html.iml" filepath="$PROJECT_DIR$/FirstGame/html/html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/ios/ios.iml" filepath="$PROJECT_DIR$/FirstGame/ios/ios.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FirstGame/android/build/generated/source/r/r.iml" filepath="$PROJECT_DIR$/FirstGame/android/build/generated/source/r/r.iml" />
+    </modules>
+  </component>
+</project>
