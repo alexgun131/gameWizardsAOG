@@ -40,11 +40,15 @@ public class GameScreen extends InputAdapter implements Screen {
     Point point;
     long timeElapsed;
     boolean isPoint;
+    Texture RIVER_WATER;
+    Texture RIVER_BANK_TOP;
+    Texture RIVER_BANK_BOTTOM;
 
     @Override
     public void show() {
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
+        loadTextures();
         renderer = new ShapeRenderer();
         hudViewport = new ScreenViewport();
 
@@ -79,7 +83,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         drawBackground(); // draw river with animation
 
-        renderer.setColor(CONSTANTS.SAND_COLOR);
+        //renderer.setColor(CONSTANTS.SAND_COLOR);
         //renderer.rect(0,0,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
         //renderer.rect(0,0,CONSTANTS.FRAME_THIKNESS,viewport.getWorldHeight());
         //renderer.rect(0,viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
@@ -208,9 +212,18 @@ public class GameScreen extends InputAdapter implements Screen {
     /* Draw river with flow */
     public void drawBackground() {
         batch.begin();
-        batch.draw(CONSTANTS.RIVER_WATER, 0.0f, 0.0f, viewport.getWorldWidth(), viewport.getWorldHeight());
-        batch.draw(CONSTANTS.RIVER_BANK_TOP, 0.0f, viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS*5, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
-        batch.draw(CONSTANTS.RIVER_BANK_BOTTOM, 0.0f, 0.0f, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.draw(RIVER_WATER, 0.0f, 0.0f, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.draw(RIVER_BANK_TOP, 0.0f, viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS*5, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
+        batch.draw(RIVER_BANK_BOTTOM, 0.0f, 0.0f, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
         batch.end();
+    }
+
+    public void loadTextures(){
+        // TEXTURES
+        // Background
+        RIVER_WATER = new Texture("RiverWater.png");
+        RIVER_BANK_TOP = new Texture("RiverBankTop.png");
+        RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
     }
 }

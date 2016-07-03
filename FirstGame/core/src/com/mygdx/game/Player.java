@@ -75,12 +75,12 @@ public class Player{
             //outOfBounds = true;
         }
 
-        if(position.y < (0+CONSTANTS.FRAME_THIKNESS/2)){
+        if(position.y < (0)){
             //position.y = 0;
             //velocity.y = - velocity.y/2;
             outOfBounds = true;
         }
-        if(position.y > viewport.getWorldHeight()-CONSTANTS.PLAYER_RAD * 2 - CONSTANTS.FRAME_THIKNESS/2){
+        if(position.y > viewport.getWorldHeight()-CONSTANTS.PLAYER_RAD * 2){
             //position.y= viewport.getWorldHeight()-CONSTANTS.PLAYER_RAD * 2;
             //velocity.y = - velocity.y/2;
             outOfBounds = true;
