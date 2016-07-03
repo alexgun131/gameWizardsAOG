@@ -13,10 +13,11 @@ public class CONSTANTS {
     public static final float ENEMY_HEIGHT = WORLD_SIZE/22;
     public static final float POINT_WIDTH = WORLD_SIZE/30 /2;
 
-    public static final Color PLAYER_COLOR = Color.BLUE;
-    public static final Color ENEMY_COLOR = Color.RED;
-    public static final Color POINT_COLOR = Color.LIME;
-    public static final Color BACKGROUND_COLOR = Color.GOLDENROD;
+    public static final Color PLAYER_COLOR = Color.ORANGE;
+    public static final Color ENEMY_COLOR = Color.DARK_GRAY;
+    public static final Color POINT_COLOR = Color.FIREBRICK;
+    public static final Color BACKGROUND_COLOR = Color.SKY;
+    public static final Color SAND_COLOR = Color.FOREST;
 
     public static final float ACCELEROMETER_SENSITIVITY = 0.5f * WORLD_SIZE/480.0f;
     public static final float GRAVITATIONAL_ACCELERATION = 9.8f * WORLD_SIZE/480.0f;
@@ -37,7 +38,7 @@ public class CONSTANTS {
     // TODO: Add constant for the margin between the HUD and screen edge
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;
 
-    public static final String TOP_FILE_NAME = "TOP_SCORES";
+    public static final String TOP_FILE_NAME = "TOP_SCORES1";
 
 
 
