@@ -42,6 +42,8 @@ public class CONSTANTS {
 
     // Background animation
     public static final float WATER_HIGHLIGHT_SPEED = 1.0f;
+    public static final float WATER_SPEED = 75.0f * WORLD_SIZE/480.0f;
+    public static final float RIVER_BANK_SPEED = 20.0f * WORLD_SIZE/480.0f;
 
 
 }

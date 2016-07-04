@@ -222,20 +222,34 @@ public class GameScreen extends InputAdapter implements Screen {
     public void drawBackground(float delta) {
         float screenWidth = viewport.getWorldWidth();
         float screenHeight = viewport.getWorldHeight();
-        int hightlightWater = 0;
-        riverWaterHighlightTimer += delta;
-        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) { //C
-            riverWaterHighlightTimer = 0.0f;
+        int spritesNeeded = (int)(screenHeight/RIVER_WATER.getHeight()) + 2;
+        float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
+
+        riverPosition += delta*CONSTANTS.WATER_SPEED;
+        if (riverPosition > imageWidth) {
+            riverPosition = 0.0f;
         }
-        if (riverWaterHighlightTimer > CONSTANTS.WATER_HIGHLIGHT_SPEED) {
-            hightlightWater = 1;
+
+        riverBankPosition += delta*CONSTANTS.RIVER_BANK_SPEED;
+        if (riverBankPosition > imageWidth) {
+            riverBankPosition = 0.0f;
+        }
+
+        riverWaterHighlightTimer += delta;
+        int hightlightWater = (riverWaterHighlightTimer < CONSTANTS.WATER_HIGHLIGHT_SPEED) ? 0 : 1;
+        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) {
+            riverWaterHighlightTimer = 0.0f;
         }
 
         batch.begin();
         batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.draw(RIVER_WATERS[hightlightWater], 0.0f, 0.0f, viewport.getWorldWidth()*(1+hightlightWater), viewport.getWorldHeight()); //Weird thing to make region width correct
-        batch.draw(RIVER_BANK_TOP, 0.0f, viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS*5, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
-        batch.draw(RIVER_BANK_BOTTOM, 0.0f, 0.0f, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
+        for (int i=0; i<=spritesNeeded; i++) {
+            batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i*imageWidth, 0.0f, imageWidth*(1 + hightlightWater), screenHeight); //Weird thing to make region width correct
+        }
+        for (int i=0; i<=spritesNeeded; i++) {
+            batch.draw(RIVER_BANK_TOP, -riverBankPosition + i*imageWidth, viewport.getWorldHeight() - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
+            batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i*imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
+        }
         batch.end();
     }
 
