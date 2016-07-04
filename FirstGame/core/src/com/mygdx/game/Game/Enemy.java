@@ -1,7 +1,8 @@
-package com.mygdx.game;
+package com.mygdx.game.Game;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.CONSTANTS;
 
 /**
  * Created by Alex on 29/06/2016.

@@ -1,12 +1,14 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Alex on 29/06/2016.
  */
 public class CONSTANTS {
 
+    //GAME CONSTANTS
     public static final float WORLD_SIZE = 480.0f;
     public static final float PLAYER_RAD = WORLD_SIZE/18;
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
@@ -16,7 +18,7 @@ public class CONSTANTS {
     public static final Color PLAYER_COLOR = Color.ORANGE;
     public static final Color ENEMY_COLOR = Color.DARK_GRAY;
     public static final Color POINT_COLOR = Color.FIREBRICK;
-    public static final Color BACKGROUND_COLOR = Color.SKY;
+    public static final Color BACKGROUND_COLOR = Color.FIREBRICK;
     public static final Color SAND_COLOR = Color.FOREST;
 
     public static final float ACCELEROMETER_SENSITIVITY = 0.5f * WORLD_SIZE/480.0f;
@@ -35,10 +37,9 @@ public class CONSTANTS {
 
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;
 
-    // TODO: Add constant for the margin between the HUD and screen edge
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;
 
-    public static final String TOP_FILE_NAME = "TOP_SCORES1";
+    public static final String TOP_FILE_NAME = "TOP_SCORES";
 
     // Background animation
     public static final float WATER_HIGHLIGHT_SPEED = 1.0f;
@@ -46,4 +47,51 @@ public class CONSTANTS {
     public static final float RIVER_BANK_SPEED = 20.0f * WORLD_SIZE/480.0f;
 
 
+
+    //MENU CONSTANTS
+
+    public static final Color MENU_BACKGROUND_COLOR = Color.YELLOW;
+
+    public static final float MENU_WORLD_SIZE = 480.0f;
+    public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 9;
+    public static final float MENU_LABEL_SCALE = 1.5f;
+
+    public static final Vector2 MENU_OPTIONS = new Vector2(MENU_WORLD_SIZE / 4, MENU_WORLD_SIZE / 2);
+    public static final Vector2 MENU_PLAYGAME = new Vector2(MENU_WORLD_SIZE / 2, MENU_WORLD_SIZE / 2);
+    public static final Vector2 MENU_SCORES = new Vector2(MENU_WORLD_SIZE * 3 / 4, MENU_WORLD_SIZE / 2);
+
+    public static final Color OPTIONS_COLOR = new Color(0.2f, 0.2f, 1, 1);
+    public static final Color PLAY_COLOR = new Color(0.5f, 0.5f, 1, 1);
+    public static final Color SCORES_COLOR = new Color(0.7f, 0.7f, 1, 1);
+
+    public static final String OPTIONS_LABEL = "Options";
+    public static final String PLAY_LABEL = "Play Game";
+    public static final String SCORES_LABEL = "Scores";
+
+
+    //DEAD CONSTANTS
+
+    public static final Color DEAD_BACKGROUND_COLOR = Color.FIREBRICK;
+
+    public static final float DEAD_WORLD_SIZE = 480.0f;
+    public static final float DEAD_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 9;
+    public static final float DEAD_LABEL_SCALE = 1.5f;
+    public static final float DEAD_SCORE_LABEL_SCALE = 1.5f;
+
+
+
+    public static final Vector2 DEAD_MENU = new Vector2(DEAD_WORLD_SIZE / 4, DEAD_WORLD_SIZE / 2);
+    public static final Vector2 DEAD_PLAYGAME = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE / 2);
+    public static final Vector2 DEAD_SCORES = new Vector2(DEAD_WORLD_SIZE * 3 / 4, DEAD_WORLD_SIZE / 2);
+    public static final Vector2 DEAD_YOUR_SCORE = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE * 3 / 4);
+
+    public static final Color MENU_COLOR = new Color(0.2f, 0.2f, 1, 1);
+    public static final Color PLAYAGAIN_COLOR = new Color(0.5f, 0.5f, 1, 1);
+    public static final Color SCORESD_COLOR = new Color(0.7f, 0.7f, 1, 1);
+
+    public static final String MENU_LABEL = "Menu";
+    public static final String PLAYAGAIN_LABEL = "Play Again";
+    public static final String SCORESD_LABEL = "Scores";
+    public static final String YOUR_SCORE_LABEL = "Your score is: ";
+    public static final String EATEN_LABEL = "Points eaten: ";
 }

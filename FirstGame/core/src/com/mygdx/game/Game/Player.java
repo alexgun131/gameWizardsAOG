@@ -1,10 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.*;
 
 /**
  * Created by Alex on 29/06/2016.
@@ -90,7 +91,7 @@ public class Player{
 
     public boolean hitByIcicle(Enemies enemies) {
         boolean isHit = false;
-        for (Enemy enemy : enemies.enemyList) {
+        for (com.mygdx.game.Game.Enemy enemy : enemies.enemyList) {
             if (enemyDistance(enemy.position) < CONSTANTS.PLAYER_RAD+CONSTANTS.ENEMY_HEIGHT/2) {
                 isHit = true;
             }
