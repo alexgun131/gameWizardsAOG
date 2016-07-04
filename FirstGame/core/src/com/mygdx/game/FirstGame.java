@@ -6,7 +6,21 @@ public class FirstGame extends Game {
 
 	@Override
 	public void create() {
-		setScreen(new GameScreen());
+ 		showMenuScreen();
 	}
+
+	public void showMenuScreen(){
+		setScreen(new com.mygdx.game.Menu.MenuScreen(this));
+	}
+
+	public void showDeadScreen(){
+		setScreen(new com.mygdx.game.Menu.DeadScreen(this));
+	}
+
+	public void showGameScreen(){
+		setScreen(new com.mygdx.game.Game.GameScreen(this));
+	}
+
+
 
 }

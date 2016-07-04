@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -17,12 +17,19 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.CONSTANTS;
+import com.mygdx.game.FirstGame;
 
 /**
  * Created by Alex on 29/06/2016.
  */
 public class GameScreen extends InputAdapter implements Screen {
 
+    FirstGame game;
+
+    public GameScreen(FirstGame game){
+        this.game = game;
+    }
 
     ExtendViewport viewport;
     ScreenViewport hudViewport;
@@ -102,6 +109,8 @@ public class GameScreen extends InputAdapter implements Screen {
         if (player.hitByIcicle(enemies) || player.ensureInBounds()) {
             enemies.init();
             player.init();
+            write();
+            game.showDeadScreen();
             currentScore = 0;
             scoreBeforeMult = 0;
             eatenPoints = 0;
