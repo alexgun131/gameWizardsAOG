@@ -40,5 +40,8 @@ public class CONSTANTS {
 
     public static final String TOP_FILE_NAME = "TOP_SCORES1";
 
+    // Background animation
+    public static final float WATER_HIGHLIGHT_SPEED = 1.0f;
+
 
 }

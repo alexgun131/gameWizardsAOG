@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -40,7 +41,11 @@ public class GameScreen extends InputAdapter implements Screen {
     Point point;
     long timeElapsed;
     boolean isPoint;
+    float riverPosition;
+    float riverBankPosition;
+    float riverWaterHighlightTimer;
     Texture RIVER_WATER;
+    TextureRegion[] RIVER_WATERS;
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
 
@@ -66,6 +71,10 @@ public class GameScreen extends InputAdapter implements Screen {
         currentScore = 0;
         scoreBeforeMult = 0;
         eatenPoints = 0;
+
+        riverPosition = 0.0f;
+        riverBankPosition = 0.0f;
+        riverWaterHighlightTimer = 0.0f;
     }
 
     @Override
@@ -81,7 +90,7 @@ public class GameScreen extends InputAdapter implements Screen {
         renderer.setProjectionMatrix(viewport.getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        drawBackground(); // draw river with animation
+        drawBackground(delta); // draw river with animation
 
         //renderer.setColor(CONSTANTS.SAND_COLOR);
         //renderer.rect(0,0,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
@@ -210,10 +219,21 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /* Draw river with flow */
-    public void drawBackground() {
+    public void drawBackground(float delta) {
+        float screenWidth = viewport.getWorldWidth();
+        float screenHeight = viewport.getWorldHeight();
+        int hightlightWater = 0;
+        riverWaterHighlightTimer += delta;
+        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) { //C
+            riverWaterHighlightTimer = 0.0f;
+        }
+        if (riverWaterHighlightTimer > CONSTANTS.WATER_HIGHLIGHT_SPEED) {
+            hightlightWater = 1;
+        }
+
         batch.begin();
         batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.draw(RIVER_WATER, 0.0f, 0.0f, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.draw(RIVER_WATERS[hightlightWater], 0.0f, 0.0f, viewport.getWorldWidth()*(1+hightlightWater), viewport.getWorldHeight()); //Weird thing to make region width correct
         batch.draw(RIVER_BANK_TOP, 0.0f, viewport.getWorldHeight()-CONSTANTS.FRAME_THIKNESS*5, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
         batch.draw(RIVER_BANK_BOTTOM, 0.0f, 0.0f, viewport.getWorldWidth(), CONSTANTS.FRAME_THIKNESS*5);
         batch.end();
@@ -223,6 +243,9 @@ public class GameScreen extends InputAdapter implements Screen {
         // TEXTURES
         // Background
         RIVER_WATER = new Texture("RiverWater.png");
+        RIVER_WATERS = new TextureRegion[2]; //There are two sprites in RiverWater
+        RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, 1024, 1024);
+        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, 1024, 0, 2048, 1024);
         RIVER_BANK_TOP = new Texture("RiverBankTop.png");
         RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
     }
