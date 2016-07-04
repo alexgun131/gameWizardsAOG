@@ -110,7 +110,7 @@ public class GameScreen extends InputAdapter implements Screen {
             enemies.init();
             player.init();
             write();
-            game.showDeadScreen();
+            game.showDeadScreen(currentScore, eatenPoints);
             currentScore = 0;
             scoreBeforeMult = 0;
             eatenPoints = 0;

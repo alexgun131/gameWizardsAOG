@@ -71,10 +71,14 @@ public class CONSTANTS {
     public static final float DEAD_WORLD_SIZE = 480.0f;
     public static final float DEAD_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 9;
     public static final float DEAD_LABEL_SCALE = 1.5f;
+    public static final float DEAD_SCORE_LABEL_SCALE = 1.5f;
+
+
 
     public static final Vector2 DEAD_MENU = new Vector2(DEAD_WORLD_SIZE / 4, DEAD_WORLD_SIZE / 2);
     public static final Vector2 DEAD_PLAYGAME = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE / 2);
     public static final Vector2 DEAD_SCORES = new Vector2(DEAD_WORLD_SIZE * 3 / 4, DEAD_WORLD_SIZE / 2);
+    public static final Vector2 DEAD_YOUR_SCORE = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE * 3 / 4);
 
     public static final Color MENU_COLOR = new Color(0.2f, 0.2f, 1, 1);
     public static final Color PLAYAGAIN_COLOR = new Color(0.5f, 0.5f, 1, 1);
@@ -83,4 +87,6 @@ public class CONSTANTS {
     public static final String MENU_LABEL = "Menu";
     public static final String PLAYAGAIN_LABEL = "Play Again";
     public static final String SCORESD_LABEL = "Scores";
+    public static final String YOUR_SCORE_LABEL = "Your score is: ";
+    public static final String EATEN_LABEL = "Points eaten: ";
 }

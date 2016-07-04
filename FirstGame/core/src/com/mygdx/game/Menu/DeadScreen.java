@@ -28,9 +28,16 @@ public class DeadScreen extends InputAdapter implements Screen {
     FitViewport viewport;
 
     BitmapFont font;
+    BitmapFont fontScore;
 
-    public DeadScreen(FirstGame game){
+
+    int score;
+    int eaten;
+
+    public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
+        this.score = score;
+        this.eaten = eaten;
     }
     @Override
     public void show() {
@@ -40,6 +47,10 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         viewport = new FitViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
+
+        fontScore = new BitmapFont();
+        fontScore.getData().setScale(CONSTANTS.DEAD_SCORE_LABEL_SCALE);
+        fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         font = new BitmapFont();
         font.getData().setScale(CONSTANTS.DEAD_LABEL_SCALE);
@@ -72,8 +83,13 @@ public class DeadScreen extends InputAdapter implements Screen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL+String.valueOf(score));
+        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL+String.valueOf(score), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL);
+        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL+String.valueOf(eaten));
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL+String.valueOf(eaten), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y - eatenLayout.height, 0, Align.center, false);
+
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.MENU_LABEL);
         font.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL);
