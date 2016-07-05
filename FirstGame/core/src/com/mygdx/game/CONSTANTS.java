@@ -21,16 +21,16 @@ public class CONSTANTS {
     public static final Color BACKGROUND_COLOR = Color.FIREBRICK;
     public static final Color SAND_COLOR = Color.FOREST;
 
-    public static final float ACCELEROMETER_SENSITIVITY = 0.5f * WORLD_SIZE/480.0f;
-    public static final float GRAVITATIONAL_ACCELERATION = 9.8f * WORLD_SIZE/480.0f;
+    public static final float ACCELEROMETER_SENSITIVITY = 0.5f;
+    public static final float GRAVITATIONAL_ACCELERATION = 9.8f;
 
-    public static final float JUMP_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
-    public static final float JUMP_GRAVITY_MULT = 1.0f * WORLD_SIZE/480.0f;
-    public static final float PLAYER_VELOCITY = 100.0f * WORLD_SIZE/480.0f;
-    public static final float PLAYER_VELOCITY_KEY = 2.0f * WORLD_SIZE/480.0f;
+    public static final float JUMP_VELOCITY = 300.0f;
+    public static final float JUMP_GRAVITY_MULT = 1.0f;
+    public static final float PLAYER_VELOCITY = 60.0f;
+    public static final float PLAYER_VELOCITY_KEY = 2.0f;
 
     public static final float SPAWN_RATE = 1.6f;
-    public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
+    public static final float ENEMY_VELOCITY = 300.0f;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;

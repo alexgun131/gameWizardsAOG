@@ -34,23 +34,23 @@ public class Player{
     public void update(float delta){
         if(Gdx.input.getAccelerometerY() != 0) {
             float accelerometerInput = Gdx.input.getAccelerometerY();// (CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.ACCELEROMETER_SENSITIVITY);
-            position.x += accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY;
+            position.x += accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY * viewport.getWorldWidth()/480.0f;
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            velocity.x = CONSTANTS.PLAYER_VELOCITY_KEY;
-            position.x += delta* velocity.x * CONSTANTS.PLAYER_VELOCITY;;
+            velocity.x = CONSTANTS.PLAYER_VELOCITY_KEY * viewport.getWorldWidth() / 480;
+            position.x += delta* velocity.x * CONSTANTS.PLAYER_VELOCITY * viewport.getWorldWidth()/480.0f;
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            velocity.x = -CONSTANTS.PLAYER_VELOCITY_KEY;
-            position.x += delta* velocity.x * CONSTANTS.PLAYER_VELOCITY;;
+            velocity.x = -CONSTANTS.PLAYER_VELOCITY_KEY * viewport.getWorldWidth() / 480;
+            position.x += delta* velocity.x * CONSTANTS.PLAYER_VELOCITY * viewport.getWorldWidth()/480.0f;
         }
 
         if((Gdx.input.isTouched()||Gdx.input.isKeyPressed(Input.Keys.SPACE)) && (onTouch == false)){
             onTouch = true;
-            velocity.y = CONSTANTS.JUMP_VELOCITY;
+            velocity.y = CONSTANTS.JUMP_VELOCITY * viewport.getWorldHeight()/480.0f;
         }
         else{
-            velocity.y -= CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.JUMP_GRAVITY_MULT;
+            velocity.y -= CONSTANTS.GRAVITATIONAL_ACCELERATION * viewport.getWorldHeight()/480 * CONSTANTS.JUMP_GRAVITY_MULT * viewport.getWorldHeight()/480.0f;
         }
 
         if(!(Gdx.input.isTouched()||Gdx.input.isKeyPressed(Input.Keys.SPACE)))

@@ -216,7 +216,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 String topAsText = Base64Coder.decodeString(topAsCode);
                 Vector2 v = json.fromJson(Vector2.class, topAsText);
 
-
                 topEaten = (int)v.x;
                 topScore = (int)v.y;
 
