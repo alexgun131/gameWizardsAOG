@@ -252,11 +252,15 @@ public class GameScreen extends InputAdapter implements Screen {
         batch.begin();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         for (int i=0; i<=spritesNeeded; i++) {
-            batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i*imageWidth, 0.0f, imageWidth*(1 + hightlightWater), screenHeight); //Weird thing to make region width correct
+            if ((-riverPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
+            }
         }
         for (int i=0; i<=spritesNeeded; i++) {
-            batch.draw(RIVER_BANK_TOP, -riverBankPosition + i*imageWidth, viewport.getWorldHeight() - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
-            batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i*imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
+            if ((-riverBankPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, viewport.getWorldHeight() - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
+                batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
+            }
         }
         batch.end();
     }
