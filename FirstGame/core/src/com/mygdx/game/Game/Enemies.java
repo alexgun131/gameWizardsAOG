@@ -34,7 +34,7 @@ public class Enemies {
                     MathUtils.random() * viewport.getWorldHeight()
             );
 
-            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3, (float) 1.0) * CONSTANTS.ENEMY_VELOCITY * viewport.getWorldWidth()/480, 0);
+            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3, (float) 1.0) * CONSTANTS.ENEMY_VELOCITY / viewport.getWorldWidth()*480, 0);
 
             Enemy newEnemy = new Enemy(newEnemyPosition, newEnemyVelocity);
             enemyList.add(newEnemy);

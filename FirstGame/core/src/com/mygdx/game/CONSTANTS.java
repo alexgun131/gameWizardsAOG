@@ -26,11 +26,11 @@ public class CONSTANTS {
 
     public static final float JUMP_VELOCITY = 300.0f;
     public static final float JUMP_GRAVITY_MULT = 1.0f;
-    public static final float PLAYER_VELOCITY = 60.0f;
-    public static final float PLAYER_VELOCITY_KEY = 2.0f;
+    public static final float PLAYER_VELOCITY = 150.0f;
+    public static final float PLAYER_VELOCITY_KEY = 4.0f;
 
     public static final float SPAWN_RATE = 1.6f;
-    public static final float ENEMY_VELOCITY = 300.0f;
+    public static final float ENEMY_VELOCITY = 650.0f;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;
