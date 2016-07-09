@@ -2,6 +2,10 @@ package com.mygdx.game.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -19,11 +23,26 @@ public class Player{
     Viewport viewport;
     boolean onTouch = false;
 
+    float animationFps;
+    Texture playerTexture;
+    TextureRegion[] playerSprites;
+
 
 
     public Player(Viewport viewport) {
         this.viewport = viewport;
         init();
+        animationFps = 0.0f;
+        int playerImgSize = 256;
+        int animationColumns = 3;
+
+        //Load Textures
+        playerTexture = new Texture("player.png");
+        playerSprites = new TextureRegion[6];
+        for (int i= 0; i<animationColumns; i++){
+            playerSprites[i] = new TextureRegion(playerTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
+            playerSprites[3+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan!
+        }
     }
 
     public void init(){
@@ -32,6 +51,8 @@ public class Player{
     }
 
     public void update(float delta){
+        animationFps += delta % 100; //fps up to 100 seconds (max animation time?)
+
         if(Gdx.input.getAccelerometerY() != 0) {
             float accelerometerInput = Gdx.input.getAccelerometerY();// (CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.ACCELEROMETER_SENSITIVITY);
             position.x += accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY;
@@ -121,10 +142,26 @@ public class Player{
         double dist = Math.sqrt(x2+y2);
         return dist;
     }
-    public void render(ShapeRenderer renderer){
-        renderer.setColor(CONSTANTS.PLAYER_COLOR);
+    public void render(ShapeRenderer renderer, SpriteBatch batch, boolean beatHighestScore){
+        //renderer.setColor(CONSTANTS.PLAYER_COLOR);
 
-        renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
+        //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
+
+        int bonus = (beatHighestScore)?1:0;
+
+        //TODO: this is poorly coded
+        int sprite = 0;
+        if ((animationFps%1)>0.75){
+            sprite = 1;
+        } else if ((animationFps%1)>0.5){
+            sprite = 2;
+        } else if ((animationFps%1)>0.25){
+            sprite = 1;
+        }
+        batch.begin();
+        //TODO Sprites causes unalignment, why?
+        batch.draw(playerSprites[sprite+3*bonus], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD*(1+4*bonus) , CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4*(1+bonus));
+        batch.end();
     }
 
 

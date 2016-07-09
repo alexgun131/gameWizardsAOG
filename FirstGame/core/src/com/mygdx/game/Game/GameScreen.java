@@ -40,6 +40,7 @@ public class GameScreen extends InputAdapter implements Screen {
     int currentScore;
     int scoreBeforeMult;
     int eatenPoints;
+    boolean beatHighestScore;
     BitmapFont font;
     ShapeRenderer renderer;
 
@@ -78,6 +79,7 @@ public class GameScreen extends InputAdapter implements Screen {
         currentScore = 0;
         scoreBeforeMult = 0;
         eatenPoints = 0;
+        beatHighestScore = false;
 
         riverPosition = 0.0f;
         riverBankPosition = 0.0f;
@@ -106,7 +108,7 @@ public class GameScreen extends InputAdapter implements Screen {
         //renderer.rect(viewport.getWorldWidth()-CONSTANTS.FRAME_THIKNESS,
         //0, CONSTANTS.FRAME_THIKNESS, viewport.getWorldHeight());
 
-        player.render(renderer);
+        player.render(renderer, batch, beatHighestScore);
         point.render(renderer);
         enemies.render(renderer);
 
@@ -144,6 +146,7 @@ public class GameScreen extends InputAdapter implements Screen {
         currentScore = scoreBeforeMult + enemies.enemiesCounter*eatenPoints;
         topScore = Math.max(topScore, currentScore);
         topEaten = Math.max(topEaten, eatenPoints);
+        beatHighestScore = currentScore==topScore;
 
         hudViewport.apply();
 
@@ -159,8 +162,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 0, Align.right, false);
 
         batch.end();
-
-
     }
 
     @Override
