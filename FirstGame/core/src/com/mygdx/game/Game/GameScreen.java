@@ -231,8 +231,8 @@ public class GameScreen extends InputAdapter implements Screen {
     public void drawBackground(float delta) {
         float screenWidth = viewport.getWorldWidth();
         float screenHeight = viewport.getWorldHeight();
-        int spritesNeeded = (int)(screenHeight/RIVER_WATER.getHeight()) + 2;
         float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
+        int spritesNeeded = (int)(screenWidth/imageWidth) + 2;
 
         riverPosition += delta*CONSTANTS.WATER_SPEED;
         if (riverPosition > imageWidth) {
@@ -259,7 +259,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         for (int i=0; i<=spritesNeeded; i++) {
             if ((-riverBankPosition + i*imageWidth) <= screenWidth) {
-                batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, viewport.getWorldHeight() - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
+                batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, screenHeight - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
