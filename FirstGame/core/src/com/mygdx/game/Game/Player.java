@@ -33,6 +33,10 @@ public class Player{
         this.viewport = viewport;
         init();
         animationFps = 0.0f;
+        loadTextures();
+    }
+
+    private void loadTextures() {
         int playerImgSize = 256;
         int animationColumns = 3;
 
@@ -149,7 +153,18 @@ public class Player{
 
         int bonus = (beatHighestScore)?1:0;
 
+        int sprite = getAnimationSprite();
+
+        batch.begin();
+        //TODO Sprites causes unalignment, why?
+        //TODO Bonus texture has some glaring
+        batch.draw(playerSprites[sprite+3*bonus], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD*(1+4*bonus) , CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4*(1+bonus));
+        batch.end();
+    }
+
+    private int getAnimationSprite() {
         //TODO: this is poorly coded
+        //TODO animation fps are hardcoded
         int sprite = 0;
         if ((animationFps%1)>0.75){
             sprite = 1;
@@ -158,11 +173,7 @@ public class Player{
         } else if ((animationFps%1)>0.25){
             sprite = 1;
         }
-        batch.begin();
-        //TODO Sprites causes unalignment, why?
-        batch.draw(playerSprites[sprite+3*bonus], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD*(1+4*bonus) , CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4*(1+bonus));
-        batch.end();
+        return sprite;
     }
-
 
 }
