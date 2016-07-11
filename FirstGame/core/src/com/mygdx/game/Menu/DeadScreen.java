@@ -142,7 +142,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(CONSTANTS.DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS) {
-            //game.showScoreScreen();
+            game.showTopScoreScreen();
         }
 
         return true;

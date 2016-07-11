@@ -126,7 +126,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(CONSTANTS.MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS) {
-           //game.showScoreScreen();
+           game.showTopScoreScreen();
         }
 
         return true;

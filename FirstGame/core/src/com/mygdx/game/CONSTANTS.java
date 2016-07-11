@@ -14,6 +14,7 @@ public class CONSTANTS {
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
     public static final float ENEMY_HEIGHT = WORLD_SIZE/22;
     public static final float POINT_WIDTH = WORLD_SIZE/30 /2;
+    public static final int NUMBER_TOPSCORES = 15;
 
     public static final Color PLAYER_COLOR = Color.ORANGE;
     public static final Color ENEMY_COLOR = Color.DARK_GRAY;
@@ -39,7 +40,7 @@ public class CONSTANTS {
 
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;
 
-    public static final String TOP_FILE_NAME = "TOP_SCORES";
+    public static final String TOP_FILE_NAME = "TOP_SCORES2";
 
     // Background animation
     public static final float WATER_HIGHLIGHT_SPEED = 1.0f;
@@ -94,4 +95,15 @@ public class CONSTANTS {
     public static final String SCORESD_LABEL = "Scores";
     public static final String YOUR_SCORE_LABEL = "Your score is: ";
     public static final String EATEN_LABEL = "Points eaten: ";
+
+
+    //SCORES CONSTANTS
+    public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20, DEAD_WORLD_SIZE * 18/20);
+    public static final Vector2 EATEN_SCORES = new Vector2(DEAD_WORLD_SIZE *10/ 20, DEAD_WORLD_SIZE * 18/20);
+    public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20);
+    public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15;
+    public static final float SCORE_LABEL_SCALE = 1.0f;
+
+    public static final String TOP_EATEN_LABEL = "TOP EATEN";
+    public static final String TOP_SCORES_LABEL = "TOP SCORES";
 }

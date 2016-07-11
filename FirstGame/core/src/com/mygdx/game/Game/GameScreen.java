@@ -35,8 +35,10 @@ public class GameScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
     ScreenViewport hudViewport;
     SpriteBatch batch;
-    int topScore;
-    int topEaten;
+    int[] topScore;
+    int[] topEaten;
+    int currentTopScore;
+    int currentTopEaten;
     int currentScore;
     int scoreBeforeMult;
     int eatenPoints;
@@ -75,6 +77,9 @@ public class GameScreen extends InputAdapter implements Screen {
         enemies = new Enemies(viewport);
 
         point = new Point(viewport);
+        topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
+        topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
+        currentTopScore = 0;
         read();
         currentScore = 0;
         scoreBeforeMult = 0;
@@ -134,6 +139,8 @@ public class GameScreen extends InputAdapter implements Screen {
             write();
             game.showDeadScreen(currentScore, eatenPoints);
             currentScore = 0;
+            currentTopScore=0;
+            currentTopEaten=0;
             scoreBeforeMult = 0;
             eatenPoints = 0;
         }
@@ -155,9 +162,11 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         currentScore = scoreBeforeMult + enemies.enemiesCounter*eatenPoints;
-        topScore = Math.max(topScore, currentScore);
-        topEaten = Math.max(topEaten, eatenPoints);
-        beatHighestScore = currentScore==topScore;
+        //for(int i = 0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+        currentTopScore = Math.max(topScore[0], currentScore);
+        currentTopEaten = Math.max(topEaten[0], eatenPoints);
+        beatHighestScore = currentScore == currentScore;
+        //}
 
         hudViewport.apply();
 
@@ -165,10 +174,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + topEaten,
+        font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN);
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + topScore,
+        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentScore,
                 hudViewport.getWorldWidth() - CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN,
                 0, Align.right, false);
 
@@ -208,11 +217,43 @@ public class GameScreen extends InputAdapter implements Screen {
         write();
     }
 
+    public void addToTopScoresList() {
+        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
+            if(currentScore >= topScore[i]){
+                for(int j=CONSTANTS.NUMBER_TOPSCORES-1 ; j>i; j--){
+                    topScore[j] = topScore[j-1];
+                }
+                topScore[i] = currentScore;
+                break;
+            }
+        }
+
+        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
+            if(eatenPoints >= topEaten[i]){
+                for(int j=CONSTANTS.NUMBER_TOPSCORES-1 ; j>i; j--){
+                    topEaten[j] = topEaten[j-1];
+                }
+                topEaten[i] = eatenPoints;
+                break;
+            }
+        }
+
+        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
+            Gdx.app.log("ai", topScore[i] + "");
+        }
+        currentScore = 0;
+        eatenPoints = 0;
+    }
     public void write() {
         Json json = new Json();
         FileHandle topDataFile = Gdx.files.local( CONSTANTS.TOP_FILE_NAME );
-        Vector2 v = new Vector2(topEaten, topScore);
-        String topAsText = json.toJson( v );
+        addToTopScoresList();
+        Vector2[] av = new Vector2[15];
+        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
+            Vector2 v = new Vector2(topEaten[i], topScore[i]);
+            av[i] = v;
+        }
+        String topAsText = json.toJson( av );
         String topAsCode = Base64Coder.encodeString( topAsText );
         topDataFile.writeString( topAsCode, false );
     }
@@ -226,14 +267,18 @@ public class GameScreen extends InputAdapter implements Screen {
             try {
                 String topAsCode = topDataFile.readString();
                 String topAsText = Base64Coder.decodeString(topAsCode);
-                Vector2 v = json.fromJson(Vector2.class, topAsText);
-
-                topEaten = (int)v.x;
-                topScore = (int)v.y;
+                Vector2[] av = json.fromJson(Vector2[].class, topAsText);
+                for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+                    Vector2 v = av[i];
+                    topEaten[i] = (int)v.x;
+                    topScore[i] = (int)v.y;
+                }
 
             } catch (Exception e) {
-                topEaten = 0;
-                topScore = 0;
+                for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+                    topEaten[i] = 0;
+                    topScore[i] = 0;
+                }
             }
         }
     }
