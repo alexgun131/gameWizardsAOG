@@ -136,8 +136,8 @@ public class GameScreen extends InputAdapter implements Screen {
         if (player.hitByIcicle(enemies) || player.ensureInBounds()) {
             enemies.init();
             player.init();
-            write();
             game.showDeadScreen(currentScore, eatenPoints);
+            write();
             currentScore = 0;
             currentTopScore=0;
             currentTopEaten=0;
