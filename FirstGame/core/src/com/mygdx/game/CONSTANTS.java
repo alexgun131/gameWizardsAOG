@@ -98,10 +98,10 @@ public class CONSTANTS {
 
 
     //SCORES CONSTANTS
-    public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20, DEAD_WORLD_SIZE * 18/20);
+    public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15;
+    public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20);
     public static final Vector2 EATEN_SCORES = new Vector2(DEAD_WORLD_SIZE *10/ 20, DEAD_WORLD_SIZE * 18/20);
     public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20);
-    public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15;
     public static final float SCORE_LABEL_SCALE = 1.0f;
 
     public static final String TOP_EATEN_LABEL = "TOP EATEN";

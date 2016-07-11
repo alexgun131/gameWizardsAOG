@@ -73,7 +73,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
         renderer.setColor(CONSTANTS.MENU_COLOR);
-        renderer.circle(CONSTANTS.BACK_TO_MENU.x + CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         renderer.end();
 
@@ -98,7 +98,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         }
 
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL);
-        fontScore.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.BACK_TO_MENU.x + CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
