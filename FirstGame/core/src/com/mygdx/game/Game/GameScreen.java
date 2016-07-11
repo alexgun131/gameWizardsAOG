@@ -126,7 +126,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         player.render(renderer, batch, beatHighestScore);
         point.render(renderer);
-        enemies.render(renderer);
+        enemies.render(renderer, batch);
 
 
 

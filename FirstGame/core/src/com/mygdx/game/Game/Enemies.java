@@ -1,5 +1,7 @@
 package com.mygdx.game.Game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -16,9 +18,13 @@ public class Enemies {
 
     int enemiesCounter;
 
+    static Texture enemyTexture;
+
     public Enemies(Viewport viewport) {
         this.viewport = viewport;
         init();
+
+        enemyTexture = new Texture("enemy.png");
     }
 
     public void init() {
@@ -55,10 +61,10 @@ public class Enemies {
         enemyList.end();
     }
 
-    public void render(ShapeRenderer renderer) {
+    public void render(ShapeRenderer renderer, SpriteBatch batch) {
         renderer.setColor(CONSTANTS.ENEMY_COLOR);
         for (Enemy enemy : enemyList) {
-            enemy.render(renderer);
+            enemy.render(renderer, batch, enemyTexture);
         }
     }
 }
