@@ -100,7 +100,7 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         player.update(delta);
-        enemies.update(delta);
+        enemies.update(delta, currentScore);
 
         viewport.apply(true);
 

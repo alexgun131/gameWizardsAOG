@@ -27,14 +27,14 @@ public class Enemies {
         enemiesCounter = 0;
     }
 
-    public void update(float delta) {
-        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE) {
+    public void update(float delta, int points) {
+        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/10+1)/3.0f))) {
             Vector2 newEnemyPosition = new Vector2(
                     viewport.getWorldWidth(),
                     MathUtils.random() * viewport.getWorldHeight()
             );
 
-            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3, (float) 1.0) * CONSTANTS.ENEMY_VELOCITY, 0);
+            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + (float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);
 
             Enemy newEnemy = new Enemy(newEnemyPosition, newEnemyVelocity);
             enemyList.add(newEnemy);
