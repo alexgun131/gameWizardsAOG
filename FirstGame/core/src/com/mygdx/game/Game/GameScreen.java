@@ -165,7 +165,7 @@ public class GameScreen extends InputAdapter implements Screen {
         //for(int i = 0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
         currentTopScore = Math.max(topScore[0], currentScore);
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
-        beatHighestScore = currentScore == currentScore;
+        beatHighestScore = currentScore == currentTopScore;
         //}
 
         hudViewport.apply();
@@ -177,7 +177,7 @@ public class GameScreen extends InputAdapter implements Screen {
         font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN);
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentScore,
+        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore,
                 hudViewport.getWorldWidth() - CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN,
                 0, Align.right, false);
 
