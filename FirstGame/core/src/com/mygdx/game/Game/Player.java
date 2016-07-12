@@ -2,14 +2,16 @@ package com.mygdx.game.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.*;
+import com.mygdx.game.CONSTANTS;
 
 /**
  * Created by Alex on 29/06/2016.
@@ -27,6 +29,10 @@ public class Player{
     Texture playerTexture;
     TextureRegion[] playerSprites;
 
+    boolean invertXY = false;
+    boolean invertX = false;
+    boolean invertY = false;
+
 
 
     public Player(Viewport viewport) {
@@ -34,6 +40,7 @@ public class Player{
         init();
         animationFps = 0.0f;
         loadTextures();
+
     }
 
     private void loadTextures() {
@@ -52,14 +59,23 @@ public class Player{
     public void init(){
         position = new Vector2(viewport.getWorldWidth()/3, viewport.getWorldHeight()/2);
         velocity = new Vector2(0,0);
+        readConfig();
     }
 
     public void update(float delta){
         animationFps += delta % 100; //fps up to 100 seconds (max animation time?)
 
         if(Gdx.input.getAccelerometerY() != 0) {
-            float accelerometerInput = Gdx.input.getAccelerometerY();// (CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.ACCELEROMETER_SENSITIVITY);
-            position.x += accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY;
+            float accelerometerInput;
+            if(!invertXY)
+                accelerometerInput = Gdx.input.getAccelerometerY();
+            else
+                accelerometerInput = Gdx.input.getAccelerometerX();
+
+            if(!invertX)
+                position.x += accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY;
+            else
+                position.x -= accelerometerInput * delta * CONSTANTS.PLAYER_VELOCITY;
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             velocity.x = CONSTANTS.PLAYER_VELOCITY_KEY;
@@ -72,16 +88,21 @@ public class Player{
 
         if((Gdx.input.isTouched()||Gdx.input.isKeyPressed(Input.Keys.SPACE)) && (onTouch == false)){
             onTouch = true;
-            velocity.y = CONSTANTS.JUMP_VELOCITY;
+            if(!invertY)
+                velocity.y = CONSTANTS.JUMP_VELOCITY;
+            else
+                velocity.y = -CONSTANTS.JUMP_VELOCITY;
         }
         else{
-            velocity.y -= CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.JUMP_GRAVITY_MULT;
+            if(!invertY)
+                velocity.y -= CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.JUMP_GRAVITY_MULT;
+            else
+                velocity.y += CONSTANTS.GRAVITATIONAL_ACCELERATION * CONSTANTS.JUMP_GRAVITY_MULT;
         }
 
         if(!(Gdx.input.isTouched()||Gdx.input.isKeyPressed(Input.Keys.SPACE)))
             onTouch=false;
 
-        //ensureInBounds();
         position.y += delta * velocity.y;
     }
 
@@ -174,6 +195,29 @@ public class Player{
             sprite = 1;
         }
         return sprite;
+    }
+
+    public void readConfig() {
+
+        FileHandle topDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
+        Json json = new Json();
+
+        if (topDataFile.exists()) {
+            try {
+                String topAsCode = topDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                boolean[] config = json.fromJson(boolean[].class, topAsText);
+                invertXY = config[0];
+                invertX = config[1];
+                invertY = config[2];
+
+            } catch (Exception e) {
+                invertXY = false;
+                invertX = false;
+                invertY = false;
+
+            }
+        }
     }
 
 }

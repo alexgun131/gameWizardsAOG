@@ -106,4 +106,12 @@ public class CONSTANTS {
 
     public static final String TOP_EATEN_LABEL = "TOP EATEN";
     public static final String TOP_SCORES_LABEL = "TOP SCORES";
+
+    //CONFIG CONSTANTS
+    public static final String INVERTXY_LABEL = "InvertXY";
+    public static final String INVERTX_LABEL = "InvertX";
+    public static final String INVERTY_LABEL = "InvertY";
+
+    public static final String INVERTCONFIG_FILE_NAME = "INVERT_CONFIG";
+
 }

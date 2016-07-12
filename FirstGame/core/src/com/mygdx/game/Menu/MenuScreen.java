@@ -118,7 +118,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
         if (worldTouch.dst(CONSTANTS.MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS) {
-            //game.showOptionsScreen();
+            game.showAccelerometerConfigScreen();
         }
 
         if (worldTouch.dst(CONSTANTS.MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS) {
