@@ -19,8 +19,8 @@ public class Point {
     }
 
     public void newPosition(){
-        float posx = viewport.getWorldWidth() * MathUtils.random(0.2f, 0.8f);
-        float posy = viewport.getWorldHeight() * MathUtils.random(0.2f, 0.8f);
+        float posx = viewport.getWorldWidth() * MathUtils.random(0.1f, 0.6f);
+        float posy = viewport.getWorldHeight() * MathUtils.random(0.1f, 0.9f);
         position = new Vector2(posx, posy);
     }
 

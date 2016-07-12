@@ -34,7 +34,7 @@ public class Enemies {
     }
 
     public void update(float delta, int points) {
-        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/10+1)/3.0f))) {
+        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/50+1)/3.0f))) {
             Vector2 newEnemyPosition = new Vector2(
                     viewport.getWorldWidth(),
                     MathUtils.random() * viewport.getWorldHeight()
