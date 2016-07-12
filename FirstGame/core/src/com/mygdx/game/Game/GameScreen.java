@@ -94,10 +94,11 @@ public class GameScreen extends InputAdapter implements Screen {
     private void loadTextures(){
         // TEXTURES
         // Background
+        int waterTextureSize = 512;
         RIVER_WATER = new Texture("RiverWater.png");
         RIVER_WATERS = new TextureRegion[2]; //There are two sprites in RiverWater
-        RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, 1024, 1024);
-        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, 1024, 0, 2048, 1024);
+        RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, waterTextureSize, waterTextureSize);
+        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize*2, waterTextureSize);
         RIVER_BANK_TOP = new Texture("RiverBankTop.png");
         RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
     }

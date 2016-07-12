@@ -44,7 +44,7 @@ public class Player{
     }
 
     private void loadTextures() {
-        int playerImgSize = 256;
+        int playerImgSize = 128;
         int animationColumns = 3;
 
         //Load Textures
@@ -169,7 +169,6 @@ public class Player{
     }
     public void render(ShapeRenderer renderer, SpriteBatch batch, boolean beatHighestScore){
         //renderer.setColor(CONSTANTS.PLAYER_COLOR);
-
         //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
 
         int bonus = (beatHighestScore)?1:0;
