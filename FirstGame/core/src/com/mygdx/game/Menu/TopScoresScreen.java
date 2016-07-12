@@ -84,8 +84,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL);
         fontScore.draw(batch, CONSTANTS.TOP_EATEN_LABEL, CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y + eatenLayout.height*2, 0, Align.center, false);
 
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.SCORES_LABEL);
-        fontScore.draw(batch, CONSTANTS.SCORES_LABEL, CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL);
+        fontScore.draw(batch, CONSTANTS.TOP_SCORES_LABEL, CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
 
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
 
