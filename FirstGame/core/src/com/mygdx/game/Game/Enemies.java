@@ -2,6 +2,7 @@ package com.mygdx.game.Game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -19,12 +20,25 @@ public class Enemies {
     int enemiesCounter;
 
     static Texture enemyTexture;
+    static TextureRegion[] enemySprites;
 
     public Enemies(Viewport viewport) {
         this.viewport = viewport;
         init();
 
+        loadTextures();
+    }
+
+    private void loadTextures() {
+        int playerImgSize = 128;
+        int animationColumns = 3;
+
+        //Load Textures
         enemyTexture = new Texture("enemy.png");
+        enemySprites = new TextureRegion[3];
+        for (int i= 0; i<animationColumns; i++){
+            enemySprites[i] = new TextureRegion(enemyTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
+        }
     }
 
     public void init() {
@@ -64,7 +78,7 @@ public class Enemies {
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
         renderer.setColor(CONSTANTS.ENEMY_COLOR);
         for (Enemy enemy : enemyList) {
-            enemy.render(renderer, batch, enemyTexture);
+            enemy.render(renderer, batch, enemySprites);
         }
     }
 }
