@@ -32,10 +32,11 @@ public class Enemies {
     private void loadTextures() {
         int playerImgSize = 128;
         int animationColumns = 3;
+        int animationRows = 1;
 
         //Load Textures
         enemyTexture = new Texture("enemy.png");
-        enemySprites = new TextureRegion[3];
+        enemySprites = new TextureRegion[animationColumns*animationRows];
         for (int i= 0; i<animationColumns; i++){
             enemySprites[i] = new TextureRegion(enemyTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
         }

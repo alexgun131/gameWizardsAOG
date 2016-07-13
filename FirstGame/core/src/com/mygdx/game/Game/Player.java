@@ -46,10 +46,11 @@ public class Player{
     private void loadTextures() {
         int playerImgSize = 128;
         int animationColumns = 3;
+        int animationRows = 2;
 
         //Load Textures
         playerTexture = new Texture("player.png");
-        playerSprites = new TextureRegion[6];
+        playerSprites = new TextureRegion[animationColumns*animationRows];
         for (int i= 0; i<animationColumns; i++){
             playerSprites[i] = new TextureRegion(playerTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
             playerSprites[3+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan!
