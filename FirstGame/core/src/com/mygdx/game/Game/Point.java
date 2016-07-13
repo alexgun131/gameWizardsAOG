@@ -14,6 +14,7 @@ public class Point {
 
     Viewport viewport;
     Vector2 position;
+    float t;
     public Point(Viewport view){
         viewport = view;
     }
@@ -28,6 +29,11 @@ public class Point {
         float posx = -CONSTANTS.WORLD_SIZE;
         float posy = -CONSTANTS.WORLD_SIZE;
         position = new Vector2(posx, posy);
+    }
+
+    public void update(float delta){
+        t+=delta;
+        position.y += CONSTANTS.POINT_AMP_SIN * MathUtils.sin(t*CONSTANTS.POINT_W_SIN);
     }
 
     public void render(ShapeRenderer renderer){

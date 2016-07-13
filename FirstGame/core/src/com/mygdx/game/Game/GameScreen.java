@@ -112,7 +112,9 @@ public class GameScreen extends InputAdapter implements Screen {
         if(isAlive){
             player.update(delta);
             enemies.update(delta, currentScore);
+            point.update(delta);
         }
+
 
 
         viewport.apply(true);
