@@ -26,7 +26,7 @@ public class Enemy {
         position.x += delta * velocity.x;
         t += delta;
 
-        position.y += CONSTANTS.ENEMY_AMP_SIN/CONSTANTS.ENEMY_W_SIN * MathUtils.sin(t*CONSTANTS.ENEMY_W_SIN);
+        position.y += CONSTANTS.ENEMY_AMP_SIN/(CONSTANTS.ENEMY_W_SIN) * MathUtils.sin(t*CONSTANTS.ENEMY_W_SIN * velocity.x/CONSTANTS.ENEMY_VELOCITY);
 
         animationFps += delta * (-velocity.x) * 2 / (CONSTANTS.ENEMY_VELOCITY);
         animationFps %= 100; //fps up to 100 seconds (max animation time?)
