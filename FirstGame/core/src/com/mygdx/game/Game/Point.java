@@ -53,16 +53,30 @@ public class Point {
     public void update(float delta){
         t+=delta;
         position.y += CONSTANTS.POINT_AMP_SIN * MathUtils.sin(t*CONSTANTS.POINT_W_SIN);
+
+        animationFps += delta;
+        animationFps %= 100;
     }
 
     public void render(ShapeRenderer renderer, SpriteBatch batch){
         //renderer.setColor(CONSTANTS.POINT_COLOR);
         //renderer.circle(position.x, position.y + CONSTANTS.POINT_WIDTH, CONSTANTS.POINT_WIDTH);
 
+        int sprite = getAnimationSprite();
         batch.begin();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
-        batch.draw(pointSprites[0], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
+        batch.draw(pointSprites[sprite], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
         batch.end();
+    }
+
+    private int getAnimationSprite() {
+        //TODO: this is poorly coded
+        //TODO animation fps are hardcoded
+        int sprite = 0;
+        if ((animationFps%0.7)>0.35){
+            sprite = 1;
+        }
+        return sprite;
     }
 }
