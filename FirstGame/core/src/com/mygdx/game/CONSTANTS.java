@@ -10,7 +10,7 @@ public class CONSTANTS {
 
     //GAME CONSTANTS
     public static final float WORLD_SIZE = 480.0f;
-    public static final float PLAYER_RAD = WORLD_SIZE/18;
+    public static final float PLAYER_RAD = WORLD_SIZE/30;
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
     public static final float ENEMY_HEIGHT = WORLD_SIZE/22;
     public static final float POINT_WIDTH = WORLD_SIZE/30 /2;
@@ -30,7 +30,7 @@ public class CONSTANTS {
     public static final float PLAYER_VELOCITY = 100.0f * WORLD_SIZE/480.0f;
     public static final float PLAYER_VELOCITY_KEY = 2.0f * WORLD_SIZE/480.0f;
 
-    public static final float SPAWN_RATE = 1.3f;
+    public static final float SPAWN_RATE = 1.4f;
     public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
