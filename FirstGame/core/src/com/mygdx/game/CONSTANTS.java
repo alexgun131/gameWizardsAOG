@@ -32,6 +32,8 @@ public class CONSTANTS {
 
     public static final float SPAWN_RATE = 1.4f;
     public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
+    public static final float ENEMY_AMP_SIN = WORLD_SIZE/10;
+    public static final float ENEMY_W_SIN = WORLD_SIZE/50;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;

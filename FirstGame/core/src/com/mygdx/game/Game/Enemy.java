@@ -1,9 +1,9 @@
 package com.mygdx.game.Game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.CONSTANTS;
 
@@ -15,6 +15,7 @@ public class Enemy {
     Vector2 velocity;
 
     float animationFps;
+    float t;
 
     public Enemy(Vector2 pos, Vector2 vel){
         position = new Vector2(pos.x, pos.y);
@@ -23,9 +24,12 @@ public class Enemy {
 
     public void update(float delta){
         position.x += delta * velocity.x;
-        position.y += delta * velocity.y;
+        t += delta;
 
-        animationFps += delta % 100; //fps up to 100 seconds (max animation time?)
+        position.y += CONSTANTS.ENEMY_AMP_SIN/CONSTANTS.ENEMY_W_SIN * MathUtils.sin(t*CONSTANTS.ENEMY_W_SIN);
+
+        animationFps += delta * (-velocity.x) * 2 / (CONSTANTS.ENEMY_VELOCITY);
+        animationFps %= 100; //fps up to 100 seconds (max animation time?)
     }
 
     public void render(ShapeRenderer renderer, SpriteBatch batch, TextureRegion[] enemySprites){

@@ -239,9 +239,6 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
 
-        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
-            Gdx.app.log("ai", topScore[i] + "");
-        }
         currentScore = 0;
         eatenPoints = 0;
     }
