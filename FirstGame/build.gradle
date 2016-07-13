@@ -24,6 +24,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        adVersion = "9.2.0"
     }
 
     repositories {
@@ -53,6 +54,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+        compile "com.google.firebase:firebase-ads:$adVersion"
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

@@ -29,4 +29,5 @@ public class FirstGame extends Game {
 		setScreen(new com.mygdx.game.Game.GameScreen(this));
 	}
 
+	public void showAd(boolean visibility){}
 }

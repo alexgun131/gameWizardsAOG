@@ -93,6 +93,8 @@ public class GameScreen extends InputAdapter implements Screen {
         riverWaterHighlightTimer = 0.0f;
         isAlive = true;
         isPoint = false;
+
+        game.showAd(false);
     }
 
     private void loadTextures(){
@@ -196,7 +198,7 @@ public class GameScreen extends InputAdapter implements Screen {
         font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN);
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore,
+        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + topScore,
                 hudViewport.getWorldWidth() - CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN,
                 0, Align.right, false);
 

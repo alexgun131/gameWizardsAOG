@@ -48,6 +48,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.MENU_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        game.showAd(true);
     }
 
     @Override
