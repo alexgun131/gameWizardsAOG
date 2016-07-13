@@ -51,6 +51,8 @@ public class GameScreen extends InputAdapter implements Screen {
     Point point;
     long timeElapsed;
     boolean isPoint;
+    boolean isAlive;
+    float timeSinceDead;
     float riverPosition;
     float riverBankPosition;
     float riverWaterHighlightTimer;
@@ -89,6 +91,8 @@ public class GameScreen extends InputAdapter implements Screen {
         riverPosition = 0.0f;
         riverBankPosition = 0.0f;
         riverWaterHighlightTimer = 0.0f;
+        isAlive = true;
+        isPoint = false;
     }
 
     private void loadTextures(){
@@ -105,8 +109,13 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        player.update(delta);
-        enemies.update(delta, currentScore);
+        if(isAlive){
+            player.update(delta);
+            enemies.update(delta, currentScore);
+            point.update(delta);
+        }
+
+
 
         viewport.apply(true);
 
@@ -134,16 +143,25 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
         renderer.end();
-        if (player.hitByIcicle(enemies) || player.ensureInBounds()) {
-            enemies.init();
-            player.init();
-            game.showDeadScreen(currentScore, eatenPoints);
-            write();
-            currentScore = 0;
-            currentTopScore=0;
-            currentTopEaten=0;
-            scoreBeforeMult = 0;
-            eatenPoints = 0;
+        if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
+            isAlive = false;
+            timeSinceDead = TimeUtils.nanoTime();
+
+        }
+        if(!isAlive) {
+            if((TimeUtils.nanoTime() - timeSinceDead)*1E-9 > CONSTANTS.TIME_SHOW_DEATH)
+            {
+                enemies.init();
+                player.init();
+                game.showDeadScreen(currentScore, eatenPoints);
+                write();
+                currentScore = 0;
+                currentTopScore = 0;
+                currentTopEaten = 0;
+                scoreBeforeMult = 0;
+                eatenPoints = 0;
+                isAlive = true;
+             }
         }
 
         if(player.getPoint(point)){

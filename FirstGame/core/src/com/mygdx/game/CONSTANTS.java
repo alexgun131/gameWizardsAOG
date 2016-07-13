@@ -34,9 +34,12 @@ public class CONSTANTS {
     public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
     public static final float ENEMY_AMP_SIN = WORLD_SIZE/70;
     public static final float ENEMY_W_SIN = WORLD_SIZE/40;
+    public static final float POINT_AMP_SIN = WORLD_SIZE/2000;
+    public static final float POINT_W_SIN = WORLD_SIZE/300;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;
+    public static final float TIME_SHOW_DEATH = 1;
 
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;
 
