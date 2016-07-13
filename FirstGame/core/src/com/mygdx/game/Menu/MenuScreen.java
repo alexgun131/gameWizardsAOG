@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,6 +29,8 @@ public class MenuScreen extends InputAdapter implements Screen {
     FitViewport viewport;
 
     BitmapFont font;
+
+    int select = -1;
 
     public MenuScreen(FirstGame game){
         this.game = game;
@@ -58,13 +61,22 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        renderer.setColor(CONSTANTS.OPTIONS_COLOR);
+        if(select == 0)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.OPTIONS_COLOR);
         renderer.circle(CONSTANTS.MENU_OPTIONS.x, CONSTANTS.MENU_OPTIONS.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
-        renderer.setColor(CONSTANTS.PLAY_COLOR);
+        if(select == 1)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.PLAY_COLOR);
         renderer.circle(CONSTANTS.MENU_PLAYGAME.x, CONSTANTS.MENU_PLAYGAME.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
-        renderer.setColor(CONSTANTS.SCORES_COLOR);
+        if(select == 2)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.SCORES_COLOR);
         renderer.circle(CONSTANTS.MENU_SCORES.x, CONSTANTS.MENU_SCORES.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
         renderer.end();
@@ -135,13 +147,27 @@ public class MenuScreen extends InputAdapter implements Screen {
     @Override
     public boolean keyUp(int key){
         if(key == Input.Keys.RIGHT){
-            //select right
+            select ++;
+            if(select == 3)
+                select = 0;
         }
-        else if(key == Input.Keys.RIGHT){
-            //select left
+        else if(key == Input.Keys.LEFT){
+            select--;
+            if(select == -1)
+                select = 2;
         }
-        else if(key == Input.Keys.SPACE){
-            //go to
+        else if(key == Input.Keys.SPACE || key == Input.Keys.ENTER){
+            switch (select) {
+                case 0:
+                    game.showAccelerometerConfigScreen();
+                    break;
+                case 1:
+                    game.showGameScreen();
+                    break;
+                case 2:
+                    game.showTopScoreScreen();
+                    break;
+            }
         }
 
         return true;

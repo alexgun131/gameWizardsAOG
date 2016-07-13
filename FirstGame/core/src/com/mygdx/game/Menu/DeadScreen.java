@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,6 +34,7 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     int score;
     int eaten;
+    int select = -1;
 
     public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
@@ -69,13 +71,22 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        renderer.setColor(CONSTANTS.MENU_COLOR);
+        if(select == 0)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.MENU_COLOR);
         renderer.circle(CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
 
-        renderer.setColor(CONSTANTS.PLAY_COLOR);
+        if(select == 1)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.PLAY_COLOR);
         renderer.circle(CONSTANTS.DEAD_PLAYGAME.x, CONSTANTS.DEAD_PLAYGAME.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
 
-        renderer.setColor(CONSTANTS.SCORES_COLOR);
+        if(select == 2)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(CONSTANTS.SCORES_COLOR);
         renderer.circle(CONSTANTS.DEAD_SCORES.x, CONSTANTS.DEAD_SCORES.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
 
         renderer.end();
@@ -150,13 +161,27 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     public boolean keyUp(int key){
         if(key == Input.Keys.RIGHT){
-            //select right
+            select ++;
+            if(select == 3)
+                select = 0;
         }
-        else if(key == Input.Keys.RIGHT){
-            //select left
+        else if(key == Input.Keys.LEFT){
+            select--;
+            if(select == -1)
+                select = 2;
         }
-        else if(key == Input.Keys.SPACE){
-            //go to
+        else if(key == Input.Keys.SPACE || key == Input.Keys.ENTER){
+            switch (select) {
+                case 0:
+                    game.showMenuScreen();
+                    break;
+                case 1:
+                    game.showGameScreen();
+                    break;
+                case 2:
+                    game.showTopScoreScreen();
+                    break;
+            }
         }
 
         return true;
