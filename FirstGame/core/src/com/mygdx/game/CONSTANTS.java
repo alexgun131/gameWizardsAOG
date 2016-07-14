@@ -14,6 +14,7 @@ public class CONSTANTS {
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
     public static final float ENEMY_HEIGHT = WORLD_SIZE/22;
     public static final float POINT_WIDTH = WORLD_SIZE/30 /2;
+    public static final float SUPERPOINT_WIDTH = WORLD_SIZE/27 /2;
     public static final int NUMBER_TOPSCORES = 15;
 
     public static final Color PLAYER_COLOR = Color.ORANGE;
@@ -36,9 +37,13 @@ public class CONSTANTS {
     public static final float ENEMY_W_SIN = WORLD_SIZE/40;
     public static final float POINT_AMP_SIN = WORLD_SIZE/3000;
     public static final float POINT_W_SIN = WORLD_SIZE/300;
+    public static final float SUPERPOINT_VELOCITY = 200.0f * WORLD_SIZE/480.0f;
+    public static final float SUPERPOINT_AMP_SIN = WORLD_SIZE/35;
+    public static final float SUPERPOINT_W_SIN = WORLD_SIZE/30;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;
+    public static final float TIME_SPAWN_SUPERPOINTS = 2;
     public static final float TIME_SHOW_DEATH = 1;
 
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;

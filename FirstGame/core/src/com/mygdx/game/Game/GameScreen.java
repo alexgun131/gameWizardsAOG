@@ -49,8 +49,11 @@ public class GameScreen extends InputAdapter implements Screen {
     Player player;
     Enemies enemies;
     Point point;
-    long timeElapsed;
+    SuperPoint superPoint;
+    long timePointElapsed;
+    long timeSuperPointElapsed;
     boolean isPoint;
+    boolean isSuperPoint;
     boolean isAlive;
     float timeSinceDead;
     float riverPosition;
@@ -79,6 +82,10 @@ public class GameScreen extends InputAdapter implements Screen {
         enemies = new Enemies(viewport);
 
         point = new Point(viewport);
+        superPoint = new SuperPoint(viewport);
+        superPoint.newPosition();
+        superPoint.disappear();
+        timeSuperPointElapsed = TimeUtils.nanoTime();
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         currentTopScore = 0;
@@ -93,6 +100,7 @@ public class GameScreen extends InputAdapter implements Screen {
         riverWaterHighlightTimer = 0.0f;
         isAlive = true;
         isPoint = false;
+        isSuperPoint = false;
 
         game.showAd(false);
     }
@@ -115,6 +123,7 @@ public class GameScreen extends InputAdapter implements Screen {
             player.update(delta);
             enemies.update(delta, currentScore);
             point.update(delta);
+            superPoint.update(delta);
         }
 
 
@@ -139,16 +148,12 @@ public class GameScreen extends InputAdapter implements Screen {
         player.render(renderer, batch, beatHighestScore);
         point.render(renderer, batch);
         enemies.render(renderer, batch);
-
-
-
-
+        superPoint.render(renderer,batch);
 
         renderer.end();
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
             timeSinceDead = TimeUtils.nanoTime();
-
         }
         if(!isAlive) {
             if((TimeUtils.nanoTime() - timeSinceDead)*1E-9 > CONSTANTS.TIME_SHOW_DEATH)
@@ -168,17 +173,40 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(player.getPoint(point)){
             point.disappear();
-            timeElapsed = TimeUtils.nanoTime();
+            timePointElapsed = TimeUtils.nanoTime();
             isPoint = false;
             eatenPoints++;
             scoreBeforeMult = currentScore;
             enemies.enemiesCounter = 0;
         }
 
+        if(player.getSuperPoint(superPoint)){
+            superPoint.disappear();
+            timeSuperPointElapsed = TimeUtils.nanoTime();
+            isSuperPoint = false;
+            eatenPoints = eatenPoints + 10;
+            scoreBeforeMult = currentScore;
+            enemies.enemiesCounter = 0;
+            Gdx.app.log("hola", "get");
+        }
+
+        if(superPoint.ensureInBounds() && isSuperPoint){
+            isSuperPoint = false;
+            timeSuperPointElapsed = TimeUtils.nanoTime();
+            Gdx.app.log("hola", "ensure");
+        }
         if(!isPoint){
-            if((TimeUtils.nanoTime() - timeElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_POINTS*MathUtils.random(0.3f,1.2f)){
+            if((TimeUtils.nanoTime() - timePointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_POINTS*MathUtils.random(0.3f,1.2f)){
                 point.newPosition();
                 isPoint = true;
+            }
+        }
+
+        if(!isSuperPoint){
+            Gdx.app.log("hola", "isnt super");
+            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.8f,3.2f)){
+                superPoint.newPosition();
+                isSuperPoint = true;
             }
         }
 

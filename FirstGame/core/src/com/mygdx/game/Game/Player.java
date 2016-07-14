@@ -153,6 +153,15 @@ public class Player{
         return got;
     }
 
+    public boolean getSuperPoint(SuperPoint superPoint){
+        boolean got = false;
+        if(pointDistance(superPoint.position) < CONSTANTS.PLAYER_RAD+CONSTANTS.SUPERPOINT_WIDTH){
+            got = true;
+        }
+
+        return got;
+    }
+
     public double enemyDistance(Vector2 enemyPosition){
         float x2 = (enemyPosition.x + CONSTANTS.ENEMY_WIDTH/2 - position.x) * (enemyPosition.x + CONSTANTS.ENEMY_WIDTH/2 - position.x);
         float y2 = ((enemyPosition.y + CONSTANTS.ENEMY_HEIGHT/2) - (position.y + CONSTANTS.PLAYER_RAD))

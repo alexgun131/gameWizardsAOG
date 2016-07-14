@@ -18,6 +18,8 @@ public class SuperPoint {
     Viewport viewport;
     Vector2 position;
     Vector2 velocity;
+    float amplitude;
+    float freq;
     float t;
     static Texture pointTexture;
     static TextureRegion[] pointSprites;
@@ -40,9 +42,16 @@ public class SuperPoint {
     }
 
     public void newPosition(){
-        float posx = viewport.getWorldWidth() * MathUtils.random(0.1f, 0.6f);
-        float posy = viewport.getWorldHeight() * MathUtils.random(0.1f, 0.9f);
+        float posx = viewport.getWorldWidth();
+        float posy = MathUtils.random(0.2f, 0.8f) * viewport.getWorldHeight();
+        float vx = - MathUtils.random(0.5f , 1.0f) * CONSTANTS.SUPERPOINT_VELOCITY;
+        float vy = MathUtils.random(-0.1f , 0.4f) * CONSTANTS.SUPERPOINT_VELOCITY;
+
         position = new Vector2(posx, posy);
+        velocity = new Vector2(vx, vy);
+        amplitude = MathUtils.random(0.5f,1.5f)*CONSTANTS.SUPERPOINT_AMP_SIN;
+        freq = MathUtils.random(0.8f,1.2f)*CONSTANTS.SUPERPOINT_W_SIN;
+
     }
 
     public void disappear(){
@@ -51,9 +60,42 @@ public class SuperPoint {
         position = new Vector2(posx, posy);
     }
 
+    boolean ensureInBounds(){
+        boolean outOfBounds = false;
+        if(position.x>viewport.getWorldWidth()-CONSTANTS.SUPERPOINT_WIDTH){
+            position.x = viewport.getWorldWidth()-CONSTANTS.SUPERPOINT_WIDTH;
+            velocity.x = -velocity.x;
+            //outOfBounds = true;
+            //disappear();
+        }
+        else if(position.x<CONSTANTS.SUPERPOINT_WIDTH){
+            position.x = CONSTANTS.SUPERPOINT_WIDTH;
+            velocity.x = -velocity.x;
+            outOfBounds = true;
+            disappear();
+        }
+
+        if(position.y < (0)){
+            //position.y = 0;
+            //velocity.y = - velocity.y/2;
+            disappear();
+            outOfBounds = true;
+        }
+        if(position.y > viewport.getWorldHeight()-CONSTANTS.SUPERPOINT_WIDTH * 2){
+            //position.y= viewport.getWorldHeight()-CONSTANTS.PLAYER_RAD * 2;
+            //velocity.y = - velocity.y/2;
+            disappear();
+            outOfBounds = true;
+        }
+
+        return outOfBounds;
+    }
+
     public void update(float delta){
         t+=delta;
-        position.y += CONSTANTS.POINT_AMP_SIN * MathUtils.sin(t*CONSTANTS.POINT_W_SIN);
+        position.x += delta * velocity.x * MathUtils.random(-0.25f, 2.0f);
+        position.y += amplitude* MathUtils.sin(t*freq) * MathUtils.random(-1.0f, 1.0f);
+        animationFps += delta * (-velocity.x) * 2 / (CONSTANTS.ENEMY_VELOCITY);
 
         animationFps += delta;
         animationFps %= 100;
@@ -67,7 +109,7 @@ public class SuperPoint {
         batch.begin();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
-        batch.draw(pointSprites[sprite], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
+        batch.draw(pointSprites[sprite], position.x-(int)(CONSTANTS.SUPERPOINT_WIDTH*1.5), position.y-(int)(CONSTANTS.SUPERPOINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
         batch.end();
     }
 
