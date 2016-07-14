@@ -25,7 +25,7 @@ public class SuperPoint {
     static TextureRegion[] pointSprites;
     float animationFps;
 
-    static {
+    private void loadTextures() {
         int pointImgSize = 128;
         int animationColumns = 2;
         int animationRows = 1;
@@ -39,6 +39,7 @@ public class SuperPoint {
     public SuperPoint(Viewport view){
         viewport = view;
         animationFps = 0.0f;
+        loadTextures();
     }
 
     public void newPosition(){

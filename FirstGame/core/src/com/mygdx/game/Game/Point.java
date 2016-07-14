@@ -22,7 +22,7 @@ public class Point {
     static TextureRegion[] pointSprites;
     float animationFps;
 
-    static {
+    private void loadTextures() {
         int pointImgSize = 128;
         int animationColumns = 2;
         int animationRows = 1;
@@ -36,6 +36,7 @@ public class Point {
     public Point(Viewport view){
         viewport = view;
         animationFps = 0.0f;
+        loadTextures();
     }
 
     public void newPosition(){
