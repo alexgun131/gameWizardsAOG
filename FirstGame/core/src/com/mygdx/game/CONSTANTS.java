@@ -38,8 +38,8 @@ public class CONSTANTS {
     public static final float POINT_AMP_SIN = WORLD_SIZE/3000;
     public static final float POINT_W_SIN = WORLD_SIZE/300;
     public static final float SUPERPOINT_VELOCITY = 200.0f * WORLD_SIZE/480.0f;
-    public static final float SUPERPOINT_AMP_SIN = WORLD_SIZE/35;
-    public static final float SUPERPOINT_W_SIN = WORLD_SIZE/30;
+    public static final float SUPERPOINT_AMP_SIN = WORLD_SIZE/75;
+    public static final float SUPERPOINT_W_SIN = WORLD_SIZE/200;
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;

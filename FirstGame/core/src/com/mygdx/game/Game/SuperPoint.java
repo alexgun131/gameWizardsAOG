@@ -44,8 +44,8 @@ public class SuperPoint {
     public void newPosition(){
         float posx = viewport.getWorldWidth();
         float posy = MathUtils.random(0.2f, 0.8f) * viewport.getWorldHeight();
-        float vx = - MathUtils.random(0.5f , 1.0f) * CONSTANTS.SUPERPOINT_VELOCITY;
-        float vy = MathUtils.random(-0.1f , 0.4f) * CONSTANTS.SUPERPOINT_VELOCITY;
+        float vx = - MathUtils.random(0.8f , 1.0f) * CONSTANTS.SUPERPOINT_VELOCITY;
+        float vy = MathUtils.random(-1f , 1f) * CONSTANTS.SUPERPOINT_VELOCITY;
 
         position = new Vector2(posx, posy);
         velocity = new Vector2(vx, vy);
@@ -62,39 +62,21 @@ public class SuperPoint {
 
     boolean ensureInBounds(){
         boolean outOfBounds = false;
-        if(position.x>viewport.getWorldWidth()-CONSTANTS.SUPERPOINT_WIDTH){
-            position.x = viewport.getWorldWidth()-CONSTANTS.SUPERPOINT_WIDTH;
-            velocity.x = -velocity.x;
-            //outOfBounds = true;
-            //disappear();
-        }
-        else if(position.x<CONSTANTS.SUPERPOINT_WIDTH){
+        if(position.x<CONSTANTS.SUPERPOINT_WIDTH){
             position.x = CONSTANTS.SUPERPOINT_WIDTH;
             velocity.x = -velocity.x;
             outOfBounds = true;
             disappear();
         }
 
-        if(position.y < (0)){
-            //position.y = 0;
-            //velocity.y = - velocity.y/2;
-            disappear();
-            outOfBounds = true;
-        }
-        if(position.y > viewport.getWorldHeight()-CONSTANTS.SUPERPOINT_WIDTH * 2){
-            //position.y= viewport.getWorldHeight()-CONSTANTS.PLAYER_RAD * 2;
-            //velocity.y = - velocity.y/2;
-            disappear();
-            outOfBounds = true;
-        }
 
         return outOfBounds;
     }
 
     public void update(float delta){
         t+=delta;
-        position.x += delta * velocity.x * MathUtils.random(-0.25f, 2.0f);
-        position.y += amplitude* MathUtils.sin(t*freq) * MathUtils.random(-1.0f, 1.0f);
+        position.x += delta * velocity.x * MathUtils.random(-0.3f, 3.0f);
+        position.y += amplitude* MathUtils.sin(t*freq) * MathUtils.random(-0.3f, 1.0f);
         animationFps += delta * (-velocity.x) * 2 / (CONSTANTS.ENEMY_VELOCITY);
 
         animationFps += delta;
