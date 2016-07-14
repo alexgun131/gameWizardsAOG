@@ -5,7 +5,7 @@
     android:versionName="1.0"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="24"
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="24"
               tools:overrideLibrary="com.google.firebase.firebase_ads,
                                      com.google.android.gms.ads.impl, com.google.android.gms.ads, com.google.android.gms, com.google.android.gms.base,
                                      com.google.android.gms.tasks, com.google.android.gms.clearcut,

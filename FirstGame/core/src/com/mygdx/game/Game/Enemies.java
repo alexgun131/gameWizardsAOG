@@ -55,7 +55,7 @@ public class Enemies {
                     MathUtils.random() * viewport.getWorldHeight()
             );
 
-            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + (float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);
+            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + 0.3f*(float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);
 
             Enemy newEnemy = new Enemy(newEnemyPosition, newEnemyVelocity);
             enemyList.add(newEnemy);
