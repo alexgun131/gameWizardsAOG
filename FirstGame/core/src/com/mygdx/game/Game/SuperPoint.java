@@ -50,7 +50,7 @@ public class SuperPoint {
 
         position = new Vector2(posx, posy);
         velocity = new Vector2(vx, vy);
-        amplitude = MathUtils.random(0.5f,1.5f)*CONSTANTS.SUPERPOINT_AMP_SIN;
+        amplitude = MathUtils.random(0.8f,1.3f)*CONSTANTS.SUPERPOINT_AMP_SIN;
         freq = MathUtils.random(0.8f,1.2f)*CONSTANTS.SUPERPOINT_W_SIN;
 
     }
