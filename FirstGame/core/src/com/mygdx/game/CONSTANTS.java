@@ -32,7 +32,7 @@ public class CONSTANTS {
 
     public static final float SPAWN_RATE = 1.4f;
     public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
-    public static final float ENEMY_AMP_SIN = WORLD_SIZE/70;
+    public static final float ENEMY_AMP_SIN = WORLD_SIZE/1000;
     public static final float ENEMY_W_SIN = WORLD_SIZE/40;
     public static final float POINT_AMP_SIN = WORLD_SIZE/3000;
     public static final float POINT_W_SIN = WORLD_SIZE/300;
