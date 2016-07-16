@@ -53,9 +53,9 @@ public class Player{
         playerSprites = new TextureRegion[animationColumns*animationRows];
         for (int i= 0; i<animationColumns; i++){
             playerSprites[i] = new TextureRegion(playerTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
-            playerSprites[3+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan!
-            playerSprites[6+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*2, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan2!
-            playerSprites[9+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*3, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan3!
+            playerSprites[3+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan!
+            playerSprites[6+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*2, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan2!
+            playerSprites[9+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*3, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan3!
         }
     }
 
@@ -181,7 +181,7 @@ public class Player{
     }
     public void render(ShapeRenderer renderer, SpriteBatch batch, int beatHighestScore){
         //renderer.setColor(CONSTANTS.PLAYER_COLOR);
-        //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
+        //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD/2);
 
         int bonus = (beatHighestScore);
         int isBonus = 0;
@@ -192,8 +192,8 @@ public class Player{
         int sprite = getAnimationSprite();
 
         batch.begin();
-        //TODO Sprites causes unalignment, why?
-        //TODO Bonus texture has some glaring
+        batch.draw(playerSprites[sprite], position.x-CONSTANTS.PLAYER_RAD, position.y, CONSTANTS.PLAYER_RAD*2, CONSTANTS.PLAYER_RAD*2);
+        batch.draw(playerSprites[sprite+3], position.x-CONSTANTS.PLAYER_RAD, position.y, CONSTANTS.PLAYER_RAD*2, CONSTANTS.PLAYER_RAD*2);
         batch.end();
     }
 
