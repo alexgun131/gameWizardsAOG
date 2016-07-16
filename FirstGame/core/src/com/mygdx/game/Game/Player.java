@@ -26,6 +26,7 @@ public class Player{
     boolean onTouch = false;
 
     float animationFps;
+    float playerJumpFPS;
     Texture playerTexture;
     TextureRegion[] playerSprites;
 
@@ -39,6 +40,7 @@ public class Player{
         this.viewport = viewport;
         init();
         animationFps = 0.0f;
+        playerJumpFPS = 0.0f;
         loadTextures();
 
     }
@@ -67,6 +69,9 @@ public class Player{
 
     public void update(float delta){
         animationFps += delta % 100; //fps up to 100 seconds (max animation time?)
+        if (playerJumpFPS>0.0f) {
+            playerJumpFPS += delta;
+        }
 
         if(Gdx.input.getAccelerometerY() != 0) {
             float accelerometerInput;
@@ -95,6 +100,8 @@ public class Player{
                 velocity.y = CONSTANTS.JUMP_VELOCITY;
             else
                 velocity.y = -CONSTANTS.JUMP_VELOCITY;
+
+            playerJumpFPS = delta;
         }
         else{
             if(!invertY)
@@ -184,9 +191,10 @@ public class Player{
         //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
 
         int sprite = getAnimationSprite();
+        int jumpsprite = getJumpSprite();
 
         batch.begin();
-        batch.draw(playerSprites[sprite], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4);
+        batch.draw(playerSprites[jumpsprite], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4);
         if (beatHighestScore!= 0){
             batch.draw(playerSprites[sprite+3*beatHighestScore], position.x-(int)(CONSTANTS.PLAYER_RAD*2.5), position.y-(int)(CONSTANTS.PLAYER_RAD*5/4), CONSTANTS.PLAYER_RAD*5, CONSTANTS.PLAYER_RAD*5);
         }
@@ -206,6 +214,33 @@ public class Player{
         }
         return sprite;
     }
+
+    private int getJumpSprite() {
+        //TODO: this is poorly coded
+        //TODO animation fps are hardcoded
+        int sprite = 0;
+        /*if (playerJumpFPS>0.525f){
+            playerJumpFPS = 0.0f;
+        } else if (playerJumpFPS>0.45f){
+            sprite = 1;
+        } else if ((playerJumpFPS%1)>0.375f){
+            sprite = 2;
+        } else if ((playerJumpFPS%1)>0.3f){
+            sprite = 1;
+        } else if (playerJumpFPS>0.225f){
+            sprite = 0;*/
+        if (playerJumpFPS>0.225f){
+            playerJumpFPS = 0.0f;
+        } else if (playerJumpFPS>0.15f){
+            sprite = 1;
+        } else if ((playerJumpFPS%1)>0.075f){
+            sprite = 2;
+        } else if ((playerJumpFPS%1)>0.0f){
+            sprite = 1;
+        }
+        return sprite;
+    }
+
 
     public void readConfig() {
 
