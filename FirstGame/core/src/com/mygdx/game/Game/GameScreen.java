@@ -63,6 +63,7 @@ public class GameScreen extends InputAdapter implements Screen {
     TextureRegion[] RIVER_WATERS;
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
+    Texture AUTO_AD;
 
     @Override
     public void show() {
@@ -115,6 +116,7 @@ public class GameScreen extends InputAdapter implements Screen {
         RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize*2, waterTextureSize);
         RIVER_BANK_TOP = new Texture("RiverBankTop.png");
         RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
+        AUTO_AD = new Texture("AutoAd.png");
     }
 
     @Override
@@ -370,6 +372,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
+        batch.draw(AUTO_AD, screenWidth/10, screenHeight/2-screenHeight/10, screenWidth*8/10, AUTO_AD.getHeight()*screenWidth*8/10/AUTO_AD.getWidth()); //TODO: very hardcoded difficult to follow
         batch.end();
     }
 }
