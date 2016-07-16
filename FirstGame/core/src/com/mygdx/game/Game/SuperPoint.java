@@ -32,7 +32,7 @@ public class SuperPoint {
         pointTexture = new Texture("points.png");
         pointSprites = new TextureRegion[animationColumns * animationRows];
         for (int i = 0; i < animationColumns; i++) {
-            pointSprites[i] = new TextureRegion(pointTexture, pointImgSize * i, 0, pointImgSize, pointImgSize);
+            pointSprites[i] = new TextureRegion(pointTexture, pointImgSize * i, pointImgSize, pointImgSize, pointImgSize);
         }
     }
 
