@@ -372,7 +372,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
-        batch.draw(AUTO_AD, screenWidth/10, screenHeight/2-screenHeight/10, screenWidth*8/10, AUTO_AD.getHeight()*screenWidth*8/10/AUTO_AD.getWidth()); //TODO: very hardcoded difficult to follow
+        batch.draw(AUTO_AD, screenWidth/10, screenHeight/2-(AUTO_AD.getHeight()*screenWidth*8/10/AUTO_AD.getWidth())/2, screenWidth*8/10, AUTO_AD.getHeight()*screenWidth*8/10/AUTO_AD.getWidth()); //TODO: very hardcoded difficult to follow
         batch.end();
     }
 }
