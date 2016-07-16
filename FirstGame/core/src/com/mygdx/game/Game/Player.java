@@ -194,6 +194,7 @@ public class Player{
         batch.begin();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
+        batch.draw(playerSprites[sprite+3*bonus], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD*(1+4*isBonus) , CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4*(1+isBonus));
         batch.end();
     }
 
