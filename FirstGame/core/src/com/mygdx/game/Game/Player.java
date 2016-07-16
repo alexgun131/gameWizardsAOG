@@ -46,7 +46,7 @@ public class Player{
     private void loadTextures() {
         int playerImgSize = 128;
         int animationColumns = 3;
-        int animationRows = 2;
+        int animationRows = 4;
 
         //Load Textures
         playerTexture = new Texture("player.png");
@@ -54,6 +54,8 @@ public class Player{
         for (int i= 0; i<animationColumns; i++){
             playerSprites[i] = new TextureRegion(playerTexture, playerImgSize*i, 0, playerImgSize, playerImgSize);
             playerSprites[3+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan!
+            playerSprites[6+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*2, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan2!
+            playerSprites[9+i] = new TextureRegion(playerTexture, playerImgSize*i, playerImgSize*3, playerImgSize, playerImgSize*2); //Bonus, You are on Super Saiyan3!
         }
     }
 
@@ -177,18 +179,21 @@ public class Player{
         double dist = Math.sqrt(x2+y2);
         return dist;
     }
-    public void render(ShapeRenderer renderer, SpriteBatch batch, boolean beatHighestScore){
+    public void render(ShapeRenderer renderer, SpriteBatch batch, int beatHighestScore){
         //renderer.setColor(CONSTANTS.PLAYER_COLOR);
         //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
 
-        int bonus = (beatHighestScore)?1:0;
+        int bonus = (beatHighestScore);
+        int isBonus = 0;
+        if(beatHighestScore != 0){
+            isBonus = 1;
+        }
 
         int sprite = getAnimationSprite();
 
         batch.begin();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
-        batch.draw(playerSprites[sprite+3*bonus], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD*(1+4*bonus) , CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4*(1+bonus));
         batch.end();
     }
 

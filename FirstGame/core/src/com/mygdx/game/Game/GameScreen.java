@@ -42,7 +42,7 @@ public class GameScreen extends InputAdapter implements Screen {
     int currentScore;
     int scoreBeforeMult;
     int eatenPoints;
-    boolean beatHighestScore;
+    int beatHighestScore;
     BitmapFont font;
     ShapeRenderer renderer;
 
@@ -93,7 +93,7 @@ public class GameScreen extends InputAdapter implements Screen {
         currentScore = 0;
         scoreBeforeMult = 0;
         eatenPoints = 0;
-        beatHighestScore = false;
+        beatHighestScore = 0;
 
         riverPosition = 0.0f;
         riverBankPosition = 0.0f;
@@ -187,13 +187,11 @@ public class GameScreen extends InputAdapter implements Screen {
             eatenPoints = eatenPoints + 10;
             scoreBeforeMult = currentScore;
             enemies.enemiesCounter = 0;
-            Gdx.app.log("hola", "get");
         }
 
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
             timeSuperPointElapsed = TimeUtils.nanoTime();
-            Gdx.app.log("hola", "ensure");
         }
         if(!isPoint){
             if((TimeUtils.nanoTime() - timePointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_POINTS*MathUtils.random(0.3f,1.2f)){
@@ -203,7 +201,6 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(!isSuperPoint){
-            Gdx.app.log("hola", "isnt super");
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.8f,3.2f)){
                 superPoint.newPosition();
                 isSuperPoint = true;
@@ -214,7 +211,15 @@ public class GameScreen extends InputAdapter implements Screen {
         //for(int i = 0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
         currentTopScore = Math.max(topScore[0], currentScore);
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
-        beatHighestScore = currentScore == currentTopScore;
+        if(currentScore >= topScore[0]){
+            beatHighestScore = 1;
+        }
+        else if(currentScore >= topScore[5]){
+            beatHighestScore = 2;
+        }
+        else if(currentScore >= topScore[10]) {
+            beatHighestScore = 3;
+        }
         //}
 
         hudViewport.apply();
@@ -226,7 +231,7 @@ public class GameScreen extends InputAdapter implements Screen {
         font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN);
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + topScore,
+        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore,
                 hudViewport.getWorldWidth() - CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN,
                 0, Align.right, false);
 
