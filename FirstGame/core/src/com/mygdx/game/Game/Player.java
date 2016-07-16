@@ -181,19 +181,15 @@ public class Player{
     }
     public void render(ShapeRenderer renderer, SpriteBatch batch, int beatHighestScore){
         //renderer.setColor(CONSTANTS.PLAYER_COLOR);
-        //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD/2);
-
-        int bonus = (beatHighestScore);
-        int isBonus = 0;
-        if(beatHighestScore != 0){
-            isBonus = 1;
-        }
+        //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
 
         int sprite = getAnimationSprite();
 
         batch.begin();
-        batch.draw(playerSprites[sprite], position.x-CONSTANTS.PLAYER_RAD, position.y, CONSTANTS.PLAYER_RAD*2, CONSTANTS.PLAYER_RAD*2);
-        batch.draw(playerSprites[sprite+3], position.x-CONSTANTS.PLAYER_RAD, position.y, CONSTANTS.PLAYER_RAD*2, CONSTANTS.PLAYER_RAD*2);
+        batch.draw(playerSprites[sprite], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4);
+        if (beatHighestScore!= 0){
+            batch.draw(playerSprites[sprite+3*beatHighestScore], position.x-(int)(CONSTANTS.PLAYER_RAD*2.5), position.y-(int)(CONSTANTS.PLAYER_RAD*5/4), CONSTANTS.PLAYER_RAD*5, CONSTANTS.PLAYER_RAD*5);
+        }
         batch.end();
     }
 
