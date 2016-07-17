@@ -229,7 +229,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore + "\n\n"+"Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
+        font.draw(batch, "Score: " + currentScore + "\n\n"+"Bonus: " + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - 2*CONSTANTS.HUD_MARGIN);
 
 

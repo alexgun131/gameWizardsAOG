@@ -117,7 +117,7 @@ public class CONSTANTS {
     public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20 - ADD_BANNER_HEIGHT);
     public static final float SCORE_LABEL_SCALE = 1.0f;
 
-    public static final String TOP_EATEN_LABEL = "TOP EATEN";
+    public static final String TOP_EATEN_LABEL = "TOP BONUS";
     public static final String TOP_SCORES_LABEL = "TOP SCORES";
 
     //CONFIG CONSTANTS
