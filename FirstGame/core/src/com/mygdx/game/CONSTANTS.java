@@ -10,7 +10,7 @@ public class CONSTANTS {
 
     //GAME CONSTANTS
     public static final float WORLD_SIZE = 480.0f;
-    public static final float PLAYER_RAD = WORLD_SIZE/30;
+    public static final float PLAYER_RAD = WORLD_SIZE/35;
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
     public static final float ENEMY_HEIGHT = WORLD_SIZE/22;
     public static final float POINT_WIDTH = WORLD_SIZE/30 /2;
@@ -31,7 +31,7 @@ public class CONSTANTS {
     public static final float PLAYER_VELOCITY = 100.0f * WORLD_SIZE/480.0f;
     public static final float PLAYER_VELOCITY_KEY = 2.0f * WORLD_SIZE/480.0f;
 
-    public static final float SPAWN_RATE = 1.4f;
+    public static final float SPAWN_RATE = 1.27f;
     public static final float ENEMY_VELOCITY = 300.0f * WORLD_SIZE/480.0f;
     public static final float ENEMY_AMP_SIN = WORLD_SIZE/1000;
     public static final float ENEMY_W_SIN = WORLD_SIZE/40;
@@ -48,7 +48,7 @@ public class CONSTANTS {
     public static final float TIME_SHOW_DEATH = 1;
 
     public static final float ADD_BANNER_HEIGHT = 50;
-    public static final float ADD_BANNER_WIDTH = 50;
+    public static final float ADD_BANNER_WIDTH = 320;
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;
 
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;
