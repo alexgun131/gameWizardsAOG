@@ -52,7 +52,7 @@ public class Enemies {
         if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/50+1)/3.0f))) {
             Vector2 newEnemyPosition = new Vector2(
                     viewport.getWorldWidth(),
-                    MathUtils.random() * viewport.getWorldHeight()
+                    MathUtils.random(0.0f,0.8f) * viewport.getWorldHeight()
             );
 
             Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + 0.3f*(float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);

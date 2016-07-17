@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -186,7 +185,7 @@ public class GameScreen extends InputAdapter implements Screen {
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
             isSuperPoint = false;
-            eatenPoints = eatenPoints + 10;
+            eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS;
             scoreBeforeMult = currentScore;
             enemies.enemiesCounter = 0;
         }
@@ -203,7 +202,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(!isSuperPoint){
-            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.7f,1.2f)){
+            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.5f,1.2f)){
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
@@ -230,12 +229,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
-                CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN);
+        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore + "\n\n"+"Points: " + eatenPoints + "\nTop Eaten :" + currentTopEaten,
+                CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - 2*CONSTANTS.HUD_MARGIN);
 
-        font.draw(batch, "Score: " + currentScore + "\nTop Score: " + currentTopScore,
-                hudViewport.getWorldWidth() - CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - CONSTANTS.HUD_MARGIN,
-                0, Align.right, false);
 
         batch.end();
     }
