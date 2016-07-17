@@ -43,7 +43,7 @@ public class CONSTANTS {
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;
-    public static final float TIME_SPAWN_SUPERPOINTS = 2;
+    public static final float TIME_SPAWN_SUPERPOINTS = 6;
     public static final float TIME_SHOW_DEATH = 1;
 
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;

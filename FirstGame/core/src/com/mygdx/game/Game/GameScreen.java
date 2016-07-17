@@ -203,7 +203,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(!isSuperPoint){
-            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.8f,3.2f)){
+            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.7f,1.2f)){
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
