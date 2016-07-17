@@ -75,7 +75,6 @@ public class GameScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
 
         font = new BitmapFont();
-
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new Player(viewport);
@@ -202,7 +201,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(!isSuperPoint){
-            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(0.5f,1.2f)){
+            if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
@@ -229,7 +228,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "Score: " + currentScore + "\n\n"+"Bonus: " + eatenPoints ,
+        font.draw(batch, "Score: " + currentScore + "\n"+"Bonus: " + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - 2*CONSTANTS.HUD_MARGIN);
 
 

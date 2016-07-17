@@ -49,7 +49,7 @@ public class CONSTANTS {
 
     public static final float ADD_BANNER_HEIGHT = 50;
     public static final float ADD_BANNER_WIDTH = 320;
-    public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE;
+    public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE/1.5f;
 
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;
 
