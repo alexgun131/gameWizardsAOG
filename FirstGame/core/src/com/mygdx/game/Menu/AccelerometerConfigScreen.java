@@ -75,9 +75,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         renderer.setColor(CONSTANTS.MENU_COLOR);
         renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
-        INVERTXY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20);
-        INVERTX = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS);
-        INVERTY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS);
+        INVERTXY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTX = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
 
         if(!invertXY)
             renderer.setColor(Color.RED);
