@@ -40,7 +40,22 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 INVERTXY;
     Vector2 INVERTX;
     Vector2 INVERTY;
-    Vector2 LANGUAJE;
+    Vector2 LANGUAJES;
+    Vector2 LANGUAJES_ENG;
+    Vector2 LANGUAJES_ESP;
+    Vector2 LANGUAJES_CHI;
+    Vector2 LANGUAJES_JAP;
+    Vector2 LANGUAJES_COR;
+    Vector2 LANGUAJES_AR;
+
+    Vector2 LANGUAJES_ENG_TOUCH;
+    Vector2 LANGUAJES_ESP_TOUCH;
+    Vector2 LANGUAJES_CHI_TOUCH;
+    Vector2 LANGUAJES_JAP_TOUCH;
+    Vector2 LANGUAJES_COR_TOUCH;
+    Vector2 LANGUAJES_AR_TOUCH;
+
+    float tamLan = 2.3f;
 
     public AccelerometerConfigScreen(FirstGame game){
         this.game = game;
@@ -80,9 +95,15 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         INVERTXY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTX = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
-        LANGUAJE = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  6* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        LANGUAJES = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20 - CONSTANTS.ADD_BANNER_HEIGHT);
+        LANGUAJES_ENG = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20 );
+        LANGUAJES_ESP = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*2/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
+        LANGUAJES_CHI = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*3/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
+        LANGUAJES_JAP = new Vector2((viewport.getWorldWidth()- CONSTANTS.SCORES_BUBBLE_RADIUS)*4/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
+        LANGUAJES_COR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*5/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
+        LANGUAJES_AR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*6/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
 
-        if(!invertXY)
+         if(!invertXY)
             renderer.setColor(Color.RED);
         else
             renderer.setColor(Color.GREEN);
@@ -100,8 +121,39 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.GREEN);
         renderer.circle(INVERTY.x, INVERTY.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
-        renderer.setColor(Color.BLUE);
-        renderer.circle(LANGUAJE.x, LANGUAJE.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.set(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES.x, LANGUAJES.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==0)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_ENG.x, LANGUAJES_ENG.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==1)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_ESP.x, LANGUAJES_ESP.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==2)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_CHI.x, LANGUAJES_CHI.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==3)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_JAP.x, LANGUAJES_JAP.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==4)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_COR.x, LANGUAJES_COR.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(languaje==5)
+            renderer.setColor(Color.WHITE);
+        else
+            renderer.setColor(Color.BLACK);
+        renderer.rect(LANGUAJES_AR.x, LANGUAJES_AR.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         ball.render(renderer);
         renderer.end();
@@ -122,10 +174,24 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         final GlyphLayout invertYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTY_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.INVERTY_LABEL[languaje], INVERTY.x, INVERTY.y + invertYLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout languajeLayout = new GlyphLayout(fontScore, CONSTANTS.SELECT_LANGUAJE[languaje]);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[languaje], LANGUAJE.x, LANGUAJE.y + languajeLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout languajeLayout = new GlyphLayout(fontScore, CONSTANTS.SELECT_LANGUAJE[0]);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[0], LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ENG.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[1], LANGUAJES_ESP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ESP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[2], LANGUAJES_CHI.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_CHI.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[3], LANGUAJES_JAP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_JAP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[4], LANGUAJES_COR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_COR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[5], LANGUAJES_AR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_AR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+
 
         batch.end();
+
+        LANGUAJES_ENG_TOUCH = new Vector2(LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ENG.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+        LANGUAJES_ESP_TOUCH = new Vector2(LANGUAJES_ESP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ESP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+        LANGUAJES_CHI_TOUCH = new Vector2(LANGUAJES_CHI.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_CHI.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+        LANGUAJES_JAP_TOUCH = new Vector2(LANGUAJES_JAP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_JAP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+        LANGUAJES_COR_TOUCH = new Vector2(LANGUAJES_COR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_COR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+        LANGUAJES_AR_TOUCH = new Vector2(LANGUAJES_AR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_AR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2);
+
     }
 
     @Override
@@ -176,11 +242,28 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             invertY = !invertY;
             writeConfig();
         }
-        if (worldTouch.dst(LANGUAJE) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje = languaje+1;
-            if(languaje >= CONSTANTS.SELECT_LANGUAJE.length){
-                languaje = 0;
-            }
+        if (worldTouch.dst(LANGUAJES_ENG_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=0;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_ESP_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=1;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_CHI_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=2;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_JAP_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=3;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_COR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=4;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_AR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje=5;
             writeConfig();
         }
 

@@ -80,7 +80,7 @@ public class CONSTANTS {
 
     public static final String[] OPTIONS_LABEL = {"Settings", "Ajustes", "设置", "設定", "설정", "إعدادات"};
     public static final String[] PLAY_LABEL = {"Play Game", "Jugar", "玩", "遊びます", "놀이", "لعب"};
-    public static final String[] SCORES_LABEL = {"Scores", "Puntuaciones", "分数", "スコア", "점수", "عشرات"};
+    public static final String[] SCORES_LABEL = {"Scores", "Marcador", "分数", "スコア", "점수", "عشرات"};
 
 
     //DEAD CONSTANTS
@@ -105,7 +105,7 @@ public class CONSTANTS {
 
     public static final String[] MENU_LABEL = {"Menu", "Menú", "菜单", "メニュー", "메뉴", "قائمة طعام"};
     public static final String[] PLAYAGAIN_LABEL = {"Play Again", "Volver a jugar", "再玩一次", "再びプレー", "다시 플레이",  "إلعب مرة أخرى"};
-    public static final String[] SCORESD_LABEL = {"Scores", "Puntuaciones", "成绩", "スコア", "점수", "شرات"};
+    public static final String[] SCORESD_LABEL = {"Scores", "Marcador", "成绩", "スコア", "점수", "شرات"};
     public static final String[] YOUR_SCORE_LABEL = {"Your score is: ", "Tu puntuación es: ",  "你的标点符号: ", "あなたの句読点は、: ", "당신의 문장 은: " , "علامات الترقيم الخاص بك هو"};
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金 ", "ボーナス ", "보너스 ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
@@ -122,13 +122,13 @@ public class CONSTANTS {
     public static final String[] TOP_SCORES_LABEL = {"TOP SCORES", "MEJORES PUNTUACIONES", "最佳射手", "得点王", "득점 왕", "الاعلى نقاطا"};
 
     //CONFIG CONSTANTS
-    public static final String[] INVERTXY_LABEL = {"Invert XY", "Invertir XY", "倒置XY", "反転XY", "거꾸로 하다XY", "عكسXY" } ;
+    public static final String[] INVERTXY_LABEL = {"InvertXY", "InvertirXY", "倒置XY", "反転XY", "거꾸로 하다XY", "عكسXY" } ;
     public static final String[] INVERTX_LABEL = {"InvertX", "InvertirX", "倒置X", "反転X", "거꾸로 하다X", "عكسX"};
     public static final String[] INVERTY_LABEL = {"InvertY", "InvertirY", "倒置Y", "反転Y", "거꾸로 하다Y", "عكسY"};
 
     public static final String INVERTCONFIG_FILE_NAME = "INVERT_CONFIG";
     public static final String LANGUAJECONFIG_FILE_NAME = "LANGUAJE_CONFIG";
 
-    public static final String[] SELECT_LANGUAJE = {"ENG", "ESP", "中国", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
+    public static final String[] SELECT_LANGUAJE = {"ENGLISH", "ESPAÑOL", "中国", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
 
 }
