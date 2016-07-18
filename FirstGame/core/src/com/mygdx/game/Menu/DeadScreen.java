@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.CONSTANTS;
 import com.mygdx.game.FirstGame;
@@ -35,6 +38,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     int score;
     int eaten;
     int select = -1;
+    int languaje = 0;
 
     public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
@@ -59,6 +63,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         game.showAd(true);
+        readConfig();
     }
 
     @Override
@@ -95,20 +100,20 @@ public class DeadScreen extends InputAdapter implements Screen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL+String.valueOf(score));
-        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL+String.valueOf(score), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y + scoreLayout.height, 0, Align.center, false);
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[languaje]+String.valueOf(score));
+        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje]+String.valueOf(score), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
-        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL+String.valueOf(eaten));
-        fontScore.draw(batch, CONSTANTS.EATEN_LABEL+String.valueOf(eaten), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y - eatenLayout.height, 0, Align.center, false);
+        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[languaje]+String.valueOf(eaten));
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje]+String.valueOf(eaten), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y - eatenLayout.height, 0, Align.center, false);
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.MENU_LABEL);
-        font.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.MENU_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL);
-        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL, CONSTANTS.DEAD_PLAYGAME.x, CONSTANTS.DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[languaje], CONSTANTS.DEAD_PLAYGAME.x, CONSTANTS.DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL);
-        font.draw(batch, CONSTANTS.SCORESD_LABEL, CONSTANTS.DEAD_SCORES.x, CONSTANTS.DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.SCORESD_LABEL[languaje], CONSTANTS.DEAD_SCORES.x, CONSTANTS.DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -186,5 +191,24 @@ public class DeadScreen extends InputAdapter implements Screen {
         }
 
         return true;
+    }
+
+    public void readConfig() {
+
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
+        Json json = new Json();
+
+
+        if (languajeDataFile.exists()) {
+            try {
+                String languajeAsCode = languajeDataFile.readString();
+                String languajeAsText = Base64Coder.decodeString(languajeAsCode);
+                languaje = json.fromJson(int.class, languajeAsText);
+
+            } catch (Exception e) {
+                languaje = 0;
+
+            }
+        }
     }
 }

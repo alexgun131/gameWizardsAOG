@@ -39,6 +39,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
     int[] topEaten;
     int[] topScore;
+    int languaje = 0;
 
     public TopScoresScreen(FirstGame game){
         this.game = game;
@@ -81,11 +82,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL);
-        fontScore.draw(batch, CONSTANTS.TOP_EATEN_LABEL, CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y + eatenLayout.height*2, 0, Align.center, false);
+        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.TOP_EATEN_LABEL[languaje], CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y + eatenLayout.height*2, 0, Align.center, false);
 
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL);
-        fontScore.draw(batch, CONSTANTS.TOP_SCORES_LABEL, CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.TOP_SCORES_LABEL[languaje], CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
 
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
 
@@ -97,8 +98,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         }
 
-        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL);
-        fontScore.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -145,6 +146,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     public void read() {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 
         if (topDataFile.exists()) {
@@ -163,6 +165,18 @@ public class TopScoresScreen extends InputAdapter implements Screen {
                     topEaten[i] = 0;
                     topScore[i] = 0;
                 }
+            }
+        }
+
+        if (languajeDataFile.exists()) {
+            try {
+                String languajeAsCode = languajeDataFile.readString();
+                String languajeAsText = Base64Coder.decodeString(languajeAsCode);
+                languaje = json.fromJson(int.class, languajeAsText);
+
+            } catch (Exception e) {
+                languaje = 0;
+
             }
         }
     }

@@ -35,10 +35,12 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     boolean invertXY = false;
     boolean invertX = false;
     boolean invertY = false;
+    int languaje = 0;
 
     Vector2 INVERTXY;
     Vector2 INVERTX;
     Vector2 INVERTY;
+    Vector2 LANGUAJE;
 
     public AccelerometerConfigScreen(FirstGame game){
         this.game = game;
@@ -78,6 +80,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         INVERTXY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTX = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        LANGUAJE = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  6* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
 
         if(!invertXY)
             renderer.setColor(Color.RED);
@@ -97,6 +100,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.GREEN);
         renderer.circle(INVERTY.x, INVERTY.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
+        renderer.setColor(Color.BLUE);
+        renderer.circle(LANGUAJE.x, LANGUAJE.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+
         ball.render(renderer);
         renderer.end();
 
@@ -104,17 +110,20 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL);
-        fontScore.draw(batch, CONSTANTS.MENU_LABEL, CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertXYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTXY_LABEL);
-        fontScore.draw(batch, CONSTANTS.INVERTXY_LABEL, INVERTXY.x, INVERTXY.y + invertXYLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertXYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTXY_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.INVERTXY_LABEL[languaje], INVERTXY.x, INVERTXY.y + invertXYLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertXLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTX_LABEL);
-        fontScore.draw(batch, CONSTANTS.INVERTX_LABEL, INVERTX.x, INVERTX.y + invertXLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertXLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTX_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.INVERTX_LABEL[languaje], INVERTX.x, INVERTX.y + invertXLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTY_LABEL);
-        fontScore.draw(batch, CONSTANTS.INVERTY_LABEL, INVERTY.x, INVERTY.y + invertYLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTY_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.INVERTY_LABEL[languaje], INVERTY.x, INVERTY.y + invertYLayout.height / 2, 0, Align.center, false);
+
+        final GlyphLayout languajeLayout = new GlyphLayout(fontScore, CONSTANTS.SELECT_LANGUAJE[languaje]);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[languaje], LANGUAJE.x, LANGUAJE.y + languajeLayout.height / 2, 0, Align.center, false);
 
         batch.end();
     }
@@ -167,6 +176,13 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             invertY = !invertY;
             writeConfig();
         }
+        if (worldTouch.dst(LANGUAJE) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            languaje = languaje+1;
+            if(languaje >= CONSTANTS.SELECT_LANGUAJE.length){
+                languaje = 0;
+            }
+            writeConfig();
+        }
 
         return true;
     }
@@ -174,6 +190,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     public void writeConfig() {
         Json json = new Json();
         FileHandle topDataFile = Gdx.files.local( CONSTANTS.INVERTCONFIG_FILE_NAME );
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         boolean[] config = new boolean[3];
         config[0] = invertXY;
         config[1] = invertX;
@@ -181,11 +198,16 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         String topAsText = json.toJson( config );
         String topAsCode = Base64Coder.encodeString( topAsText );
         topDataFile.writeString( topAsCode, false );
+
+        String languajeAsText = json.toJson( languaje );
+        String languajeAsCode = Base64Coder.encodeString( languajeAsText );
+        languajeDataFile.writeString( languajeAsCode, false );
     }
 
     public void readConfig() {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 
         if (topDataFile.exists()) {
@@ -201,6 +223,18 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
                 invertXY = false;
                 invertX = false;
                 invertY = false;
+
+            }
+        }
+
+        if (languajeDataFile.exists()) {
+            try {
+                String languajeAsCode = languajeDataFile.readString();
+                String languajeAsText = Base64Coder.decodeString(languajeAsCode);
+                languaje = json.fromJson(int.class, languajeAsText);
+
+            } catch (Exception e) {
+                languaje = 0;
 
             }
         }

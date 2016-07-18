@@ -34,6 +34,7 @@ public class GameScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
     ScreenViewport hudViewport;
     SpriteBatch batch;
+    int languaje;
     int[] topScore;
     int[] topEaten;
     int currentTopScore;
@@ -228,7 +229,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "Score: " + currentScore + "\n"+"Bonus: " + eatenPoints ,
+        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - 2*CONSTANTS.HUD_MARGIN);
 
 
@@ -309,6 +310,7 @@ public class GameScreen extends InputAdapter implements Screen {
     public void read() {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 
         if (topDataFile.exists()) {
@@ -327,6 +329,18 @@ public class GameScreen extends InputAdapter implements Screen {
                     topEaten[i] = 0;
                     topScore[i] = 0;
                 }
+            }
+        }
+
+        if (languajeDataFile.exists()) {
+            try {
+                String languajeAsCode = languajeDataFile.readString();
+                String languajeAsText = Base64Coder.decodeString(languajeAsCode);
+                languaje = json.fromJson(int.class, languajeAsText);
+
+            } catch (Exception e) {
+                languaje = 0;
+
             }
         }
     }
