@@ -3,6 +3,7 @@ package com.mygdx.game.Menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -56,9 +57,11 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 LANGUAJES_AR_TOUCH;
 
     float tamLan = 2.3f;
+    Music music;
 
-    public AccelerometerConfigScreen(FirstGame game){
+    public AccelerometerConfigScreen(FirstGame game, Music music){
         this.game = game;
+        this.music = music;
     }
 
     @Override

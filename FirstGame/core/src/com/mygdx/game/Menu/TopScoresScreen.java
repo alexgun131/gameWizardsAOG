@@ -7,6 +7,7 @@ package com.mygdx.game.Menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,9 +41,10 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int[] topEaten;
     int[] topScore;
     int languaje = 0;
-
-    public TopScoresScreen(FirstGame game){
+    Music music;
+    public TopScoresScreen(FirstGame game, Music music){
         this.game = game;
+        this.music = music;
     }
     @Override
     public void show() {

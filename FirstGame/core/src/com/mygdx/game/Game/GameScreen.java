@@ -3,6 +3,7 @@ package com.mygdx.game.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,9 +27,10 @@ import com.mygdx.game.FirstGame;
 public class GameScreen extends InputAdapter implements Screen {
 
     FirstGame game;
-
-    public GameScreen(FirstGame game){
+    Music music;
+    public GameScreen(FirstGame game, Music music){
         this.game = game;
+        this.music = music;
     }
 
     ExtendViewport viewport;
@@ -103,6 +105,9 @@ public class GameScreen extends InputAdapter implements Screen {
         isSuperPoint = false;
 
         game.showAd(false);
+        music.setVolume(0.7f);
+        music.play();
+
     }
 
     private void loadTextures(){
@@ -155,6 +160,7 @@ public class GameScreen extends InputAdapter implements Screen {
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
             timeSinceDead = TimeUtils.nanoTime();
+            music.stop();
         }
         if(!isAlive) {
             if((TimeUtils.nanoTime() - timeSinceDead)*1E-9 > CONSTANTS.TIME_SHOW_DEATH)

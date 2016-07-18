@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -35,9 +36,11 @@ public class MenuScreen extends InputAdapter implements Screen {
     BitmapFont font;
 
     int select = -1;
+    Music music;
 
-    public MenuScreen(FirstGame game){
+    public MenuScreen(FirstGame game, Music music){
         this.game = game;
+        this.music = music;
     }
     @Override
     public void show() {
@@ -55,6 +58,9 @@ public class MenuScreen extends InputAdapter implements Screen {
         game.showAd(true);
 
         readConfig();
+        music.setVolume(0.2f);                 // sets the volume to half the maximum volume
+        music.setLooping(true);                // will repeat playback until music.stop() is called
+        music.play();
     }
 
     @Override

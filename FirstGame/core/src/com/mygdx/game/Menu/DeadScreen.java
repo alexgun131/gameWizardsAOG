@@ -64,6 +64,8 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         game.showAd(true);
         readConfig();
+
+
     }
 
     @Override
