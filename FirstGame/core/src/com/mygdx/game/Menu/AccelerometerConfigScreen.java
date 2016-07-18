@@ -103,6 +103,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         LANGUAJES_COR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*5/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
         LANGUAJES_AR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*6/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
 
+        ball.render(renderer);
+
          if(!invertXY)
             renderer.setColor(Color.RED);
         else
@@ -155,7 +157,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_AR.x, LANGUAJES_AR.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
-        ball.render(renderer);
+
         renderer.end();
 
         batch.begin();

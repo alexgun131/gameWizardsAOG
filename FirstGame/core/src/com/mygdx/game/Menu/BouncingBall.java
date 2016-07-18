@@ -117,7 +117,7 @@ public class BouncingBall extends InputAdapter {
     }
 
     public void render(ShapeRenderer renderer) {
-        renderer.set(ShapeRenderer.ShapeType.Filled);
+        renderer.set(ShapeRenderer.ShapeType.Line);
         renderer.setColor(COLOR);
         renderer.circle(position.x, position.y, baseRadius * radiusMultiplier);
     }
