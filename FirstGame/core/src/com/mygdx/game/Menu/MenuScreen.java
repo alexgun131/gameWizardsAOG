@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.CONSTANTS;
 import com.mygdx.game.FirstGame;
 
@@ -31,7 +31,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     ShapeRenderer renderer;
     SpriteBatch batch;
-    FitViewport viewport;
+    ExtendViewport viewport;
     int languaje = 1;
 
     BitmapFont font;
@@ -48,6 +48,9 @@ public class MenuScreen extends InputAdapter implements Screen {
     float flyFps;
     float wormFps;
     float fishFps;
+    Vector2 MENU_OPTIONS ;
+    Vector2 MENU_PLAYGAME;
+    Vector2 MENU_SCORES;
 
     public MenuScreen(FirstGame game, Music music){
         this.game = game;
@@ -87,7 +90,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         renderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
-        viewport = new FitViewport(CONSTANTS.MENU_WORLD_SIZE, CONSTANTS.MENU_WORLD_SIZE);
+        viewport = new ExtendViewport(CONSTANTS.MENU_WORLD_SIZE, CONSTANTS.MENU_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
         font = new BitmapFont();
@@ -97,7 +100,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         game.showAd(true);
 
         readConfig();
-        music.setVolume(0.2f);                 // sets the volume to half the maximum volume
+        music.setVolume(0.3f);                 // sets the volume to half the maximum volume
         music.setLooping(true);                // will repeat playback until music.stop() is called
         music.play();
     }
@@ -117,39 +120,41 @@ public class MenuScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.RED);
         else
             renderer.setColor(CONSTANTS.OPTIONS_COLOR);
-        renderer.circle(CONSTANTS.MENU_OPTIONS.x, CONSTANTS.MENU_OPTIONS.y, CONSTANTS.MENU_BUBBLE_RADIUS);
+        //renderer.circle(CONSTANTS.MENU_OPTIONS.x, CONSTANTS.MENU_OPTIONS.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
         if(select == 1)
             renderer.setColor(Color.RED);
         else
             renderer.setColor(CONSTANTS.PLAY_COLOR);
-        renderer.circle(CONSTANTS.MENU_PLAYGAME.x, CONSTANTS.MENU_PLAYGAME.y, CONSTANTS.MENU_BUBBLE_RADIUS);
+        //renderer.circle(CONSTANTS.MENU_PLAYGAME.x, CONSTANTS.MENU_PLAYGAME.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
         if(select == 2)
             renderer.setColor(Color.RED);
         else
             renderer.setColor(CONSTANTS.SCORES_COLOR);
-        renderer.circle(CONSTANTS.MENU_SCORES.x, CONSTANTS.MENU_SCORES.y, CONSTANTS.MENU_BUBBLE_RADIUS);
+//        renderer.circle(CONSTANTS.MENU_SCORES.x, CONSTANTS.MENU_SCORES.y, CONSTANTS.MENU_BUBBLE_RADIUS);
 
         renderer.end();
-
+        MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
+        MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
+        MENU_SCORES = new Vector2(viewport.getWorldWidth()*4 / 5, viewport.getWorldHeight() / 2);
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
 
-        batch.draw(FlyButtonSprite[getFlySprite(delta)], CONSTANTS.MENU_OPTIONS.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_OPTIONS.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
-        batch.draw(WormButtonSprite[getWormSprite(delta)], CONSTANTS.MENU_PLAYGAME.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_PLAYGAME.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
-        batch.draw(FishButtonSprite[getFishSprite(delta)], CONSTANTS.MENU_SCORES.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_SCORES.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_OPTIONS.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_PLAYGAME.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_SCORES.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
 
 
         final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.OPTIONS_LABEL[languaje], CONSTANTS.MENU_OPTIONS.x, CONSTANTS.MENU_OPTIONS.y + easyLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.OPTIONS_LABEL[languaje], MENU_OPTIONS.x, MENU_OPTIONS.y + easyLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAY_LABEL[languaje], CONSTANTS.MENU_PLAYGAME.x, CONSTANTS.MENU_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.PLAY_LABEL[languaje], MENU_PLAYGAME.x, MENU_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], CONSTANTS.MENU_SCORES.x, CONSTANTS.MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], MENU_SCORES.x, MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -216,15 +221,15 @@ public class MenuScreen extends InputAdapter implements Screen {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
-        if (worldTouch.dst(CONSTANTS.MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS) {
+        if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
             game.showAccelerometerConfigScreen();
         }
 
-        if (worldTouch.dst(CONSTANTS.MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS) {
+        if (worldTouch.dst(MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
             game.showGameScreen();
         }
 
-        if (worldTouch.dst(CONSTANTS.MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS) {
+        if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
            game.showTopScoreScreen();
         }
 

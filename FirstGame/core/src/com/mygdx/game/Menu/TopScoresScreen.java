@@ -61,7 +61,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         read();
-
+        music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+        music.setLooping(true);                // will repeat playback until music.stop() is called
+        music.play();
     }
 
     @Override

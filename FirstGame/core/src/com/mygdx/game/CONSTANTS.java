@@ -70,9 +70,6 @@ public class CONSTANTS {
     public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 9;
     public static final float MENU_LABEL_SCALE = 1.5f;
 
-    public static final Vector2 MENU_OPTIONS = new Vector2(MENU_WORLD_SIZE / 8, MENU_WORLD_SIZE / 2);
-    public static final Vector2 MENU_PLAYGAME = new Vector2(MENU_WORLD_SIZE / 2, MENU_WORLD_SIZE / 2);
-    public static final Vector2 MENU_SCORES = new Vector2(MENU_WORLD_SIZE - MENU_WORLD_SIZE / 8, MENU_WORLD_SIZE / 2);
 
     public static final Color OPTIONS_COLOR = new Color(0.2f, 0.2f, 1, 1);
     public static final Color PLAY_COLOR = new Color(0.5f, 0.5f, 1, 1);

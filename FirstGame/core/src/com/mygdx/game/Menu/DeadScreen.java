@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -39,6 +40,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     int eaten;
     int select = -1;
     int languaje = 0;
+    Music musicDeath;
 
     public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
@@ -64,6 +66,10 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         game.showAd(true);
         readConfig();
+        musicDeath = Gdx.audio.newMusic(Gdx.files.internal("DeathTheme.mid"));
+        musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
+        musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
+        musicDeath.play();
 
 
     }
@@ -164,6 +170,7 @@ public class DeadScreen extends InputAdapter implements Screen {
             game.showTopScoreScreen();
         }
 
+        musicDeath.dispose();
         return true;
     }
 

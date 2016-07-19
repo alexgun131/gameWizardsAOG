@@ -95,16 +95,18 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         renderer.setColor(CONSTANTS.MENU_COLOR);
         renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
-        INVERTXY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
-        INVERTX = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
-        INVERTY = new Vector2(viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        float width = viewport.getWorldWidth();
+        float height = viewport.getWorldHeight();
+        INVERTXY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTX = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         LANGUAJES = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20 - CONSTANTS.ADD_BANNER_HEIGHT);
-        LANGUAJES_ENG = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20 );
-        LANGUAJES_ESP = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*2/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
-        LANGUAJES_CHI = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*3/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
-        LANGUAJES_JAP = new Vector2((viewport.getWorldWidth()- CONSTANTS.SCORES_BUBBLE_RADIUS)*4/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
-        LANGUAJES_COR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*5/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
-        LANGUAJES_AR = new Vector2((viewport.getWorldWidth() - CONSTANTS.SCORES_BUBBLE_RADIUS)*6/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20);
+        LANGUAJES_ENG = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20 );
+        LANGUAJES_ESP = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*2/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
+        LANGUAJES_CHI = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*3/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
+        LANGUAJES_JAP = new Vector2((width- CONSTANTS.SCORES_BUBBLE_RADIUS)*4/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
+        LANGUAJES_COR = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*5/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
+        LANGUAJES_AR = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*6/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
 
         ball.render(renderer);
 

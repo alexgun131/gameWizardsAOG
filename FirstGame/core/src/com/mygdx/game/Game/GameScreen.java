@@ -28,6 +28,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     FirstGame game;
     Music music;
+    Music soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound.mid"));
     public GameScreen(FirstGame game, Music music){
         this.game = game;
         this.music = music;
@@ -67,6 +68,7 @@ public class GameScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
 
+
     @Override
     public void show() {
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
@@ -105,7 +107,7 @@ public class GameScreen extends InputAdapter implements Screen {
         isSuperPoint = false;
 
         game.showAd(false);
-        music.setVolume(0.7f);
+        music.setVolume(0.4f);
         music.play();
 
     }
@@ -125,6 +127,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
+
         if(isAlive){
             player.update(delta);
             enemies.update(delta, currentScore);
@@ -160,6 +163,10 @@ public class GameScreen extends InputAdapter implements Screen {
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
             timeSinceDead = TimeUtils.nanoTime();
+            soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound.mid"));
+            soundDeath.setLooping(false);
+            soundDeath.setVolume(0.6f);
+            soundDeath.play();
             music.stop();
         }
         if(!isAlive) {
@@ -167,6 +174,7 @@ public class GameScreen extends InputAdapter implements Screen {
             {
                 enemies.init();
                 player.init();
+                soundDeath.dispose();
                 game.showDeadScreen(currentScore, eatenPoints);
                 write();
                 currentScore = 0;
