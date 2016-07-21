@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -29,7 +28,6 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     FirstGame game;
 
-    ShapeRenderer renderer;
     SpriteBatch batch;
     ExtendViewport viewport;
 
@@ -93,7 +91,6 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
 
-        renderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
@@ -147,10 +144,10 @@ public class DeadScreen extends InputAdapter implements Screen {
 
 
         final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.OPTIONS_LABEL[languaje], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.MENU_LABEL[languaje], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAY_LABEL[languaje], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[languaje], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
         font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
@@ -213,7 +210,6 @@ public class DeadScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        renderer.dispose();
     }
 
     @Override

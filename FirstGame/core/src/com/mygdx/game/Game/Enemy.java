@@ -2,7 +2,6 @@ package com.mygdx.game.Game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.CONSTANTS;
@@ -30,7 +29,7 @@ public class Enemy {
         animationFps %= 100; //fps up to 100 seconds (max animation time?)
     }
 
-    public void render(ShapeRenderer renderer, SpriteBatch batch, TextureRegion[] enemySprites){
+    public void render(SpriteBatch batch, TextureRegion[] enemySprites){
         //renderer.setColor(CONSTANTS.ENEMY_COLOR);
         //renderer.rect(position.x, position.y, CONSTANTS.ENEMY_WIDTH, CONSTANTS.ENEMY_HEIGHT);
 

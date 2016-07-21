@@ -6,7 +6,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
@@ -186,7 +185,7 @@ public class Player{
         double dist = Math.sqrt(x2+y2);
         return dist;
     }
-    public void render(ShapeRenderer renderer, SpriteBatch batch, int beatHighestScore){
+    public void render(SpriteBatch batch, int beatHighestScore){
         //renderer.setColor(CONSTANTS.PLAYER_COLOR);
         //renderer.circle(position.x, position.y + CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD);
 

@@ -3,7 +3,6 @@ package com.mygdx.game.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -84,7 +83,7 @@ public class SuperPoint {
         animationFps %= 100;
     }
 
-    public void render(ShapeRenderer renderer, SpriteBatch batch){
+    public void render(SpriteBatch batch){
         //renderer.setColor(CONSTANTS.POINT_COLOR);
         //renderer.circle(position.x, position.y + CONSTANTS.POINT_WIDTH, CONSTANTS.POINT_WIDTH);
 

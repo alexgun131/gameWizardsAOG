@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -28,7 +27,6 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     FirstGame game;
 
-    ShapeRenderer renderer;
     SpriteBatch batch;
     ExtendViewport viewport;
     int languaje = 1;
@@ -86,7 +84,6 @@ public class MenuScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
 
-        renderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
         viewport = new ExtendViewport(CONSTANTS.MENU_WORLD_SIZE, CONSTANTS.MENU_WORLD_SIZE);
@@ -190,7 +187,6 @@ public class MenuScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        renderer.dispose();
     }
 
     @Override

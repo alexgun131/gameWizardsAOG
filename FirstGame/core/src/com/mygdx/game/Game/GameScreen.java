@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -47,7 +46,6 @@ public class GameScreen extends InputAdapter implements Screen {
     int eatenPoints;
     int beatHighestScore;
     BitmapFont font;
-    ShapeRenderer renderer;
 
     Player player;
     Enemies enemies;
@@ -74,7 +72,6 @@ public class GameScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
         loadTextures();
-        renderer = new ShapeRenderer();
         hudViewport = new ScreenViewport();
 
         batch = new SpriteBatch();
@@ -142,9 +139,6 @@ public class GameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.BACKGROUND_COLOR.r, CONSTANTS.BACKGROUND_COLOR.g, CONSTANTS.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
         drawBackground(delta); // draw river with animation
 
         //renderer.setColor(CONSTANTS.SAND_COLOR);
@@ -154,12 +148,11 @@ public class GameScreen extends InputAdapter implements Screen {
         //renderer.rect(viewport.getWorldWidth()-CONSTANTS.FRAME_THIKNESS,
         //0, CONSTANTS.FRAME_THIKNESS, viewport.getWorldHeight());
 
-        player.render(renderer, batch, beatHighestScore);
-        point.render(renderer, batch);
-        enemies.render(renderer, batch);
-        superPoint.render(renderer,batch);
+        player.render(batch, beatHighestScore);
+        point.render(batch);
+        enemies.render(batch);
+        superPoint.render(batch);
 
-        renderer.end();
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
             timeSinceDead = TimeUtils.nanoTime();
@@ -278,7 +271,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-        renderer.dispose();
         batch.dispose();
         write();
     }

@@ -76,10 +76,9 @@ public class Enemies {
         enemyList.end();
     }
 
-    public void render(ShapeRenderer renderer, SpriteBatch batch) {
-        renderer.setColor(CONSTANTS.ENEMY_COLOR);
+    public void render(SpriteBatch batch) {
         for (Enemy enemy : enemyList) {
-            enemy.render(renderer, batch, enemySprites);
+            enemy.render(batch, enemySprites);
         }
     }
 }
