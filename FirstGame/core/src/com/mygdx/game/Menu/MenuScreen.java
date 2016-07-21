@@ -49,6 +49,15 @@ public class MenuScreen extends InputAdapter implements Screen {
     Vector2 MENU_PLAYGAME;
     Vector2 MENU_SCORES;
 
+
+    float riverPosition;
+    float riverBankPosition;
+    float riverWaterHighlightTimer;
+    Texture RIVER_WATER;
+    TextureRegion[] RIVER_WATERS;
+    Texture RIVER_BANK_TOP;
+    Texture RIVER_BANK_BOTTOM;
+
     public MenuScreen(FirstGame game){
         this.game = game;
         this.music = game.getMusic();
@@ -79,6 +88,16 @@ public class MenuScreen extends InputAdapter implements Screen {
             FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize*i, 0, buttonSize, buttonSize);
         }
 
+        // TEXTURES
+        // Background
+        int waterTextureSize = 512;
+        RIVER_WATER = new Texture("RiverWater.png");
+        RIVER_WATERS = new TextureRegion[2]; //There are two sprites in RiverWater
+        RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, waterTextureSize, waterTextureSize);
+        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize*2, waterTextureSize);
+        RIVER_BANK_TOP = new Texture("RiverBankTop.png");
+        RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
+
     }
 
     @Override
@@ -107,6 +126,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.MENU_BACKGROUND_COLOR.r, CONSTANTS.MENU_BACKGROUND_COLOR.g, CONSTANTS.MENU_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        drawBackground(delta); // draw river with animation
 
         MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
         MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
@@ -255,4 +276,43 @@ public class MenuScreen extends InputAdapter implements Screen {
             }
         }
     }
+    /* Draw river with flow */
+    public void drawBackground(float delta) {
+        float screenWidth = viewport.getWorldWidth();
+        float screenHeight = viewport.getWorldHeight();
+        float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
+        int spritesNeeded = (int)(screenWidth/imageWidth) + 2;
+
+        riverPosition += delta*CONSTANTS.WATER_SPEED;
+        if (riverPosition > imageWidth) {
+            riverPosition = 0.0f;
+        }
+
+        riverBankPosition += delta*CONSTANTS.RIVER_BANK_SPEED;
+        if (riverBankPosition > imageWidth) {
+            riverBankPosition = 0.0f;
+        }
+
+        riverWaterHighlightTimer += delta;
+        int hightlightWater = (riverWaterHighlightTimer < CONSTANTS.WATER_HIGHLIGHT_SPEED) ? 0 : 1;
+        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) {
+            riverWaterHighlightTimer = 0.0f;
+        }
+
+        batch.begin();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        for (int i=0; i<=spritesNeeded; i++) {
+            if ((-riverPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
+            }
+        }
+        for (int i=0; i<=spritesNeeded; i++) {
+            if ((-riverBankPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, screenHeight - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
+                batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
+            }
+        }
+        batch.end();
+    }
+
 }

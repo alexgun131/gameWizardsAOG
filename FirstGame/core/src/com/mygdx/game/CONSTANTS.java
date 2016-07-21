@@ -128,5 +128,5 @@ public class CONSTANTS {
     public static final String[] LEADER_PROGRAMMER = {"Leader Programmer", "Programador Líder", "领导者的程序员", "リーダープログラマー", "리더 프로그래머", "زعيم مبرمج"};
     public static final String[] PROGRAMMERS = {"Programmers", "Programadores", "程序员", "プログラマ", "프로그래머", "المبرمجين"};
     public static final String[] ART = {"Art and Graphic Design", "Arte y diseño grafico", "艺术与平面设计", "アートとグラフィックデザイン", "미술 및 그래픽 디자인", "الفن والتصميم الجرافيكي"};
-    public static final String[] MUSIC = {"Music and sounds", "Musica y sonidos", "音乐和声音", "音楽とサウンド", "음악과 소리", "الموسيقى والأصوات"};
+    public static final String[] MUSIC = {"Music and sounds", "Música y sonidos", "音乐和声音", "音楽とサウンド", "음악과 소리", "الموسيقى والأصوات"};
 }
