@@ -28,10 +28,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
     FirstGame game;
     Music music;
-    Music soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound.mid"));
-    public GameScreen(FirstGame game, Music music){
+    Music soundDeath;
+    public GameScreen(FirstGame game){
         this.game = game;
-        this.music = music;
+        this.music = game.getMusic();
     }
 
     ExtendViewport viewport;

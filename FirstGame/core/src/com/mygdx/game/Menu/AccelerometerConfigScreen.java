@@ -59,9 +59,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     float tamLan = 2.3f;
     Music music;
 
-    public AccelerometerConfigScreen(FirstGame game, Music music){
+    public AccelerometerConfigScreen(FirstGame game){
         this.game = game;
-        this.music = music;
+        this.music = game.getMusic();
     }
 
     @Override
@@ -188,6 +188,13 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[3], LANGUAJES_JAP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_JAP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
         fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[4], LANGUAJES_COR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_COR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
         fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[5], LANGUAJES_AR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_AR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+
+        fontScore.draw(batch,
+                CONSTANTS.LEADER_PROGRAMMER[languaje] + ":\nAlex Gonzalez Gonzalez\n\n"
+                        + CONSTANTS.ART[languaje] + ":\nOriol Chiou Wang\n\n"
+                        + CONSTANTS.PROGRAMMERS[languaje] + ":\nAlex Gonzalez Gonzalez\nOriol Chiou Wang\nPau Chiou Wang\n\n"
+                        + CONSTANTS.MUSIC[languaje] + ":\nGuillermo Cámbara Ruiz",
+                LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, CONSTANTS.BACK_TO_MENU.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.left, false);
 
 
         batch.end();

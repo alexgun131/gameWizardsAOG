@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -52,9 +51,9 @@ public class MenuScreen extends InputAdapter implements Screen {
     Vector2 MENU_PLAYGAME;
     Vector2 MENU_SCORES;
 
-    public MenuScreen(FirstGame game, Music music){
+    public MenuScreen(FirstGame game){
         this.game = game;
-        this.music = music;
+        this.music = game.getMusic();
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
@@ -112,29 +111,6 @@ public class MenuScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.MENU_BACKGROUND_COLOR.r, CONSTANTS.MENU_BACKGROUND_COLOR.g, CONSTANTS.MENU_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        if(select == 0)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.OPTIONS_COLOR);
-        //renderer.circle(CONSTANTS.MENU_OPTIONS.x, CONSTANTS.MENU_OPTIONS.y, CONSTANTS.MENU_BUBBLE_RADIUS);
-
-        if(select == 1)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.PLAY_COLOR);
-        //renderer.circle(CONSTANTS.MENU_PLAYGAME.x, CONSTANTS.MENU_PLAYGAME.y, CONSTANTS.MENU_BUBBLE_RADIUS);
-
-        if(select == 2)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.SCORES_COLOR);
-//        renderer.circle(CONSTANTS.MENU_SCORES.x, CONSTANTS.MENU_SCORES.y, CONSTANTS.MENU_BUBBLE_RADIUS);
-
-        renderer.end();
         MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
         MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
         MENU_SCORES = new Vector2(viewport.getWorldWidth()*4 / 5, viewport.getWorldHeight() / 2);

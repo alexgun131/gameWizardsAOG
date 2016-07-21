@@ -6,18 +6,19 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.CONSTANTS;
 import com.mygdx.game.FirstGame;
 
@@ -30,22 +31,64 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     ShapeRenderer renderer;
     SpriteBatch batch;
-    FitViewport viewport;
+    ExtendViewport viewport;
 
     BitmapFont font;
     BitmapFont fontScore;
-
 
     int score;
     int eaten;
     int select = -1;
     int languaje = 0;
     Music musicDeath;
+    Music musicDeathTom;
+    Texture FlyButton;
+    Texture WormButton;
+    Texture FishButton;
+    TextureRegion[] FlyButtonSprite;
+    TextureRegion[] WormButtonSprite;
+    TextureRegion[] FishButtonSprite;
+    float flyFps;
+    float wormFps;
+    float fishFps;
+    Vector2 DEAD_MENU ;
+    Vector2 DEAD_PLAYGAME;
+    Vector2 DEAD_SCORES;
+    ShaderProgram shader;
+    String fragmentShader;
+    String vertexShader;
 
     public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
         this.score = score;
         this.eaten = eaten;
+        loadTextures();
+        flyFps = 0.0f;
+        wormFps = 0.0f;
+        fishFps = 0.0f;
+    }
+
+    private void loadTextures(){
+        // TEXTURES
+        // Background
+        int buttonSize = 256;
+        int animationColumns = 2;
+        int animationRows = 1;
+
+        FlyButton = new Texture("FlyButton.png");
+        WormButton = new Texture("WormButton.png");
+        FishButton = new Texture("FishButton.png");
+
+        FlyButtonSprite = new TextureRegion[animationColumns*animationRows];
+        WormButtonSprite = new TextureRegion[animationColumns*animationRows];
+        FishButtonSprite = new TextureRegion[animationColumns*animationRows];
+
+        for (int i = 0; i < animationColumns; i++) {
+            FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize*i, 0, buttonSize, buttonSize);
+            WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize*i, 0, buttonSize, buttonSize);
+            FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize*i, 0, buttonSize, buttonSize);
+        }
+
     }
     @Override
     public void show() {
@@ -53,7 +96,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         renderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
-        viewport = new FitViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
+        viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
         fontScore = new BitmapFont();
@@ -66,7 +109,8 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         game.showAd(true);
         readConfig();
-        musicDeath = Gdx.audio.newMusic(Gdx.files.internal("DeathTheme.mid"));
+        musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Deaththeme2.mid"));
+        musicDeathTom = Gdx.audio.newMusic(Gdx.files.internal("Tom.mid"));
         musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
         musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
         musicDeath.play();
@@ -81,50 +125,68 @@ public class DeadScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        if(select == 0)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.MENU_COLOR);
-        renderer.circle(CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
-
-        if(select == 1)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.PLAY_COLOR);
-        renderer.circle(CONSTANTS.DEAD_PLAYGAME.x, CONSTANTS.DEAD_PLAYGAME.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
-
-        if(select == 2)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(CONSTANTS.SCORES_COLOR);
-        renderer.circle(CONSTANTS.DEAD_SCORES.x, CONSTANTS.DEAD_SCORES.y, CONSTANTS.DEAD_BUBBLE_RADIUS);
-
-        renderer.end();
-
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
+
+        float width = viewport.getWorldWidth();
+        float height = viewport.getWorldHeight();
+        DEAD_MENU = new Vector2(width / 5, height / 2);
+        DEAD_PLAYGAME = new Vector2(width / 2, height / 2);
+        DEAD_SCORES = new Vector2(width*4 / 5, height / 2);
+
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[languaje]+String.valueOf(score));
-        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje]+String.valueOf(score), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y + scoreLayout.height, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje]+String.valueOf(score), width/2, DEAD_PLAYGAME.y + CONSTANTS.MENU_BUBBLE_RADIUS*5/2 + scoreLayout.height, 0, Align.center, false);
 
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[languaje]+String.valueOf(eaten));
-        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje]+String.valueOf(eaten), CONSTANTS.DEAD_YOUR_SCORE.x, CONSTANTS.DEAD_YOUR_SCORE.y - eatenLayout.height, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje]+String.valueOf(eaten), width/2, DEAD_PLAYGAME.y+ CONSTANTS.MENU_BUBBLE_RADIUS*5/2 - eatenLayout.height, 0, Align.center, false);
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.MENU_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.DEAD_MENU.x, CONSTANTS.DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        batch.draw(FlyButtonSprite[getFlySprite(delta)], DEAD_MENU.x - CONSTANTS.MENU_BUBBLE_RADIUS*2, DEAD_MENU.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(WormButtonSprite[getWormSprite(delta)], DEAD_PLAYGAME.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, DEAD_PLAYGAME.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(FishButtonSprite[getFishSprite(delta)], DEAD_SCORES.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, DEAD_SCORES.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+
+
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.OPTIONS_LABEL[languaje], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[languaje], CONSTANTS.DEAD_PLAYGAME.x, CONSTANTS.DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.PLAY_LABEL[languaje], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.SCORESD_LABEL[languaje], CONSTANTS.DEAD_SCORES.x, CONSTANTS.DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
+    }
+
+    private int getFlySprite(float delta) {
+        flyFps += delta;
+        flyFps %= 100;
+        int sprite = 0;
+        if ((flyFps%0.3)>0.15){
+            sprite = 1;
+        }
+        return sprite;
+    }
+
+    private int getWormSprite(float delta) {
+        wormFps += delta;
+        wormFps %= 100;
+        int sprite = 0;
+        if ((wormFps%0.6)>0.3){
+            sprite = 1;
+        }
+        return sprite;
+    }
+
+    private int getFishSprite(float delta) {
+        fishFps += delta;
+        wormFps %= 100;
+        int sprite = 0;
+        if ((wormFps%0.5)>0.25){
+            sprite = 1;
+        }
+        return sprite;
     }
 
     @Override
@@ -158,19 +220,22 @@ public class DeadScreen extends InputAdapter implements Screen {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
-        if (worldTouch.dst(CONSTANTS.DEAD_MENU) < CONSTANTS.DEAD_BUBBLE_RADIUS) {
+        if (worldTouch.dst(DEAD_MENU) < CONSTANTS.DEAD_BUBBLE_RADIUS*2) {
             game.showMenuScreen();
+            musicDeath.dispose();
         }
 
-        if (worldTouch.dst(CONSTANTS.DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS) {
+        if (worldTouch.dst(DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS*2) {
             game.showGameScreen();
+            musicDeath.dispose();
         }
 
-        if (worldTouch.dst(CONSTANTS.DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS) {
+        if (worldTouch.dst(DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS*2) {
             game.showTopScoreScreen();
+            musicDeath.dispose();
         }
 
-        musicDeath.dispose();
+
         return true;
     }
 

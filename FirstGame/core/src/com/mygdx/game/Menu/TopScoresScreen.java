@@ -42,9 +42,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int[] topScore;
     int languaje = 0;
     Music music;
-    public TopScoresScreen(FirstGame game, Music music){
+    public TopScoresScreen(FirstGame game){
         this.game = game;
-        this.music = music;
+        this.music = game.getMusic();
     }
     @Override
     public void show() {

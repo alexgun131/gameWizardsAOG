@@ -90,12 +90,6 @@ public class CONSTANTS {
     public static final float DEAD_SCORE_LABEL_SCALE = 1.5f;
 
 
-
-    public static final Vector2 DEAD_MENU = new Vector2(DEAD_WORLD_SIZE / 5, DEAD_WORLD_SIZE / 2);
-    public static final Vector2 DEAD_PLAYGAME = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE / 2);
-    public static final Vector2 DEAD_SCORES = new Vector2(DEAD_WORLD_SIZE -  DEAD_WORLD_SIZE / 5, DEAD_WORLD_SIZE / 2);
-    public static final Vector2 DEAD_YOUR_SCORE = new Vector2(DEAD_WORLD_SIZE / 2, DEAD_WORLD_SIZE * 3 / 4);
-
     public static final Color MENU_COLOR = new Color(0.2f, 0.2f, 1, 1);
     public static final Color PLAYAGAIN_COLOR = new Color(0.5f, 0.5f, 1, 1);
     public static final Color SCORESD_COLOR = new Color(0.7f, 0.7f, 1, 1);
@@ -128,4 +122,11 @@ public class CONSTANTS {
 
     public static final String[] SELECT_LANGUAJE = {"ENGLISH", "ESPAÑOL", "中国", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
 
+
+    // Creditos
+
+    public static final String[] LEADER_PROGRAMMER = {"Leader Programmer", "Programador Líder", "领导者的程序员", "リーダープログラマー", "리더 프로그래머", "زعيم مبرمج"};
+    public static final String[] PROGRAMMERS = {"Programmers", "Programadores", "程序员", "プログラマ", "프로그래머", "المبرمجين"};
+    public static final String[] ART = {"Art and Graphic Design", "Arte y diseño grafico", "艺术与平面设计", "アートとグラフィックデザイン", "미술 및 그래픽 디자인", "الفن والتصميم الجرافيكي"};
+    public static final String[] MUSIC = {"Music and sounds", "Musica y sonidos", "音乐和声音", "音楽とサウンド", "음악과 소리", "الموسيقى والأصوات"};
 }
