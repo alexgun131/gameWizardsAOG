@@ -35,9 +35,7 @@ public class Enemy {
 
         int sprite = getAnimationSprite();
 
-        batch.begin();
         batch.draw(enemySprites[sprite], position.x-CONSTANTS.ENEMY_WIDTH/2, position.y-CONSTANTS.ENEMY_HEIGHT/2, CONSTANTS.ENEMY_WIDTH*2, CONSTANTS.ENEMY_WIDTH*2);
-        batch.end();
     }
 
     private int getAnimationSprite() {

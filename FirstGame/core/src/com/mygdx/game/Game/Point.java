@@ -67,11 +67,9 @@ public class Point {
         //renderer.circle(position.x, position.y + CONSTANTS.POINT_WIDTH, CONSTANTS.POINT_WIDTH);
 
         int sprite = getAnimationSprite();
-        batch.begin();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
         batch.draw(pointSprites[sprite], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
-        batch.end();
     }
 
     private int getAnimationSprite() {

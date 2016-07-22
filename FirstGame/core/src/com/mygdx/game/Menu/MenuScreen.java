@@ -127,14 +127,16 @@ public class MenuScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.MENU_BACKGROUND_COLOR.r, CONSTANTS.MENU_BACKGROUND_COLOR.g, CONSTANTS.MENU_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        drawBackground(delta); // draw river with animation
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        batch.begin();
+
+        drawBackground(delta, batch); // draw river with animation
 
         MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
         MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
         MENU_SCORES = new Vector2(viewport.getWorldWidth()*4 / 5, viewport.getWorldHeight() / 2);
-        batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        batch.begin();
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_OPTIONS.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_PLAYGAME.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
@@ -277,7 +279,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         }
     }
     /* Draw river with flow */
-    public void drawBackground(float delta) {
+    public void drawBackground(float delta, SpriteBatch batch) {
         float screenWidth = viewport.getWorldWidth();
         float screenHeight = viewport.getWorldHeight();
         float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
@@ -299,8 +301,6 @@ public class MenuScreen extends InputAdapter implements Screen {
             riverWaterHighlightTimer = 0.0f;
         }
 
-        batch.begin();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
         for (int i=0; i<=spritesNeeded; i++) {
             if ((-riverPosition + i*imageWidth) <= screenWidth) {
                 batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
@@ -312,7 +312,6 @@ public class MenuScreen extends InputAdapter implements Screen {
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
-        batch.end();
     }
 
 }

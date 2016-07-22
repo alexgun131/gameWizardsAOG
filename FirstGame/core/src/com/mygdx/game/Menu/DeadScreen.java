@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.CONSTANTS;
 import com.mygdx.game.FirstGame;
@@ -53,8 +54,15 @@ public class DeadScreen extends InputAdapter implements Screen {
     Vector2 DEAD_PLAYGAME;
     Vector2 DEAD_SCORES;
     ShaderProgram shader;
-    String fragmentShader;
-    String vertexShader;
+
+    float riverPosition;
+    float riverBankPosition;
+    float riverWaterHighlightTimer;
+    Texture RIVER_WATER;
+    TextureRegion[] RIVER_WATERS;
+    Texture RIVER_BANK_TOP;
+    Texture RIVER_BANK_BOTTOM;
+    float timeSinceDead;
 
     public DeadScreen(FirstGame game, int score, int eaten){
         this.game = game;
@@ -87,14 +95,27 @@ public class DeadScreen extends InputAdapter implements Screen {
             FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize*i, 0, buttonSize, buttonSize);
         }
 
+        // TEXTURES
+        // Background
+        int waterTextureSize = 512;
+        RIVER_WATER = new Texture("RiverWater.png");
+        RIVER_WATERS = new TextureRegion[2]; //There are two sprites in RiverWater
+        RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, waterTextureSize, waterTextureSize);
+        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize*2, waterTextureSize);
+        RIVER_BANK_TOP = new Texture("RiverBankTop.png");
+        RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
+
     }
     @Override
     public void show() {
 
         batch = new SpriteBatch();
 
+        shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
+
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
+
 
         fontScore = new BitmapFont();
         fontScore.getData().setScale(CONSTANTS.DEAD_SCORE_LABEL_SCALE);
@@ -112,7 +133,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
         musicDeath.play();
 
-
+        timeSinceDead = TimeUtils.nanoTime();
     }
 
     @Override
@@ -126,6 +147,13 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
+        float gray = 1+0.1f;
+        shader.begin();
+        shader.setUniformf("gray", gray);
+        shader.end();
+        batch.setShader(shader);
+
+        drawBackground(delta, batch); // draw river with animation
         float width = viewport.getWorldWidth();
         float height = viewport.getWorldHeight();
         DEAD_MENU = new Vector2(width / 5, height / 2);
@@ -210,6 +238,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        shader.dispose();
     }
 
     @Override
@@ -278,6 +307,42 @@ public class DeadScreen extends InputAdapter implements Screen {
             } catch (Exception e) {
                 languaje = 0;
 
+            }
+        }
+    }
+
+    /* Draw river with flow */
+    public void drawBackground(float delta, SpriteBatch batch) {
+        float screenWidth = viewport.getWorldWidth();
+        float screenHeight = viewport.getWorldHeight();
+        float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
+        int spritesNeeded = (int)(screenWidth/imageWidth) + 2;
+
+        riverPosition += delta*CONSTANTS.WATER_SPEED;
+        if (riverPosition > imageWidth) {
+            riverPosition = 0.0f;
+        }
+
+        riverBankPosition += delta*CONSTANTS.RIVER_BANK_SPEED;
+        if (riverBankPosition > imageWidth) {
+            riverBankPosition = 0.0f;
+        }
+
+        riverWaterHighlightTimer += delta;
+        int hightlightWater = (riverWaterHighlightTimer < CONSTANTS.WATER_HIGHLIGHT_SPEED) ? 0 : 1;
+        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) {
+            riverWaterHighlightTimer = 0.0f;
+        }
+
+        for (int i=0; i<=spritesNeeded; i++) {
+            if ((-riverPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
+            }
+        }
+        for (int i=0; i<=spritesNeeded; i++) {
+            if ((-riverBankPosition + i*imageWidth) <= screenWidth) {
+                batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, screenHeight - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
+                batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
     }

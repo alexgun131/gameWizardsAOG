@@ -192,12 +192,10 @@ public class Player{
         int sprite = getAnimationSprite();
         int jumpsprite = getJumpSprite();
 
-        batch.begin();
         batch.draw(playerSprites[jumpsprite], position.x-CONSTANTS.PLAYER_RAD*2, position.y-CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD*4, CONSTANTS.PLAYER_RAD*4);
         if (beatHighestScore!= 0){
             batch.draw(playerSprites[sprite+3*beatHighestScore], position.x-(int)(CONSTANTS.PLAYER_RAD*2.5), position.y-(int)(CONSTANTS.PLAYER_RAD*5/4), CONSTANTS.PLAYER_RAD*5, CONSTANTS.PLAYER_RAD*5);
         }
-        batch.end();
     }
 
     private int getAnimationSprite() {

@@ -140,7 +140,11 @@ public class GameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.BACKGROUND_COLOR.r, CONSTANTS.BACKGROUND_COLOR.g, CONSTANTS.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        drawBackground(delta); // draw river with animation
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        batch.begin();
+
+        drawBackground(delta, batch); // draw river with animation
 
         //renderer.setColor(CONSTANTS.SAND_COLOR);
         //renderer.rect(0,0,viewport.getWorldWidth(),CONSTANTS.FRAME_THIKNESS);
@@ -239,15 +243,11 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         //}
 
-
-
-        batch.begin();
-
         font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS);
 
-
         batch.end();
+
     }
 
     @Override
@@ -277,6 +277,8 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        font.dispose();
+        shader.dispose();
         write();
     }
 
@@ -357,7 +359,7 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /* Draw river with flow */
-    public void drawBackground(float delta) {
+    public void drawBackground(float delta, SpriteBatch batch) {
         float screenWidth = viewport.getWorldWidth();
         float screenHeight = viewport.getWorldHeight();
         float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
@@ -379,8 +381,6 @@ public class GameScreen extends InputAdapter implements Screen {
             riverWaterHighlightTimer = 0.0f;
         }
 
-        batch.begin();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
         for (int i=0; i<=spritesNeeded; i++) {
             if ((-riverPosition + i*imageWidth) <= screenWidth) {
                 batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
@@ -393,6 +393,5 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
         batch.draw(AUTO_AD, 0, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
-        batch.end();
     }
 }
