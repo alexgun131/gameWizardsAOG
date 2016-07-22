@@ -48,7 +48,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     }
     @Override
     public void show() {
-
+        renderer = new ShapeRenderer();
+        renderer.setAutoShapeType(true);
         batch = new SpriteBatch();
 
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);

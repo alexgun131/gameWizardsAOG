@@ -129,4 +129,39 @@ public class CONSTANTS {
     public static final String[] PROGRAMMERS = {"Programmers", "Programadores", "程序员", "プログラマ", "프로그래머", "المبرمجين"};
     public static final String[] ART = {"Art and Graphic Design", "Arte y diseño grafico", "艺术与平面设计", "アートとグラフィックデザイン", "미술 및 그래픽 디자인", "الفن والتصميم الجرافيكي"};
     public static final String[] MUSIC = {"Music and sounds", "Música y sonidos", "音乐和声音", "音楽とサウンド", "음악과 소리", "الموسيقى والأصوات"};
+
+
+    //greyScale
+
+    public static String vertexShader = "attribute vec4 a_position;\n" +
+            "attribute vec4 a_color;\n" +
+            "attribute vec2 a_texCoord0;\n" +
+            "\n" +
+            "uniform mat4 u_projTrans;\n" +
+            "\n" +
+            "varying vec4 v_color;\n" +
+            "varying vec2 v_texCoords;\n" +
+            "\n" +
+            "void main() {\n" +
+            "    v_color = a_color;\n" +
+            "    v_texCoords = a_texCoord0;\n" +
+            "    gl_Position = u_projTrans * a_position;\n" +
+            "}";
+
+    public static String fragmentShader = "#ifdef GL_ES\n" +
+            "    precision mediump float;\n" +
+            "#endif\n" +
+            "\n" +
+            "varying vec4 v_color;\n" +
+            "varying vec2 v_texCoords;\n" +
+            "uniform sampler2D u_texture;\n" +
+            "uniform float gray;\n" +
+            "\n" +
+
+            "void main() {\n" +
+            "  vec4 c = v_color * texture2D(u_texture, v_texCoords);\n" +
+            "  float grey = (c.r + c.g + c.b) / 3.0;\n" +
+            "  vec3 blendedColor = mix(c.rgb, vec3(grey), gray);\n" +
+            "  gl_FragColor = vec4(blendedColor.rgb, c.a);\n" +
+            "}";
 }

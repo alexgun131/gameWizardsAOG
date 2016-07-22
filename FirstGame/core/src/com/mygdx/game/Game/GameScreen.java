@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.CONSTANTS;
 import com.mygdx.game.FirstGame;
 
@@ -34,8 +34,8 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     ExtendViewport viewport;
-    ScreenViewport hudViewport;
     SpriteBatch batch;
+    ShaderProgram shader;
     int languaje;
     int[] topScore;
     int[] topEaten;
@@ -72,11 +72,12 @@ public class GameScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
         loadTextures();
-        hudViewport = new ScreenViewport();
 
         batch = new SpriteBatch();
+        shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
 
         font = new BitmapFont();
+        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*2);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new Player(viewport);
@@ -177,6 +178,14 @@ public class GameScreen extends InputAdapter implements Screen {
                 eatenPoints = 0;
                 isAlive = true;
              }
+            else
+            {
+                float gray = (float)Math.sin(TimeUtils.nanoTime()*1E-9 - timeSinceDead*1E-9)+0.1f;
+                shader.begin();
+                shader.setUniformf("gray", gray);
+                batch.setShader(shader);
+                shader.end();
+            }
         }
 
         if(player.getPoint(point)){
@@ -230,14 +239,12 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         //}
 
-        hudViewport.apply();
 
-        batch.setProjectionMatrix(hudViewport.getCamera().combined);
 
         batch.begin();
 
         font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
-                CONSTANTS.HUD_MARGIN, hudViewport.getWorldHeight() - 2*CONSTANTS.HUD_MARGIN);
+                CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS);
 
 
         batch.end();
@@ -246,8 +253,6 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
-        hudViewport.update(width, height, true);
-        font.getData().setScale(Math.min(width, height) / CONSTANTS.HUD_FONT_REFERENCE_SCREEN_SIZE);
         player.init();
         enemies.init();
         point.newPosition();
@@ -387,7 +392,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
-        batch.draw(AUTO_AD, screenWidth/10, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
+        batch.draw(AUTO_AD, 0, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
         batch.end();
     }
 }
