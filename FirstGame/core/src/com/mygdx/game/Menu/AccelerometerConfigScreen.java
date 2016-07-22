@@ -55,6 +55,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 LANGUAJES_JAP_TOUCH;
     Vector2 LANGUAJES_COR_TOUCH;
     Vector2 LANGUAJES_AR_TOUCH;
+    Texture AUTO_AD;
 
     float tamLan = 2.3f;
     Music music;
@@ -66,6 +67,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        AUTO_AD = new Texture("AutoAd_Words.png");
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
         batch = new SpriteBatch();
@@ -168,6 +170,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         batch.begin();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        batch.draw(AUTO_AD, LANGUAJES_CHI.x, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, width/2, AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth());
 
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
