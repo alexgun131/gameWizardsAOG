@@ -3,7 +3,6 @@ package com.mygdx.game.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
@@ -52,7 +51,7 @@ public class Enemies {
         if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/50+1)/3.0f))) {
             Vector2 newEnemyPosition = new Vector2(
                     viewport.getWorldWidth(),
-                    MathUtils.random(0.15f,0.85f) * viewport.getWorldHeight()
+                    MathUtils.random(0.15f*viewport.getWorldHeight(),viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT-CONSTANTS.ENEMY_HEIGHT)
             );
 
             Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + 0.3f*(float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);

@@ -77,7 +77,7 @@ public class GameScreen extends InputAdapter implements Screen {
         shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
 
         font = new BitmapFont();
-        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*2);
+        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*1.7f);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new Player(viewport);
@@ -187,8 +187,8 @@ public class GameScreen extends InputAdapter implements Screen {
                 float gray = (float)Math.sin(TimeUtils.nanoTime()*1E-9 - timeSinceDead*1E-9)+0.1f;
                 shader.begin();
                 shader.setUniformf("gray", gray);
-                batch.setShader(shader);
                 shader.end();
+                batch.setShader(shader);
             }
         }
 
