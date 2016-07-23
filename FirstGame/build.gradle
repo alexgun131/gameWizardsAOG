@@ -9,6 +9,7 @@ buildscript {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.1.0'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -18,7 +19,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "FirstGame"
+        appName = "Pond Skater"
         gdxVersion = '1.9.3'
         roboVMVersion = '2.1.0'
         box2DLightsVersion = '1.4'
@@ -49,6 +50,7 @@ project(":desktop") {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'com.google.gms.google-services'
 
     configurations { natives }
 

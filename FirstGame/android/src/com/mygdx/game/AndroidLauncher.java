@@ -29,7 +29,7 @@ public class AndroidLauncher extends AndroidApplication {
 		);
 
 		adView = new AdView(this);
-		adView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+		adView.setAdUnitId(getString(R.string.banner_ad_unit_id)); // ca-app-pub-9401292122550373/3606029643 esta mal, falta el 3 para que no nos baneen
 		adView.setAdSize(AdSize.BANNER);
 		adView.loadAd(new AdRequest.Builder().build());
 
