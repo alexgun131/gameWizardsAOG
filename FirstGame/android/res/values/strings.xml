@@ -5,6 +5,7 @@
 
     <!--Testing id-->
     <!--AdMob-->
+    <string name="banner_ad_unit_id">ca-app-pub-9401292122550373/360602964</string>
     <!--DFP-->
     <!--string name="banner_ad_unit_id">/6499/example/banner</string-->
 

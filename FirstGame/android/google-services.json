@@ -8,6 +8,7 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:606356392795:android:a29c971dfc44c526",
         "android_client_info": {
           "package_name": "com.mygdx.game"
         }
