@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -34,7 +33,6 @@ public class MenuScreen extends InputAdapter implements Screen {
     BitmapFont font;
 
     int select = -1;
-    Music music;
 
     Texture FlyButton;
     Texture WormButton;
@@ -60,7 +58,6 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     public MenuScreen(FirstGame game){
         this.game = game;
-        this.music = game.getMusic();
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
@@ -115,9 +112,9 @@ public class MenuScreen extends InputAdapter implements Screen {
         game.showAd(true);
 
         readConfig();
-        music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-        music.setLooping(true);                // will repeat playback until music.stop() is called
-        music.play();
+        game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+        game.music.setLooping(true);                // will repeat playback until music.stop() is called
+        game.music.play();
     }
 
     @Override

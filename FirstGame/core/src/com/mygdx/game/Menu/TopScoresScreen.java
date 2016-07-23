@@ -7,7 +7,6 @@ package com.mygdx.game.Menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,10 +40,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int[] topEaten;
     int[] topScore;
     int languaje = 0;
-    Music music;
     public TopScoresScreen(FirstGame game){
         this.game = game;
-        this.music = game.getMusic();
     }
     @Override
     public void show() {
@@ -61,9 +58,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         read();
-        music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-        music.setLooping(true);                // will repeat playback until music.stop() is called
-        music.play();
+        game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+        game.music.setLooping(true);                // will repeat playback until music.stop() is called
+        game.music.play();
     }
 
     @Override

@@ -62,7 +62,6 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     public AccelerometerConfigScreen(FirstGame game){
         this.game = game;
-        this.music = game.getMusic();
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Music;
 
 public class FirstGame extends Game {
 
-	Music music;
+	public static Music music;
 	@Override
 	public void create() {
 		music = Gdx.audio.newMusic(Gdx.files.internal("PondSkaterTheme.mid"));
@@ -34,8 +34,4 @@ public class FirstGame extends Game {
 	}
 
 	public void showAd(boolean visibility){}
-
-	public Music getMusic(){
-		return music;
-	}
 }

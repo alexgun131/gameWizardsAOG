@@ -26,11 +26,9 @@ import com.mygdx.game.FirstGame;
 public class GameScreen extends InputAdapter implements Screen {
 
     FirstGame game;
-    Music music;
     Music soundDeath;
     public GameScreen(FirstGame game){
         this.game = game;
-        this.music = game.getMusic();
     }
 
     ExtendViewport viewport;
@@ -105,8 +103,8 @@ public class GameScreen extends InputAdapter implements Screen {
         isSuperPoint = false;
 
         game.showAd(false);
-        music.setVolume(0.4f);
-        music.play();
+        game.music.setVolume(0.4f);
+        game.music.play();
 
     }
 
@@ -165,7 +163,8 @@ public class GameScreen extends InputAdapter implements Screen {
             soundDeath.setLooping(false);
             soundDeath.setVolume(0.6f);
             soundDeath.play();
-            music.stop();
+            game.music.pause();
+            game.music.setPosition(0);
         }
         if(!isAlive) {
             if((TimeUtils.nanoTime() - timeSinceDead)*1E-9 > CONSTANTS.TIME_SHOW_DEATH)
