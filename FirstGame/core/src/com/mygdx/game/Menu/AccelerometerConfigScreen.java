@@ -56,6 +56,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 LANGUAJES_COR_TOUCH;
     Vector2 LANGUAJES_AR_TOUCH;
     Texture AUTO_AD;
+    Texture Back_Button;
 
     float tamLan = 2.3f;
     Music music;
@@ -67,6 +68,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
         AUTO_AD = new Texture("AutoAd_Words.png");
+        Back_Button = new Texture("ArrowBackButton.png");
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
         batch = new SpriteBatch();
@@ -93,8 +95,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        renderer.setColor(CONSTANTS.MENU_COLOR);
-        renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        //renderer.setColor(CONSTANTS.MENU_COLOR);
+        //renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         float width = viewport.getWorldWidth();
         float height = viewport.getWorldHeight();
@@ -169,6 +171,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         batch.begin();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        batch.draw(Back_Button, CONSTANTS.BACK_TO_MENU.x-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS*1.15), CONSTANTS.SCORES_BUBBLE_RADIUS*2, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
         batch.draw(AUTO_AD, LANGUAJES_CHI.x, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, width/2, AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth());
 
