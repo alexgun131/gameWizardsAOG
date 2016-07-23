@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -29,12 +28,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
     FirstGame game;
 
-    ShapeRenderer renderer;
     SpriteBatch batch;
     ExtendViewport viewport;
 
     BitmapFont font;
     BitmapFont fontScore;
+    Texture Back_Button;
 
 
     int[] topEaten;
@@ -45,10 +44,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     }
     @Override
     public void show() {
-        renderer = new ShapeRenderer();
-        renderer.setAutoShapeType(true);
         batch = new SpriteBatch();
-
+        Back_Button = new Texture("ArrowBackButton.png");
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
@@ -70,19 +67,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        renderer.setColor(CONSTANTS.MENU_COLOR);
-        renderer.circle(CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
-
-        renderer.end();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
 
+        batch.draw(Back_Button, CONSTANTS.BACK_TO_MENU.x-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS*1.15), CONSTANTS.SCORES_BUBBLE_RADIUS*2, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.TOP_EATEN_LABEL[languaje], CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y + eatenLayout.height*2, 0, Align.center, false);
 
@@ -130,7 +120,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        renderer.dispose();
     }
 
     @Override

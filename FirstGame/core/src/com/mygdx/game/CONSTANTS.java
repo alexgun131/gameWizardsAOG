@@ -82,7 +82,7 @@ public class CONSTANTS {
 
     //DEAD CONSTANTS
 
-    public static final Color DEAD_BACKGROUND_COLOR = Color.FIREBRICK;
+    public static final Color DEAD_BACKGROUND_COLOR = Color.BLACK;
 
     public static final float DEAD_WORLD_SIZE = 480.0f;
     public static final float DEAD_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 9;
