@@ -39,12 +39,8 @@ public class Point {
     }
 
     public void newPosition(){
-        float posx = viewport.getWorldWidth() * MathUtils.random(0.1f, 0.6f);
-        float posy = viewport.getWorldHeight() * MathUtils.random(0.1f, 0.9f);
-        while ((posx > viewport.getWorldWidth()-CONSTANTS.ADD_BANNER_WIDTH - CONSTANTS.POINT_WIDTH) &&  (posy> viewport.getWorldHeight()-CONSTANTS.ADD_BANNER_HEIGHT - CONSTANTS.POINT_WIDTH)){
-            posx = viewport.getWorldWidth() * MathUtils.random(0.1f, 0.6f);
-            posy = viewport.getWorldHeight() * MathUtils.random(0.1f, 0.9f);
-        }
+        float posx = viewport.getWorldWidth() * MathUtils.random(0.2f, 0.6f);
+        float posy = viewport.getWorldHeight() * MathUtils.random(0.1f, 0.8f);
         position = new Vector2(posx, posy);
     }
 
