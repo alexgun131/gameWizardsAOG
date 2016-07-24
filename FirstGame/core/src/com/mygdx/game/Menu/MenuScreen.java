@@ -43,7 +43,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     float flyFps;
     float wormFps;
     float fishFps;
-    Vector2 MENU_OPTIONS ;
+    Vector2 MENU_OPTIONS;
     Vector2 MENU_PLAYGAME;
     Vector2 MENU_SCORES;
 
@@ -56,7 +56,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
 
-    public MenuScreen(FirstGame game){
+    public MenuScreen(FirstGame game) {
         this.game = game;
         loadTextures();
         flyFps = 0.0f;
@@ -64,7 +64,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         fishFps = 0.0f;
     }
 
-    private void loadTextures(){
+    private void loadTextures() {
         // TEXTURES
         // Background
         int buttonSize = 256;
@@ -75,14 +75,14 @@ public class MenuScreen extends InputAdapter implements Screen {
         WormButton = new Texture("WormButton.png");
         FishButton = new Texture("FishButton.png");
 
-        FlyButtonSprite = new TextureRegion[animationColumns*animationRows];
-        WormButtonSprite = new TextureRegion[animationColumns*animationRows];
-        FishButtonSprite = new TextureRegion[animationColumns*animationRows];
+        FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
+        WormButtonSprite = new TextureRegion[animationColumns * animationRows];
+        FishButtonSprite = new TextureRegion[animationColumns * animationRows];
 
         for (int i = 0; i < animationColumns; i++) {
-            FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize*i, 0, buttonSize, buttonSize);
-            WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize*i, 0, buttonSize, buttonSize);
-            FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize*i, 0, buttonSize, buttonSize);
+            FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize * i, 0, buttonSize, buttonSize);
+            WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize * i, 0, buttonSize, buttonSize);
+            FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize * i, 0, buttonSize, buttonSize);
         }
 
         // TEXTURES
@@ -91,7 +91,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         RIVER_WATER = new Texture("RiverWater.png");
         RIVER_WATERS = new TextureRegion[2]; //There are two sprites in RiverWater
         RIVER_WATERS[0] = new TextureRegion(RIVER_WATER, 0, 0, waterTextureSize, waterTextureSize);
-        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize*2, waterTextureSize);
+        RIVER_WATERS[1] = new TextureRegion(RIVER_WATER, waterTextureSize, 0, waterTextureSize * 2, waterTextureSize);
         RIVER_BANK_TOP = new Texture("RiverBankTop.png");
         RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
 
@@ -132,12 +132,12 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
         MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
-        MENU_SCORES = new Vector2(viewport.getWorldWidth()*4 / 5, viewport.getWorldHeight() / 2);
+        MENU_SCORES = new Vector2(viewport.getWorldWidth() * 4 / 5, viewport.getWorldHeight() / 2);
 
 
-        batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_OPTIONS.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
-        batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_PLAYGAME.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
-        batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x-CONSTANTS.MENU_BUBBLE_RADIUS*2, MENU_SCORES.y-CONSTANTS.MENU_BUBBLE_RADIUS*2, CONSTANTS.MENU_BUBBLE_RADIUS*4, CONSTANTS.MENU_BUBBLE_RADIUS*4);
+        batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
         final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
@@ -157,7 +157,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         flyFps += delta;
         flyFps %= 100;
         int sprite = 0;
-        if ((flyFps%0.3)>0.15){
+        if ((flyFps % 0.3) > 0.15) {
             sprite = 1;
         }
         return sprite;
@@ -167,7 +167,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         wormFps += delta;
         wormFps %= 100;
         int sprite = 0;
-        if ((wormFps%0.6)>0.3){
+        if ((wormFps % 0.6) > 0.3) {
             sprite = 1;
         }
         return sprite;
@@ -177,7 +177,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         fishFps += delta;
         wormFps %= 100;
         int sprite = 0;
-        if ((wormFps%0.5)>0.25){
+        if ((wormFps % 0.5) > 0.25) {
             sprite = 1;
         }
         return sprite;
@@ -211,36 +211,38 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
+        try {
+            Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
-        if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
-            game.showAccelerometerConfigScreen();
-        }
+            if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
+                game.showAccelerometerConfigScreen();
+            }
 
-        if (worldTouch.dst(MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
-            game.showGameScreen();
-        }
+            if (worldTouch.dst(MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
+                game.showGameScreen();
+            }
 
-        if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS*2) {
-           game.showTopScoreScreen();
+            if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
+                game.showTopScoreScreen();
+            }
+        } catch (Exception e) {
+
         }
 
         return true;
     }
 
     @Override
-    public boolean keyUp(int key){
-        if(key == Input.Keys.RIGHT){
-            select ++;
-            if(select == 3)
+    public boolean keyUp(int key) {
+        if (key == Input.Keys.RIGHT) {
+            select++;
+            if (select == 3)
                 select = 0;
-        }
-        else if(key == Input.Keys.LEFT){
+        } else if (key == Input.Keys.LEFT) {
             select--;
-            if(select == -1)
+            if (select == -1)
                 select = 2;
-        }
-        else if(key == Input.Keys.SPACE || key == Input.Keys.ENTER){
+        } else if (key == Input.Keys.SPACE || key == Input.Keys.ENTER) {
             switch (select) {
                 case 0:
                     game.showAccelerometerConfigScreen();
@@ -259,7 +261,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     public void readConfig() {
 
-        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
+        FileHandle languajeDataFile = Gdx.files.local(CONSTANTS.LANGUAJECONFIG_FILE_NAME);
         Json json = new Json();
 
 
@@ -275,36 +277,37 @@ public class MenuScreen extends InputAdapter implements Screen {
             }
         }
     }
+
     /* Draw river with flow */
     public void drawBackground(float delta, SpriteBatch batch) {
         float screenWidth = viewport.getWorldWidth();
         float screenHeight = viewport.getWorldHeight();
-        float imageWidth = (screenHeight/RIVER_WATER.getHeight())*RIVER_WATER.getWidth()/2;
-        int spritesNeeded = (int)(screenWidth/imageWidth) + 2;
+        float imageWidth = (screenHeight / RIVER_WATER.getHeight()) * RIVER_WATER.getWidth() / 2;
+        int spritesNeeded = (int) (screenWidth / imageWidth) + 2;
 
-        riverPosition += delta*CONSTANTS.WATER_SPEED;
+        riverPosition += delta * CONSTANTS.WATER_SPEED;
         if (riverPosition > imageWidth) {
             riverPosition = 0.0f;
         }
 
-        riverBankPosition += delta*CONSTANTS.RIVER_BANK_SPEED;
+        riverBankPosition += delta * CONSTANTS.RIVER_BANK_SPEED;
         if (riverBankPosition > imageWidth) {
             riverBankPosition = 0.0f;
         }
 
         riverWaterHighlightTimer += delta;
         int hightlightWater = (riverWaterHighlightTimer < CONSTANTS.WATER_HIGHLIGHT_SPEED) ? 0 : 1;
-        if (riverWaterHighlightTimer > 2*CONSTANTS.WATER_HIGHLIGHT_SPEED) {
+        if (riverWaterHighlightTimer > 2 * CONSTANTS.WATER_HIGHLIGHT_SPEED) {
             riverWaterHighlightTimer = 0.0f;
         }
 
-        for (int i=0; i<=spritesNeeded; i++) {
-            if ((-riverPosition + i*imageWidth) <= screenWidth) {
+        for (int i = 0; i <= spritesNeeded; i++) {
+            if ((-riverPosition + i * imageWidth) <= screenWidth) {
                 batch.draw(RIVER_WATERS[hightlightWater], -riverPosition + i * imageWidth, 0.0f, imageWidth * (1 + hightlightWater), screenHeight); //Weird thing to make region width correct
             }
         }
-        for (int i=0; i<=spritesNeeded; i++) {
-            if ((-riverBankPosition + i*imageWidth) <= screenWidth) {
+        for (int i = 0; i <= spritesNeeded; i++) {
+            if ((-riverBankPosition + i * imageWidth) <= screenWidth) {
                 batch.draw(RIVER_BANK_TOP, -riverBankPosition + i * imageWidth, screenHeight - CONSTANTS.FRAME_THIKNESS * 5, imageWidth, CONSTANTS.FRAME_THIKNESS * 5); //TODO: change magic number *5
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
