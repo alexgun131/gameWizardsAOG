@@ -175,7 +175,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         batch.draw(Back_Button, CONSTANTS.BACK_TO_MENU.x-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS*1.15), CONSTANTS.SCORES_BUBBLE_RADIUS*2, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
-        batch.draw(AUTO_AD, LANGUAJES_CHI.x, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, width/2, AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth());
+        float autoAdEndX = INVERTY.x - CONSTANTS.SCORES_BUBBLE_RADIUS -5; //TODO: hardcoded padding
+        float autoAdWidth = width/2.2f;
+
+        batch.draw(AUTO_AD, autoAdEndX-autoAdWidth, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, autoAdWidth, autoAdWidth*AUTO_AD.getHeight()/AUTO_AD.getWidth());
 
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
