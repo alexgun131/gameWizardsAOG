@@ -118,11 +118,13 @@ public class DeadScreen extends InputAdapter implements Screen {
         Gdx.input.setInputProcessor(this);
 
 
-        fontScore = new BitmapFont();
+        fontScore = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.DEAD_SCORE_LABEL_SCALE);
         fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
         font.getData().setScale(CONSTANTS.DEAD_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
@@ -238,6 +240,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        fontScore.dispose();
         font.dispose();
         shader.dispose();
     }

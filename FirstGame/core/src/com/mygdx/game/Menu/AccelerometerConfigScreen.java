@@ -74,7 +74,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
-        fontScore = new BitmapFont();
+        fontScore = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
         fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         ball = new BouncingBall(viewport);

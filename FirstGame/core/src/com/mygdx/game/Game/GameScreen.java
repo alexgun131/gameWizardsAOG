@@ -74,8 +74,9 @@ public class GameScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
         shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
 
-        font = new BitmapFont();
-        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*1.7f);
+        font = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
+        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*1.25f);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new Player(viewport);

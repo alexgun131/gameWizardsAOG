@@ -68,7 +68,7 @@ public class CONSTANTS {
 
     public static final float MENU_WORLD_SIZE = 480.0f;
     public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 9;
-    public static final float MENU_LABEL_SCALE = 1.5f;
+    public static final float MENU_LABEL_SCALE = 1.0f;
 
 
     public static final Color OPTIONS_COLOR = new Color(0.2f, 0.2f, 1, 1);
@@ -86,8 +86,8 @@ public class CONSTANTS {
 
     public static final float DEAD_WORLD_SIZE = 480.0f;
     public static final float DEAD_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 9;
-    public static final float DEAD_LABEL_SCALE = 1.5f;
-    public static final float DEAD_SCORE_LABEL_SCALE = 1.5f;
+    public static final float DEAD_LABEL_SCALE = 0.8f;
+    public static final float DEAD_SCORE_LABEL_SCALE = 1.0f;
 
 
     public static final Color MENU_COLOR = new Color(0.2f, 0.2f, 1, 1);
@@ -96,7 +96,7 @@ public class CONSTANTS {
 
     public static final String[] MENU_LABEL = {"Menu", "Menú", "菜单", "メニュー", "메뉴", "قائمة طعام"};
     public static final String[] PLAYAGAIN_LABEL = {"Play Again", "Volver a jugar", "再玩一次", "再びプレー", "다시 플레이",  "إلعب مرة أخرى"};
-    public static final String[] SCORESD_LABEL = {"Scores", "Marcador", "成绩", "スコア", "점수", "شرات"};
+    public static final String[] SCORESD_LABEL = {"Scores", "Marcador", "分数", "スコア", "점수", "شرات"};
     public static final String[] YOUR_SCORE_LABEL = {"Your score is: ", "Tu puntuación es: ",  "你的标点符号: ", "あなたの句読点は、: ", "당신의 문장 은: " , "علامات الترقيم الخاص بك هو"};
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金 ", "ボーナス ", "보너스 ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
@@ -107,7 +107,7 @@ public class CONSTANTS {
     public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
     public static final Vector2 EATEN_SCORES = new Vector2(DEAD_WORLD_SIZE *10/ 20, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
     public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20 - ADD_BANNER_HEIGHT);
-    public static final float SCORE_LABEL_SCALE = 1.0f;
+    public static final float SCORE_LABEL_SCALE = 0.5f;
 
     public static final String[] TOP_EATEN_LABEL = {"TOP BONUS", "MEJORES BONUS", "頂級獎金", "トップボーナス", "최고 보너스", "أعلى مكافأة"};
     public static final String[] TOP_SCORES_LABEL = {"TOP SCORES", "MEJORES PUNTUACIONES", "最佳射手", "得点王", "득점 왕", "الاعلى نقاطا"};
@@ -120,7 +120,7 @@ public class CONSTANTS {
     public static final String INVERTCONFIG_FILE_NAME = "INVERT_CONFIG";
     public static final String LANGUAJECONFIG_FILE_NAME = "LANGUAJE_CONFIG";
 
-    public static final String[] SELECT_LANGUAJE = {"ENGLISH", "ESPAÑOL", "中国", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
+    public static final String[] SELECT_LANGUAJE = {"ENGLISH", "ESPAÑOL", "中文", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
 
 
     // Creditos

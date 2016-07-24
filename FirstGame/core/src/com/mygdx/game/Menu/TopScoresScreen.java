@@ -49,7 +49,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
-        fontScore = new BitmapFont();
+        fontScore = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
         fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];

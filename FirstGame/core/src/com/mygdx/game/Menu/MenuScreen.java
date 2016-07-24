@@ -105,7 +105,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.MENU_WORLD_SIZE, CONSTANTS.MENU_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
         font.getData().setScale(CONSTANTS.MENU_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
