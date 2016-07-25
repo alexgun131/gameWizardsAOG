@@ -64,7 +64,6 @@ public class GameScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
     Music moskitoMusic;
-    Music jumpSound;
     Music eatLarvae;
     Music eatMoskito;
 
@@ -107,7 +106,7 @@ public class GameScreen extends InputAdapter implements Screen {
         isPoint = false;
         isSuperPoint = false;
 
-        moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mp3"));
+        moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
         moskitoMusic.setLooping(true);
         moskitoMusic.setVolume(0.2f);
 
@@ -169,8 +168,10 @@ public class GameScreen extends InputAdapter implements Screen {
         //0, CONSTANTS.FRAME_THIKNESS, viewport.getWorldHeight());
 
         player.render(batch, beatHighestScore);
-        point.render(batch);
         enemies.render(batch);
+        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
+                CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
+        point.render(batch);
         superPoint.render(batch);
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
@@ -180,7 +181,7 @@ public class GameScreen extends InputAdapter implements Screen {
             eatMoskito.dispose();
             player.jumpSound.dispose();
             timeSinceDead = TimeUtils.nanoTime();
-            soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound.mid"));
+            soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound2.mp3"));
             soundDeath.setLooping(false);
             soundDeath.setVolume(0.6f);
             soundDeath.play();
@@ -204,7 +205,13 @@ public class GameScreen extends InputAdapter implements Screen {
              }
             else
             {
-                float gray = (float)Math.sin(TimeUtils.nanoTime()*1E-9 - timeSinceDead*1E-9)+0.1f;
+                float timeElapsed = (float)(TimeUtils.nanoTime()*1E-9 - timeSinceDead*1E-9);
+                float gray = 0;
+                        if(timeElapsed < 1.1f) {
+                            gray = (float) (TimeUtils.nanoTime() * 1E-9 - timeSinceDead * 1E-9) + 0.1f;
+                        }else{
+                            gray = 1.1f;
+                        }
                 shader.begin();
                 shader.setUniformf("gray", gray);
                 shader.end();
@@ -270,8 +277,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         //}
 
-        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
-                CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS);
+
 
         batch.end();
 

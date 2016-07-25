@@ -45,7 +45,7 @@ public class CONSTANTS {
     public static final float TIME_SPAWN_POINTS = 2;
     public static final float TIME_SPAWN_SUPERPOINTS = 10;
     public static final int VALUE_SCORE_SPAWN_SUPERPOINTS = 5;
-    public static final float TIME_SHOW_DEATH = 1;
+    public static final float TIME_SHOW_DEATH = 3.2f;
 
     public static final float ADD_BANNER_HEIGHT = 50;
     public static final float ADD_BANNER_WIDTH = 320;
