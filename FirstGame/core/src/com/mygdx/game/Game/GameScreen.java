@@ -108,7 +108,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
         moskitoMusic.setLooping(true);
-        moskitoMusic.setVolume(0.2f);
+        moskitoMusic.setVolume(0.15f);
 
         eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
         eatLarvae.setLooping(false);
