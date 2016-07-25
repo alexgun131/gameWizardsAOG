@@ -63,6 +63,10 @@ public class GameScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
+    Music moskitoMusic;
+    Music jumpSound;
+    Music eatLarvae;
+    Music eatMoskito;
 
 
     @Override
@@ -102,6 +106,18 @@ public class GameScreen extends InputAdapter implements Screen {
         isAlive = true;
         isPoint = false;
         isSuperPoint = false;
+
+        moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mp3"));
+        moskitoMusic.setLooping(true);
+        moskitoMusic.setVolume(0.2f);
+
+        eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
+        eatLarvae.setLooping(false);
+        eatLarvae.setVolume(0.3f);
+
+        eatMoskito = Gdx.audio.newMusic(Gdx.files.internal("eatMoskito.mp3"));
+        eatMoskito.setLooping(false);
+        eatMoskito.setVolume(0.3f);
 
         game.showAd(false);
         game.music.setVolume(0.4f);
@@ -159,6 +175,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
+            moskitoMusic.dispose();
+            eatLarvae.dispose();
+            eatMoskito.dispose();
+            player.jumpSound.dispose();
             timeSinceDead = TimeUtils.nanoTime();
             soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound.mid"));
             soundDeath.setLooping(false);
@@ -193,6 +213,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(player.getPoint(point)){
+            //eatLarvae.stop(); //covering eat some larvaes in a short time
+            eatLarvae.setPosition(0);
+            eatLarvae.play();
             point.disappear();
             timePointElapsed = TimeUtils.nanoTime();
             isPoint = false;
@@ -202,7 +225,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(player.getSuperPoint(superPoint)){
+            eatMoskito.play();
             superPoint.disappear();
+            moskitoMusic.stop();
             timeSuperPointElapsed = TimeUtils.nanoTime();
             isSuperPoint = false;
             eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS;
@@ -212,6 +237,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
+            moskitoMusic.stop();
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
         if(!isPoint){
@@ -223,6 +249,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(!isSuperPoint){
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
+                moskitoMusic.play();
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
@@ -279,6 +306,10 @@ public class GameScreen extends InputAdapter implements Screen {
         batch.dispose();
         font.dispose();
         shader.dispose();
+        moskitoMusic.dispose();
+        eatLarvae.dispose();
+        eatMoskito.dispose();
+        player.jumpSound.dispose();
         write();
     }
 

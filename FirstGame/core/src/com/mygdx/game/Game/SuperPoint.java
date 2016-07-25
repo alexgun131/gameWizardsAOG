@@ -24,6 +24,7 @@ public class SuperPoint {
     static TextureRegion[] pointSprites;
     float animationFps;
 
+
     private void loadTextures() {
         int pointImgSize = 128;
         int animationColumns = 2;
@@ -52,12 +53,14 @@ public class SuperPoint {
         amplitude = MathUtils.random(0.8f,1.3f)*CONSTANTS.SUPERPOINT_AMP_SIN;
         freq = MathUtils.random(0.8f,1.2f)*CONSTANTS.SUPERPOINT_W_SIN;
 
+
     }
 
     public void disappear(){
         float posx = -CONSTANTS.WORLD_SIZE;
         float posy = -CONSTANTS.WORLD_SIZE;
         position = new Vector2(posx, posy);
+
     }
 
     boolean ensureInBounds(){

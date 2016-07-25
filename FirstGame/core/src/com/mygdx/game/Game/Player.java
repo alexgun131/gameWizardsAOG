@@ -2,6 +2,7 @@ package com.mygdx.game.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,6 +33,8 @@ public class Player {
     boolean invertXY = false;
     boolean invertX = false;
     boolean invertY = false;
+    Music jumpSound;
+
 
 
     public Player(Viewport viewport) {
@@ -40,7 +43,9 @@ public class Player {
         animationFps = 0.0f;
         playerJumpFPS = 0.0f;
         loadTextures();
-
+        jumpSound = Gdx.audio.newMusic(Gdx.files.internal("Jump.mp3"));
+        jumpSound.setLooping(false);
+        jumpSound.setVolume(0.3f);
     }
 
     private void loadTextures() {
@@ -92,6 +97,9 @@ public class Player {
 
         if ((Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.SPACE)) && (onTouch == false)) {
             onTouch = true;
+            //jumpSound.stop();//covering jump some times in a short time
+            jumpSound.setPosition(0);
+            jumpSound.play();
             if (!invertY)
                 velocity.y = CONSTANTS.JUMP_VELOCITY;
             else
