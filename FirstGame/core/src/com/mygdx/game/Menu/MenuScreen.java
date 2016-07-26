@@ -55,6 +55,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     TextureRegion[] RIVER_WATERS;
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
+    Texture AUTO_AD;
 
     boolean musicON = true;
 
@@ -97,6 +98,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         RIVER_BANK_TOP = new Texture("RiverBankTop.png");
         RIVER_BANK_BOTTOM = new Texture("RiverBank.png");
 
+        AUTO_AD = new Texture("AutoAd_Menu.png");
+
     }
 
     @Override
@@ -138,6 +141,11 @@ public class MenuScreen extends InputAdapter implements Screen {
         MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2.5f);
         MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2.5f);
         MENU_SCORES = new Vector2(viewport.getWorldWidth() * 4 / 5, viewport.getWorldHeight() / 2.5f);
+
+        float MENU_AUTO_AD_Y = viewport.getWorldHeight() / 1.7f;
+
+
+        batch.draw(AUTO_AD, MENU_PLAYGAME.x-CONSTANTS.MENU_AUTO_AD_WIDTH/2, MENU_AUTO_AD_Y, CONSTANTS.MENU_AUTO_AD_WIDTH, AUTO_AD.getHeight()*CONSTANTS.MENU_AUTO_AD_WIDTH/AUTO_AD.getWidth());
 
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);

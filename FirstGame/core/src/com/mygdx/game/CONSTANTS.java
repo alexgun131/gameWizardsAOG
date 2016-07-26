@@ -70,6 +70,8 @@ public class CONSTANTS {
     public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 9;
     public static final float MENU_LABEL_SCALE = 1.0f;
 
+    public static final float MENU_AUTO_AD_WIDTH = MENU_WORLD_SIZE*1.1f;
+
 
     public static final Color OPTIONS_COLOR = new Color(0.2f, 0.2f, 1, 1);
     public static final Color PLAY_COLOR = new Color(0.5f, 0.5f, 1, 1);
