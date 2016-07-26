@@ -234,7 +234,7 @@ public class GameScreen extends InputAdapter implements Screen {
         if(player.getPoint(point)){
             //eatLarvae.stop(); //covering eat some larvaes in a short time
             if(soundsON) {
-                eatLarvae.setPosition(0);
+                eatLarvae.setPosition(0.1f); // si no parece que vaya retrasado
                 eatLarvae.play();
             }
             point.disappear();
