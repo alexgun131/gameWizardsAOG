@@ -47,7 +47,7 @@ public class Player {
         if(soundsON) {
             jumpSound = Gdx.audio.newMusic(Gdx.files.internal("Jump.mp3"));
             jumpSound.setLooping(false);
-            jumpSound.setVolume(0.3f);
+            jumpSound.setVolume(0.16f);
         }
     }
 
