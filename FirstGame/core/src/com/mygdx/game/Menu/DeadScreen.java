@@ -65,8 +65,8 @@ public class DeadScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_BOTTOM;
     float timeSinceDead;
 
-    boolean musicON;
-    boolean soundsON;
+    boolean musicON = true;
+    boolean soundsON = true;
 
     public DeadScreen(FirstGame game, int score, int eaten, Music soundDeath) {
         this.game = game;

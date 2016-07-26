@@ -67,8 +67,8 @@ public class GameScreen extends InputAdapter implements Screen {
     Music eatLarvae;
     Music eatMoskito;
 
-    boolean musicON;
-    boolean soundsON;
+    boolean musicON = true;
+    boolean soundsON = true;
 
 
     @Override
