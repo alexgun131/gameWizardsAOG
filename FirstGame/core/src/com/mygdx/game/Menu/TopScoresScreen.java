@@ -39,6 +39,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int[] topEaten;
     int[] topScore;
     int languaje = 0;
+
+    boolean musicON = true;
     public TopScoresScreen(FirstGame game){
         this.game = game;
     }
@@ -56,9 +58,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         read();
-        game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-        game.music.setLooping(true);                // will repeat playback until music.stop() is called
-        game.music.play();
+        if(musicON) {
+            game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+            game.music.setLooping(true);                // will repeat playback until music.stop() is called
+            game.music.play();
+        }
     }
 
     @Override
@@ -136,10 +140,22 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
     public void read() {
 
+        FileHandle configDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
         FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 
+        if (configDataFile.exists()) {
+            try {
+                String topAsCode = configDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                boolean[] config = json.fromJson(boolean[].class, topAsText);
+                musicON = config[3];
+
+            } catch (Exception e) {
+                musicON = true;
+            }
+        }
         if (topDataFile.exists()) {
             try {
                 String topAsCode = topDataFile.readString();

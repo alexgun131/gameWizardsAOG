@@ -40,7 +40,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     int select = -1;
     int languaje = 0;
     Music musicDeath;
-    Music musicDeathTom;
+    Music soundDeath;
     Texture FlyButton;
     Texture WormButton;
     Texture FishButton;
@@ -50,6 +50,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     float flyFps;
     float wormFps;
     float fishFps;
+    Vector2 DEAD_SHOW_SCORE;
     Vector2 DEAD_MENU;
     Vector2 DEAD_PLAYGAME;
     Vector2 DEAD_SCORES;
@@ -64,10 +65,14 @@ public class DeadScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_BOTTOM;
     float timeSinceDead;
 
-    public DeadScreen(FirstGame game, int score, int eaten) {
+    boolean musicON;
+    boolean soundsON;
+
+    public DeadScreen(FirstGame game, int score, int eaten, Music soundDeath) {
         this.game = game;
         this.score = score;
         this.eaten = eaten;
+        this.soundDeath = soundDeath;
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
@@ -130,17 +135,31 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         game.showAd(true);
         readConfig();
-        musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Deaththeme2.mid"));
-        musicDeathTom = Gdx.audio.newMusic(Gdx.files.internal("Tom.mid"));
-        musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
-        musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
-        musicDeath.play();
+        if (musicON)
+            musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_theme_2.mid"));
+
 
         timeSinceDead = TimeUtils.nanoTime();
     }
 
     @Override
     public void render(float delta) {
+        if (soundsON) {
+            if (!soundDeath.isPlaying()) {
+                soundDeath.dispose();
+                if (musicON) {
+                    musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
+                    musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
+                    musicDeath.play();
+                }
+            }
+        } else {
+            if (musicON) {
+                musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
+                musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
+                musicDeath.play();
+            }
+        }
 
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
@@ -159,15 +178,16 @@ public class DeadScreen extends InputAdapter implements Screen {
         drawBackground(delta, batch); // draw river with animation
         float width = viewport.getWorldWidth();
         float height = viewport.getWorldHeight();
-        DEAD_MENU = new Vector2(width / 5, height / 2);
-        DEAD_PLAYGAME = new Vector2(width / 2, height / 2);
-        DEAD_SCORES = new Vector2(width * 4 / 5, height / 2);
+        DEAD_SHOW_SCORE = new Vector2(width / 2, height / 2 + CONSTANTS.MENU_BUBBLE_RADIUS * 5 / 2);
+        DEAD_MENU = new Vector2(width / 5, height / 2.5f);
+        DEAD_PLAYGAME = new Vector2(width / 2, height / 2.5f);
+        DEAD_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score));
-        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score), width / 2, DEAD_PLAYGAME.y + CONSTANTS.MENU_BUBBLE_RADIUS * 5 / 2 + scoreLayout.height, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten));
-        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten), width / 2, DEAD_PLAYGAME.y + CONSTANTS.MENU_BUBBLE_RADIUS * 5 / 2 - eatenLayout.height, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y - eatenLayout.height, 0, Align.center, false);
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], DEAD_MENU.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_MENU.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], DEAD_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
@@ -252,17 +272,20 @@ public class DeadScreen extends InputAdapter implements Screen {
 
             if (worldTouch.dst(DEAD_MENU) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showMenuScreen();
-                musicDeath.dispose();
+                if (musicON)
+                    musicDeath.dispose();
             }
 
             if (worldTouch.dst(DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showGameScreen();
-                musicDeath.dispose();
+                if (musicON)
+                    musicDeath.dispose();
             }
 
             if (worldTouch.dst(DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
-                musicDeath.dispose();
+                if (musicON)
+                    musicDeath.dispose();
             }
         } catch (Exception e) {
 
@@ -298,9 +321,23 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     public void readConfig() {
 
+        FileHandle topDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         FileHandle languajeDataFile = Gdx.files.local(CONSTANTS.LANGUAJECONFIG_FILE_NAME);
         Json json = new Json();
 
+        if (topDataFile.exists()) {
+            try {
+                String topAsCode = topDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                boolean[] config = json.fromJson(boolean[].class, topAsText);
+                musicON = config[3];
+                soundsON = config[4];
+
+            } catch (Exception e) {
+                musicON = true;
+                soundsON = true;
+            }
+        }
 
         if (languajeDataFile.exists()) {
             try {

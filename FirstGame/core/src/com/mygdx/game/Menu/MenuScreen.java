@@ -56,6 +56,8 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
 
+    boolean musicON = true;
+
     public MenuScreen(FirstGame game) {
         this.game = game;
         loadTextures();
@@ -113,9 +115,11 @@ public class MenuScreen extends InputAdapter implements Screen {
         game.showAd(true);
 
         readConfig();
-        game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-        game.music.setLooping(true);                // will repeat playback until music.stop() is called
-        game.music.play();
+        if(musicON) {
+            game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+            game.music.setLooping(true);                // will repeat playback until music.stop() is called
+            game.music.play();
+        }
     }
 
     @Override
@@ -131,9 +135,9 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         drawBackground(delta, batch); // draw river with animation
 
-        MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2);
-        MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2);
-        MENU_SCORES = new Vector2(viewport.getWorldWidth() * 4 / 5, viewport.getWorldHeight() / 2);
+        MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2.5f);
+        MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2.5f);
+        MENU_SCORES = new Vector2(viewport.getWorldWidth() * 4 / 5, viewport.getWorldHeight() / 2.5f);
 
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
@@ -262,9 +266,21 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     public void readConfig() {
 
-        FileHandle languajeDataFile = Gdx.files.local(CONSTANTS.LANGUAJECONFIG_FILE_NAME);
+        FileHandle topDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
+        FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 
+        if (topDataFile.exists()) {
+            try {
+                String topAsCode = topDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                boolean[] config = json.fromJson(boolean[].class, topAsText);
+                musicON = config[3];
+
+            } catch (Exception e) {
+                musicON = true;
+            }
+        }
 
         if (languajeDataFile.exists()) {
             try {

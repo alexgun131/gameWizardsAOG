@@ -17,8 +17,8 @@ public class FirstGame extends Game {
 		setScreen(new com.mygdx.game.Menu.MenuScreen(this));
 	}
 
-	public void showDeadScreen(int score, int eaten){
-		setScreen(new com.mygdx.game.Menu.DeadScreen(this, score, eaten));
+	public void showDeadScreen(int score, int eaten, Music soundDeath){
+		setScreen(new com.mygdx.game.Menu.DeadScreen(this, score, eaten, soundDeath));
 	}
 
 	public void showAccelerometerConfigScreen(){

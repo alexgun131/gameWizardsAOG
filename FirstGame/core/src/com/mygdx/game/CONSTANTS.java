@@ -45,7 +45,7 @@ public class CONSTANTS {
     public static final float TIME_SPAWN_POINTS = 2;
     public static final float TIME_SPAWN_SUPERPOINTS = 10;
     public static final int VALUE_SCORE_SPAWN_SUPERPOINTS = 5;
-    public static final float TIME_SHOW_DEATH = 3.2f;
+    public static final float TIME_SHOW_DEATH = 1.2f;
 
     public static final float ADD_BANNER_HEIGHT = 50;
     public static final float ADD_BANNER_WIDTH = 320;
@@ -96,14 +96,15 @@ public class CONSTANTS {
 
     public static final String[] MENU_LABEL = {"Menu", "Menú", "菜单", "メニュー", "메뉴", "قائمة طعام"};
     public static final String[] PLAYAGAIN_LABEL = {"Play Again", "Volver a jugar", "再玩一次", "再びプレー", "다시 플레이",  "إلعب مرة أخرى"};
-    public static final String[] SCORESD_LABEL = {"Scores", "Marcador", "分数", "スコア", "점수", "شرات"};
     public static final String[] YOUR_SCORE_LABEL = {"Your score is: ", "Tu puntuación es: ",  "你的标点符号: ", "あなたの句読点は、: ", "당신의 문장 은: " , "علامات الترقيم الخاص بك هو"};
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金: ", "ボーナス: ", "보너스: ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
+    public static final String[] MUSIC_LABEL  = {"Music", "Música", "音乐", "音楽", "음악", "موسيقى"};
+    public static final String[] SOUNDS_LABEL   = {"Sound", "Sonidos", "声音", "音", "소리", "الأصوات"};
 
 
     //SCORES CONSTANTS
-    public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15;
+    public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15 * 1.5f;
     public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
     public static final Vector2 EATEN_SCORES = new Vector2(DEAD_WORLD_SIZE *10/ 20, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
     public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20 - ADD_BANNER_HEIGHT);

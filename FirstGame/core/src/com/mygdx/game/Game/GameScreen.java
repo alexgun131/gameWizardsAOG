@@ -67,6 +67,9 @@ public class GameScreen extends InputAdapter implements Screen {
     Music eatLarvae;
     Music eatMoskito;
 
+    boolean musicON;
+    boolean soundsON;
+
 
     @Override
     public void show() {
@@ -106,21 +109,25 @@ public class GameScreen extends InputAdapter implements Screen {
         isPoint = false;
         isSuperPoint = false;
 
-        moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
-        moskitoMusic.setLooping(true);
-        moskitoMusic.setVolume(0.15f);
+        if(soundsON) {
+            moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
+            moskitoMusic.setLooping(true);
+            moskitoMusic.setVolume(0.15f);
 
-        eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
-        eatLarvae.setLooping(false);
-        eatLarvae.setVolume(0.3f);
+            eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
+            eatLarvae.setLooping(false);
+            eatLarvae.setVolume(0.3f);
 
-        eatMoskito = Gdx.audio.newMusic(Gdx.files.internal("eatMoskito.mp3"));
-        eatMoskito.setLooping(false);
-        eatMoskito.setVolume(0.3f);
+            eatMoskito = Gdx.audio.newMusic(Gdx.files.internal("eatMoskito.mp3"));
+            eatMoskito.setLooping(false);
+            eatMoskito.setVolume(0.3f);
+        }
 
-        game.showAd(false);
-        game.music.setVolume(0.4f);
-        game.music.play();
+        if(musicON) {
+            game.showAd(false);
+            game.music.setVolume(0.4f);
+            game.music.play();
+        }
 
     }
 
@@ -176,25 +183,30 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
-            moskitoMusic.dispose();
-            eatLarvae.dispose();
-            eatMoskito.dispose();
-            player.jumpSound.dispose();
+            if(soundsON) {
+                moskitoMusic.dispose();
+                eatLarvae.dispose();
+                eatMoskito.dispose();
+                player.jumpSound.dispose();
+            }
             timeSinceDead = TimeUtils.nanoTime();
-            soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Deathsound2.mp3"));
-            soundDeath.setLooping(false);
-            soundDeath.setVolume(0.6f);
-            soundDeath.play();
-            game.music.pause();
-            game.music.setPosition(0);
+            if(soundsON) {
+                soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
+                soundDeath.setLooping(false);
+                soundDeath.setVolume(0.6f);
+                soundDeath.play();
+            }
+            if(musicON) {
+                game.music.pause();
+                game.music.setPosition(0);
+            }
         }
         if(!isAlive) {
             if((TimeUtils.nanoTime() - timeSinceDead)*1E-9 > CONSTANTS.TIME_SHOW_DEATH)
             {
                 enemies.init();
                 player.init();
-                soundDeath.dispose();
-                game.showDeadScreen(currentScore, eatenPoints);
+                game.showDeadScreen(currentScore, eatenPoints, soundDeath);
                 write();
                 currentScore = 0;
                 currentTopScore = 0;
@@ -221,8 +233,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(player.getPoint(point)){
             //eatLarvae.stop(); //covering eat some larvaes in a short time
-            eatLarvae.setPosition(0);
-            eatLarvae.play();
+            if(soundsON) {
+                eatLarvae.setPosition(0);
+                eatLarvae.play();
+            }
             point.disappear();
             timePointElapsed = TimeUtils.nanoTime();
             isPoint = false;
@@ -232,9 +246,11 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(player.getSuperPoint(superPoint)){
-            eatMoskito.play();
+            if(soundsON){
+                eatMoskito.play();
+                moskitoMusic.stop();
+            }
             superPoint.disappear();
-            moskitoMusic.stop();
             timeSuperPointElapsed = TimeUtils.nanoTime();
             isSuperPoint = false;
             eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS;
@@ -244,7 +260,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
-            moskitoMusic.stop();
+            if(soundsON)
+                moskitoMusic.stop();
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
         if(!isPoint){
@@ -256,7 +273,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(!isSuperPoint){
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
-                moskitoMusic.play();
+                if(soundsON)
+                    moskitoMusic.play();
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
@@ -312,10 +330,12 @@ public class GameScreen extends InputAdapter implements Screen {
         batch.dispose();
         font.dispose();
         shader.dispose();
-        moskitoMusic.dispose();
-        eatLarvae.dispose();
-        eatMoskito.dispose();
-        player.jumpSound.dispose();
+        if(soundsON) {
+            moskitoMusic.dispose();
+            eatLarvae.dispose();
+            eatMoskito.dispose();
+            player.jumpSound.dispose();
+        }
         write();
     }
 
@@ -361,8 +381,22 @@ public class GameScreen extends InputAdapter implements Screen {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
         FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
+        FileHandle configDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         Json json = new Json();
 
+        if (configDataFile.exists()) {
+            try {
+                String topAsCode = configDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                boolean[] config = json.fromJson(boolean[].class, topAsText);
+                musicON = config[3];
+                soundsON = config[4];
+
+            } catch (Exception e) {
+                musicON = true;
+                soundsON = true;
+            }
+        }
         if (topDataFile.exists()) {
             try {
                 String topAsCode = topDataFile.readString();

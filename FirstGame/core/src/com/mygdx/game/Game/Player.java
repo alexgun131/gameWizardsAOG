@@ -33,6 +33,7 @@ public class Player {
     boolean invertXY = false;
     boolean invertX = false;
     boolean invertY = false;
+    boolean soundsON = true;
     Music jumpSound;
 
 
@@ -43,9 +44,11 @@ public class Player {
         animationFps = 0.0f;
         playerJumpFPS = 0.0f;
         loadTextures();
-        jumpSound = Gdx.audio.newMusic(Gdx.files.internal("Jump.mp3"));
-        jumpSound.setLooping(false);
-        jumpSound.setVolume(0.3f);
+        if(soundsON) {
+            jumpSound = Gdx.audio.newMusic(Gdx.files.internal("Jump.mp3"));
+            jumpSound.setLooping(false);
+            jumpSound.setVolume(0.3f);
+        }
     }
 
     private void loadTextures() {
@@ -98,8 +101,10 @@ public class Player {
         if ((Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.SPACE)) && (onTouch == false)) {
             onTouch = true;
             //jumpSound.stop();//covering jump some times in a short time
-            jumpSound.setPosition(0);
-            jumpSound.play();
+            if(soundsON) {
+                jumpSound.setPosition(0);
+                jumpSound.play();
+            }
             if (!invertY)
                 velocity.y = CONSTANTS.JUMP_VELOCITY;
             else
@@ -256,11 +261,13 @@ public class Player {
                 invertXY = config[0];
                 invertX = config[1];
                 invertY = config[2];
+                soundsON = config[4];
 
             } catch (Exception e) {
                 invertXY = false;
                 invertX = false;
                 invertY = false;
+                soundsON = true;
 
             }
         }

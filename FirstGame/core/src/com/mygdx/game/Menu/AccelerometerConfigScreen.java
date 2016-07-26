@@ -36,8 +36,12 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     boolean invertXY = false;
     boolean invertX = false;
     boolean invertY = false;
+    boolean musicON = true;
+    boolean soundsON = true;
     int languaje = 0;
 
+    Vector2 MUSICON;
+    Vector2 SOUNDON;
     Vector2 INVERTXY;
     Vector2 INVERTX;
     Vector2 INVERTY;
@@ -101,9 +105,12 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         float width = viewport.getWorldWidth();
         float height = viewport.getWorldHeight();
-        INVERTXY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
-        INVERTX = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
-        INVERTY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+
+        MUSICON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        SOUNDON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTXY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTX = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        INVERTY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         LANGUAJES = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, viewport.getWorldHeight() * 1/20 - CONSTANTS.ADD_BANNER_HEIGHT);
         LANGUAJES_ENG = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20 );
         LANGUAJES_ESP = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*2/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
@@ -114,6 +121,16 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         ball.render(renderer);
 
+        if(!musicON)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(Color.GREEN);
+        renderer.circle(MUSICON.x, MUSICON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if(!soundsON)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(Color.GREEN);
+        renderer.circle(SOUNDON.x, SOUNDON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
          if(!invertXY)
             renderer.setColor(Color.RED);
         else
@@ -179,6 +196,12 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         float autoAdWidth = width/2.2f;
 
         batch.draw(AUTO_AD, autoAdEndX-autoAdWidth, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, autoAdWidth, autoAdWidth*AUTO_AD.getHeight()/AUTO_AD.getWidth());
+
+        final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[languaje], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);
+
+        final GlyphLayout soundLayout = new GlyphLayout(fontScore, CONSTANTS.SOUNDS_LABEL[languaje]);
+        fontScore.draw(batch, CONSTANTS.SOUNDS_LABEL[languaje], SOUNDON.x, SOUNDON.y + soundLayout.height / 2, 0, Align.center, false);
 
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
@@ -254,7 +277,21 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         if (worldTouch.dst(CONSTANTS.BACK_TO_MENU) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.showMenuScreen();
         }
-
+        if (worldTouch.dst(MUSICON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            musicON = !musicON;
+            if(musicON){
+                game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
+                game.music.setLooping(true);                // will repeat playback until music.stop() is called
+                game.music.play();
+            }else{
+                game.music.stop();
+            }
+            writeConfig();
+        }
+        if (worldTouch.dst(SOUNDON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            soundsON = !soundsON;
+            writeConfig();
+        }
         if (worldTouch.dst(INVERTXY) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             invertXY = !invertXY;
             writeConfig();
@@ -299,10 +336,12 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         Json json = new Json();
         FileHandle topDataFile = Gdx.files.local( CONSTANTS.INVERTCONFIG_FILE_NAME );
         FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
-        boolean[] config = new boolean[3];
+        boolean[] config = new boolean[5];
         config[0] = invertXY;
         config[1] = invertX;
         config[2] = invertY;
+        config[3] = musicON;
+        config[4] = soundsON;
         String topAsText = json.toJson( config );
         String topAsCode = Base64Coder.encodeString( topAsText );
         topDataFile.writeString( topAsCode, false );
@@ -326,12 +365,15 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
                 invertXY = config[0];
                 invertX = config[1];
                 invertY = config[2];
+                musicON = config[3];
+                soundsON = config[4];
 
             } catch (Exception e) {
                 invertXY = false;
                 invertX = false;
                 invertY = false;
-
+                musicON = true;
+                soundsON = true;
             }
         }
 
