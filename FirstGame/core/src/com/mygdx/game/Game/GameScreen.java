@@ -190,7 +190,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 player.jumpSound.dispose();
             }
             timeSinceDead = TimeUtils.nanoTime();
-            if(soundsON) {
+            if(musicON) {
                 soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
                 soundDeath.setLooping(false);
                 soundDeath.setVolume(0.6f);

@@ -66,7 +66,6 @@ public class DeadScreen extends InputAdapter implements Screen {
     float timeSinceDead;
 
     boolean musicON = true;
-    boolean soundsON = true;
 
     public DeadScreen(FirstGame game, int score, int eaten, Music soundDeath) {
         this.game = game;
@@ -144,22 +143,15 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        if (soundsON) {
+        if (musicON) {
             if (!soundDeath.isPlaying()) {
                 soundDeath.dispose();
-                if (musicON) {
                     musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
                     musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
                     musicDeath.play();
-                }
-            }
-        } else {
-            if (musicON) {
-                musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
-                musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
-                musicDeath.play();
             }
         }
+
 
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
@@ -331,11 +323,9 @@ public class DeadScreen extends InputAdapter implements Screen {
                 String topAsText = Base64Coder.decodeString(topAsCode);
                 boolean[] config = json.fromJson(boolean[].class, topAsText);
                 musicON = config[3];
-                soundsON = config[4];
 
             } catch (Exception e) {
                 musicON = true;
-                soundsON = true;
             }
         }
 
