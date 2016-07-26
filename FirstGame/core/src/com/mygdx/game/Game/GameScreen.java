@@ -116,11 +116,11 @@ public class GameScreen extends InputAdapter implements Screen {
 
             eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
             eatLarvae.setLooping(false);
-            eatLarvae.setVolume(0.3f);
+            eatLarvae.setVolume(0.18f);
 
             eatMoskito = Gdx.audio.newMusic(Gdx.files.internal("eatMoskito.mp3"));
             eatMoskito.setLooping(false);
-            eatMoskito.setVolume(0.3f);
+            eatMoskito.setVolume(0.18f);
         }
 
         if(musicON) {
@@ -248,7 +248,8 @@ public class GameScreen extends InputAdapter implements Screen {
         if(player.getSuperPoint(superPoint)){
             if(soundsON){
                 eatMoskito.play();
-                moskitoMusic.stop();
+                moskitoMusic.setLooping(false);
+                moskitoMusic.pause();
             }
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
@@ -260,8 +261,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
-            if(soundsON)
-                moskitoMusic.stop();
+            if(soundsON) {
+                moskitoMusic.setLooping(false);
+                moskitoMusic.pause();
+            }
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
         if(!isPoint){
@@ -273,8 +276,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(!isSuperPoint){
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
-                if(soundsON)
+                if(soundsON) {
+                    moskitoMusic.setLooping(true);
                     moskitoMusic.play();
+                }
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
