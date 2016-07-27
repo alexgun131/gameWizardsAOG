@@ -197,6 +197,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         batch.draw(AUTO_AD, autoAdEndX-autoAdWidth, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, autoAdWidth, autoAdWidth*AUTO_AD.getHeight()/AUTO_AD.getWidth());
 
+        final GlyphLayout simpleBojocsLayout = new GlyphLayout(fontScore, "by SimpleBojocs");
+        fontScore.draw(batch, "by SimpleBojocs", autoAdEndX,  height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, 0, Align.right, false);
+
+
         final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[languaje], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);
 
