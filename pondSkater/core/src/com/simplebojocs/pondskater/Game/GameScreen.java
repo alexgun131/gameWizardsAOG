@@ -192,7 +192,7 @@ public class GameScreen extends InputAdapter implements Screen {
         font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
 
-        final GlyphLayout musicLayout = new GlyphLayout(font, topScorenow);
+        final GlyphLayout musicLayout = new GlyphLayout(sbfont, topScorenow);
         sbfont.draw(batch, topScorenow, topScores.x, topScores.y + musicLayout.height / 2, 0, Align.right, false);
 
         point.render(batch);
