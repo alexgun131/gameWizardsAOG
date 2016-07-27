@@ -278,6 +278,7 @@ public class GameScreen extends InputAdapter implements Screen {
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
                 if(soundsON) {
                     moskitoMusic.setLooping(true);
+                    moskitoMusic.setPosition(0);
                     moskitoMusic.play();
                 }
                 superPoint.newPosition();
