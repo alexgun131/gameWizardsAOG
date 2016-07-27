@@ -31,6 +31,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     int languaje = 1;
 
     BitmapFont font;
+    BitmapFont sbfont;
 
     int select = -1;
 
@@ -115,6 +116,11 @@ public class MenuScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.MENU_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
+                Gdx.files.internal("data/CuteFont.png"), false);
+        sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.6f);
+        sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         game.showAd(true);
 
         readConfig();
@@ -146,8 +152,8 @@ public class MenuScreen extends InputAdapter implements Screen {
 
 
         batch.draw(AUTO_AD, MENU_PLAYGAME.x-CONSTANTS.MENU_AUTO_AD_WIDTH/2, MENU_AUTO_AD_Y, CONSTANTS.MENU_AUTO_AD_WIDTH, AUTO_AD.getHeight()*CONSTANTS.MENU_AUTO_AD_WIDTH/AUTO_AD.getWidth());
-        final GlyphLayout simpleBojocsLayout = new GlyphLayout(font, "by SimpleBojocs");
-        font.draw(batch, "by SimpleBojocs", MENU_SCORES.x,  viewport.getWorldHeight() / 1.5f, 0, Align.bottomRight, false);
+        final GlyphLayout simpleBojocsLayout = new GlyphLayout(sbfont, "by SimpleBojocs");
+        sbfont.draw(batch, "by SimpleBojocs", MENU_SCORES.x,  viewport.getWorldHeight() / 1.5f, 0, Align.bottomRight, false);
 
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
@@ -222,6 +228,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        sbfont.dispose();
     }
 
     @Override
