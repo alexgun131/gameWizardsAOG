@@ -8,11 +8,13 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -70,7 +72,7 @@ public class GameScreen extends InputAdapter implements Screen {
     boolean musicON = true;
     boolean soundsON = true;
     String topScorenow;
-
+    Vector2 topScores;
 
     @Override
     public void show() {
@@ -179,9 +181,14 @@ public class GameScreen extends InputAdapter implements Screen {
         player.render(batch, beatHighestScore);
         enemies.render(batch);
 
+        topScores = new Vector2(viewport.getWorldWidth()- CONSTANTS.HUD_MARGIN, viewport.getWorldHeight()- 2* CONSTANTS.HUD_MARGIN - CONSTANTS.ADD_BANNER_HEIGHT);
 
-        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "  " + topScorenow + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
+        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
+
+        final GlyphLayout musicLayout = new GlyphLayout(font, topScorenow);
+        font.draw(batch, topScorenow, topScores.x, topScores.y + musicLayout.height / 2, 0, Align.right, false);
+
         point.render(batch);
         superPoint.render(batch);
 
