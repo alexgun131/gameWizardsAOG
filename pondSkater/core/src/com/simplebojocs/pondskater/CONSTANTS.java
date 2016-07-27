@@ -101,6 +101,10 @@ public class CONSTANTS {
     public static final String[] YOUR_SCORE_LABEL = {"Your score is: ", "Tu puntuación es: ",  "你的标点符号: ", "あなたの句読点は、: ", "당신의 문장 은: " , "علامات الترقيم الخاص بك هو"};
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金: ", "ボーナス: ", "보너스: ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
+    public static final String[] BESTSCORE = {"NEW RECORD", "NUEVO RECORD",  "新纪录", "新記録", "새로운 기록", "رقم قياسي جديد"};
+    public static final String[] TOP = {"TOP", "TOP", "最佳", "上", "상단", "أعلى"};
+    public static final String[] NUM5 = {"5", "5", "五", "五", "五", "خمسة"};
+    public static final String[] NUM10 = {"10", "10", "十", "十", "十", "عشرة"};
     public static final String[] MUSIC_LABEL  = {"Music", "Música", "音乐", "音楽", "음악", "موسيقى"};
     public static final String[] SOUNDS_LABEL   = {"Sound", "Sonidos", "声音", "音", "소리", "الأصوات"};
 

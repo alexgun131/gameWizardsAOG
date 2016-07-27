@@ -69,6 +69,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     boolean musicON = true;
     boolean soundsON = true;
+    String topScorenow;
 
 
     @Override
@@ -76,6 +77,7 @@ public class GameScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
         loadTextures();
+        topScorenow = "";
 
         batch = new SpriteBatch();
         shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
@@ -176,7 +178,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
         player.render(batch, beatHighestScore);
         enemies.render(batch);
-        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
+
+
+        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore + "  " + topScorenow + "\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
         point.render(batch);
         superPoint.render(batch);
@@ -292,12 +296,15 @@ public class GameScreen extends InputAdapter implements Screen {
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
         if(currentScore >= topScore[0]){
             beatHighestScore = 1;
+            topScorenow = CONSTANTS.BESTSCORE[languaje];
         }
-        else if(currentScore >= topScore[5]){
+        else if(currentScore >= topScore[4]){
             beatHighestScore = 2;
+            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM5[languaje];
         }
-        else if(currentScore >= topScore[10]) {
+        else if(currentScore >= topScore[9]) {
             beatHighestScore = 3;
+            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM10[languaje];
         }
         //}
 
