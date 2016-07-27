@@ -63,6 +63,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
             game.music.setLooping(true);                // will repeat playback until music.stop() is called
             game.music.play();
         }
+        game.externalServices.showLeaderboard();
     }
 
     @Override

@@ -128,7 +128,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(musicON) {
-            game.showAd(false);
+            game.externalServices.showAd(false);
             game.music.setVolume(0.4f);
             game.music.play();
         }
@@ -218,6 +218,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 enemies.init();
                 player.init();
                 game.showDeadScreen(currentScore, eatenPoints, soundDeath);
+                game.externalServices.submitScore(currentScore);
                 write();
                 currentScore = 0;
                 currentTopScore = 0;

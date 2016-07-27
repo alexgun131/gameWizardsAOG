@@ -132,7 +132,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.DEAD_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        game.showAd(true);
+        game.externalServices.showAd(true);
         readConfig();
         if (musicON)
             musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_theme_2.mid"));

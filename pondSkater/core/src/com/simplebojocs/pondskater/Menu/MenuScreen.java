@@ -121,7 +121,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.6f);
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        game.showAd(true);
+        game.externalServices.showAd(true);
 
         readConfig();
         if(musicON) {

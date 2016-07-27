@@ -6,7 +6,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.1.0'
         classpath 'com.google.gms:google-services:3.0.0'
     }
@@ -24,7 +23,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
-        adVersion = "9.0.0"
+        googleServicesVersion = "9.0.0"
     }
 
     repositories {
@@ -43,7 +42,9 @@ project(":android") {
 
     dependencies {
         compile project(":core")
-        compile "com.google.firebase:firebase-ads:$adVersion"
+        compile "com.android.support:multidex:1.0.1"
+        compile "com.google.android.gms:play-services-games:$googleServicesVersion"
+        compile "com.google.firebase:firebase-ads:$googleServicesVersion"
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
