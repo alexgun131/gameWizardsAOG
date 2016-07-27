@@ -32,6 +32,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     BouncingBall ball;
     SpriteBatch batch;
     BitmapFont fontScore;
+    BitmapFont sbfont;
 
     boolean invertXY = false;
     boolean invertX = false;
@@ -78,10 +79,17 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
+
         fontScore = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
                 Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
         fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
+                Gdx.files.internal("data/CuteFont2.png"), false);
+        sbfont.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*0.6f);
+        sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         ball = new BouncingBall(viewport);
     }
 
@@ -198,7 +206,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         batch.draw(AUTO_AD, autoAdEndX-autoAdWidth, height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, autoAdWidth, autoAdWidth*AUTO_AD.getHeight()/AUTO_AD.getWidth());
 
         final GlyphLayout simpleBojocsLayout = new GlyphLayout(fontScore, "by SimpleBojocs");
-        fontScore.draw(batch, "by SimpleBojocs", autoAdEndX,  height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, 0, Align.right, false);
+        sbfont.draw(batch, "by SimpleBojocs", autoAdEndX,  height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, 0, Align.right, false);
 
 
         final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[languaje]);
@@ -271,6 +279,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         fontScore.dispose();
+        sbfont.dispose();
         renderer.dispose();
     }
 

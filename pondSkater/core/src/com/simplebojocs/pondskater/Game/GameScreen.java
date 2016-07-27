@@ -46,6 +46,7 @@ public class GameScreen extends InputAdapter implements Screen {
     int eatenPoints;
     int beatHighestScore;
     BitmapFont font;
+    BitmapFont sbfont;
 
     Player player;
     Enemies enemies;
@@ -88,6 +89,11 @@ public class GameScreen extends InputAdapter implements Screen {
                 Gdx.files.internal("data/CuteFont.png"), false);
         font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*1.25f);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
+                Gdx.files.internal("data/CuteFont2.png"), false);
+        sbfont.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
+        sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new Player(viewport);
         enemies = new Enemies(viewport);
@@ -187,7 +193,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
 
         final GlyphLayout musicLayout = new GlyphLayout(font, topScorenow);
-        font.draw(batch, topScorenow, topScores.x, topScores.y + musicLayout.height / 2, 0, Align.right, false);
+        sbfont.draw(batch, topScorenow, topScores.x, topScores.y + musicLayout.height / 2, 0, Align.right, false);
 
         point.render(batch);
         superPoint.render(batch);
@@ -349,6 +355,7 @@ public class GameScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        sbfont.dispose();
         shader.dispose();
         if(soundsON) {
             moskitoMusic.dispose();
