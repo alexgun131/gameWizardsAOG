@@ -119,6 +119,9 @@ public class CONSTANTS {
     public static final String[] TOP_EATEN_LABEL = {"TOP BONUS", "MEJORES BONUS", "頂級獎金", "トップボーナス", "최고 보너스", "أعلى مكافأة"};
     public static final String[] TOP_SCORES_LABEL = {"TOP SCORES", "MEJORES PUNTUACIONES", "最佳射手", "得点王", "득점 왕", "الاعلى نقاطا"};
 
+    public static final Color STRIPE1 = new Color(0.384f, 0.545f, 1.0f, 1);
+    public static final Color STRIPE2 = new Color(0.545f, 0.545f, 1.0f, 1);
+
     //CONFIG CONSTANTS
     public static final String[] INVERTXY_LABEL = {"InvertXY", "InvertirXY", "倒置XY", "反転XY", "거꾸로 하다XY", "عكسXY" } ;
     public static final String[] INVERTX_LABEL = {"InvertX", "InvertirX", "倒置X", "反転X", "거꾸로 하다X", "عكسX"};
