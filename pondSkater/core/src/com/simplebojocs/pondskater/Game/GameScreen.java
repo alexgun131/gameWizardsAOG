@@ -134,7 +134,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(musicON) {
-            game.externalServices.showAd(false);
+            game.externalServices.showAd(true);
             game.music.setVolume(0.4f);
             game.music.play();
         }
@@ -200,6 +200,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
+            game.externalServices.submitScore(currentScore);
             if(soundsON) {
                 moskitoMusic.dispose();
                 eatLarvae.dispose();

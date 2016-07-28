@@ -2,6 +2,7 @@ package com.simplebojocs.pondskater;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -43,20 +44,21 @@ public class GoogleServices implements iExternalServices, ConnectionCallbacks, O
     @Override
     public void submitScore(int score){
         if(googleApiClient.isConnected())
-            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_id), score);
+            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_records), score);
 
     }
     @Override
     public void showLeaderboard(){
-        if(googleApiClient.isConnected())
+        if(googleApiClient.isConnected()) {
+            Log.v("hola", "showLeaderboard: ");
             activity.startActivityForResult(
                     Games.Leaderboards.getLeaderboardIntent(
                             googleApiClient,
-                            activity.getString(R.string.leaderboard_id)
+                            activity.getString(R.string.leaderboard_pond_skater_records)
                     ),
                     1
             );
-        else
+        }else
             connect();
     }
     @Override
@@ -65,7 +67,7 @@ public class GoogleServices implements iExternalServices, ConnectionCallbacks, O
     }
     @Override
     public void connect(){
-        //googleApiClient.connect();
+        googleApiClient.connect();
         status = ConnectionStatus.CONNECTING;
     }
     @Override
@@ -76,14 +78,18 @@ public class GoogleServices implements iExternalServices, ConnectionCallbacks, O
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        Log.e("hola", "onConnectiongood: ");
         status = ConnectionStatus.CONNECTED;
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e("hola", "onConnectionFailed: ");
         status = ConnectionStatus.DISCONNECTED;
     }
     @Override
     public void onConnectionSuspended(int i) {
+
+        Log.e("hola", "onConnectionsuspend: ");
         status = ConnectionStatus.DISCONNECTED;
     }
 }

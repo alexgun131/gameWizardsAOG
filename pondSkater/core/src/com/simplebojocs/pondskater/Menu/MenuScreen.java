@@ -122,6 +122,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         game.externalServices.showAd(true);
+        game.externalServices.showLeaderboard();
 
         readConfig();
         if(musicON) {
@@ -129,6 +130,7 @@ public class MenuScreen extends InputAdapter implements Screen {
             game.music.setLooping(true);                // will repeat playback until music.stop() is called
             game.music.play();
         }
+
     }
 
     @Override
