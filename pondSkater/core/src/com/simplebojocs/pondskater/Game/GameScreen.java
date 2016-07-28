@@ -134,7 +134,6 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(musicON) {
-            game.externalServices.showAd(true);
             game.music.setVolume(0.4f);
             game.music.play();
         }
