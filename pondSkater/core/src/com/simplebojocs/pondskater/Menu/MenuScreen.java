@@ -116,8 +116,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.MENU_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
-                Gdx.files.internal("data/CuteFont.png"), false);
+        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
+                Gdx.files.internal("data/CuteFont2.png"), false);
         sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.6f);
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 

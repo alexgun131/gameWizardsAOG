@@ -8,11 +8,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -28,6 +30,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
     PondSkater game;
 
+    ShapeRenderer renderer;
     SpriteBatch batch;
     ExtendViewport viewport;
 
@@ -46,6 +49,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     }
     @Override
     public void show() {
+        renderer = new ShapeRenderer();
+        renderer.setAutoShapeType(true);
+
         batch = new SpriteBatch();
         Back_Button = new Texture("ArrowBackButton.png");
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
@@ -73,6 +79,24 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL[languaje]);
+
+        renderer.setProjectionMatrix(viewport.getCamera().combined);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        float WORLD_SIZE = viewport.getWorldWidth();
+        float SCORE_STRIPE_WIDTH = WORLD_SIZE*5/8;
+        for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+
+            final GlyphLayout eatenScoresLayout = new GlyphLayout(fontScore, String.valueOf(topEaten[i]));
+            final GlyphLayout scoreScoresLayout = new GlyphLayout(fontScore, String.valueOf(topScore[i]));
+            if (i%2 == 0)
+                renderer.setColor(CONSTANTS.STRIPE1);
+            else
+                renderer.setColor(CONSTANTS.STRIPE2);
+            renderer.rect((WORLD_SIZE-SCORE_STRIPE_WIDTH)/2, CONSTANTS.EATEN_SCORES.y - (int)(scoreLayout.height*(2*i+1.55)), SCORE_STRIPE_WIDTH, scoreLayout.height*2);
+        }
+
+        renderer.end();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -82,7 +106,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.TOP_EATEN_LABEL[languaje], CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y + eatenLayout.height*2, 0, Align.center, false);
 
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.TOP_SCORES_LABEL[languaje], CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
 
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
