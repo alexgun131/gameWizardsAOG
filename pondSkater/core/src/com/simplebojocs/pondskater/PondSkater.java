@@ -4,17 +4,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.simplebojocs.pondskater.utils.EmptyExternalServices;
+import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater.utils.iExternalServices;
 
 public class PondSkater extends Game {
-	public final iExternalServices externalServices;
+	public final iExternalServices<PondSkaterAchievement> externalServices;
 
 	public static Music music;
 
 	public PondSkater(){
 		externalServices = new EmptyExternalServices();
 	}
-	public PondSkater(iExternalServices externalServices){
+	public PondSkater(iExternalServices<PondSkaterAchievement> externalServices){
 		this.externalServices = externalServices;
 	}
 

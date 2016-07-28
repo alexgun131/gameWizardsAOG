@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.simplebojocs.pondskater.CONSTANTS;
 import com.simplebojocs.pondskater.PondSkater;
+import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
 
 /**
  * Created by Alex on 29/06/2016.
@@ -138,6 +139,7 @@ public class GameScreen extends InputAdapter implements Screen {
             game.music.play();
         }
 
+        game.externalServices.submitAchievement(PondSkaterAchievement.FIRST_GAME);
     }
 
     private void loadTextures(){
