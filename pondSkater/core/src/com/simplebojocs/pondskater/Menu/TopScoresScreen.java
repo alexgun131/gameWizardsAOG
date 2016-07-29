@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
@@ -37,6 +38,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     BitmapFont font;
     BitmapFont fontScore;
     Texture Back_Button;
+    Texture BackGround;
+    Texture ScoreStripes;
+    TextureRegion[] ScoreStripesSprites;
 
 
     int[] topEaten;
@@ -54,6 +58,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         batch = new SpriteBatch();
         Back_Button = new Texture("ArrowBackButton.png");
+        BackGround = new Texture("ScoreBackground.png");
+        ScoreStripes = new Texture("ScoreStripes.png");
+        ScoreStripesSprites = new TextureRegion[2];
+        ScoreStripesSprites[0] = new TextureRegion(ScoreStripes, 0, 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
+        ScoreStripesSprites[1] = new TextureRegion(ScoreStripes, ScoreStripes.getWidth(), 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
+
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
@@ -80,26 +90,24 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_SCORES_LABEL[languaje]);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
         float WORLD_SIZE = viewport.getWorldWidth();
+
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        batch.begin();
+
+        float BackgroundWidth = WORLD_SIZE;
+        float BackgroundHeight = BackGround.getHeight()*BackgroundWidth/WORLD_SIZE;
+        batch.draw(BackGround, (WORLD_SIZE-BackgroundWidth)/2, (viewport.getWorldHeight()-BackgroundHeight)/2, BackgroundWidth, BackgroundHeight);
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
         float SCORE_STRIPE_WIDTH = WORLD_SIZE*5/8;
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
 
             final GlyphLayout eatenScoresLayout = new GlyphLayout(fontScore, String.valueOf(topEaten[i]));
             final GlyphLayout scoreScoresLayout = new GlyphLayout(fontScore, String.valueOf(topScore[i]));
-            if (i%2 == 0)
-                renderer.setColor(CONSTANTS.STRIPE1);
-            else
-                renderer.setColor(CONSTANTS.STRIPE2);
-            renderer.rect((WORLD_SIZE-SCORE_STRIPE_WIDTH)/2, CONSTANTS.EATEN_SCORES.y - (int)(scoreLayout.height*(2*i+1.55)), SCORE_STRIPE_WIDTH, scoreLayout.height*2);
+            batch.draw(ScoreStripesSprites[i%2], (WORLD_SIZE-SCORE_STRIPE_WIDTH)/2, CONSTANTS.EATEN_SCORES.y - (int)(scoreLayout.height*(2*i+1.55)), SCORE_STRIPE_WIDTH, scoreLayout.height*2);
         }
-
-        renderer.end();
-
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-
-        batch.begin();
 
         batch.draw(Back_Button, CONSTANTS.BACK_TO_MENU.x-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.BACK_TO_MENU.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS*1.15), CONSTANTS.SCORES_BUBBLE_RADIUS*2, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
         final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.TOP_EATEN_LABEL[languaje]);
@@ -147,6 +155,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        renderer.dispose();
         font.dispose();
     }
 
