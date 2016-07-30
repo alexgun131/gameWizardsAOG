@@ -14,8 +14,8 @@ import com.google.android.gms.games.Games;
 import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater.utils.iExternalServices;
 
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,7 +47,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                 .build();
 
         maxScore = 0;
-        unlockAchievements = new HashSet<>();
+        unlockAchievements = EnumSet.allOf(PondSkaterAchievement.class);
         incrementalAchievements = new HashMap<>();
     }
 

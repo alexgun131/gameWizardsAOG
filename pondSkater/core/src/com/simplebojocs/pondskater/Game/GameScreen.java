@@ -46,6 +46,7 @@ public class GameScreen extends InputAdapter implements Screen {
     int scoreBeforeMult;
     int eatenPoints;
     int beatHighestScore;
+    int moskitoEatCount;
     BitmapFont font;
     BitmapFont sbfont;
 
@@ -112,6 +113,7 @@ public class GameScreen extends InputAdapter implements Screen {
         scoreBeforeMult = 0;
         eatenPoints = 0;
         beatHighestScore = 0;
+        moskitoEatCount = 0;
 
         riverPosition = 0.0f;
         riverBankPosition = 0.0f;
@@ -266,6 +268,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(player.getSuperPoint(superPoint)){
+            int oldMoskitoEatCount = moskitoEatCount++;
+            checkForAchievement(oldMoskitoEatCount, moskitoEatCount, PondSkaterAchievement.PondSkaterAchievementType.MOSKITOS);
+
             if(soundsON){
                 eatMoskito.play();
                 moskitoMusic.setLooping(false);
@@ -306,7 +311,10 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
 
+        int oldScore = currentScore;
         currentScore = scoreBeforeMult + enemies.enemiesCounter*eatenPoints;
+        checkForAchievement(oldScore, currentScore, PondSkaterAchievement.PondSkaterAchievementType.POINTS);
+
         //for(int i = 0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
         currentTopScore = Math.max(topScore[0], currentScore);
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
@@ -494,5 +502,11 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
         batch.draw(AUTO_AD, 0, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
+    }
+
+    private void checkForAchievement(int oldValue, int newValue, PondSkaterAchievement.PondSkaterAchievementType psaType){
+        for(PondSkaterAchievement achievement : PondSkaterAchievement.values())
+            if(achievement.psaType == psaType && oldValue < achievement.amount && newValue >= achievement.amount)
+                game.externalServices.submitAchievement(achievement);
     }
 }

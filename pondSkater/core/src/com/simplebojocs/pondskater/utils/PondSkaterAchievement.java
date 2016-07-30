@@ -1,22 +1,33 @@
 package com.simplebojocs.pondskater.utils;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 public enum PondSkaterAchievement implements iAchievement{
-    FIRST_GAME(AchievementType.UNLOCK),
-    POINTS_100(AchievementType.UNLOCK),
-    POINTS_1K(AchievementType.UNLOCK),
-    POINTS_5K(AchievementType.UNLOCK),
-    POINTS_10K(AchievementType.UNLOCK),
-    POINTS_20K(AchievementType.UNLOCK),
-    POINTS_1K_x_10(AchievementType.INCREMENTAL),
-    POINTS_10K_x_10(AchievementType.INCREMENTAL),
-    POINTS_20K_x_5(AchievementType.INCREMENTAL),
-    MOSKITO_1(AchievementType.UNLOCK),
-    MOSKITO_10(AchievementType.UNLOCK);
+    FIRST_GAME      (AchievementType.UNLOCK,      PondSkaterAchievementType.OTHERS,       0),
+    POINTS_100      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,     100),
+    POINTS_1K       (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    1000),
+    POINTS_5K       (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    5000),
+    POINTS_10K      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,   10000),
+    POINTS_20K      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,   20000),
+    POINTS_1K_x_10  (AchievementType.INCREMENTAL, PondSkaterAchievementType.POINTS,    1000),
+    POINTS_10K_x_10 (AchievementType.INCREMENTAL, PondSkaterAchievementType.POINTS,   10000),
+    POINTS_20K_x_5  (AchievementType.INCREMENTAL, PondSkaterAchievementType.POINTS,   20000),
+    MOSKITO_1       (AchievementType.UNLOCK,      PondSkaterAchievementType.MOSKITOS,     1),
+    MOSKITO_10      (AchievementType.UNLOCK,      PondSkaterAchievementType.MOSKITOS,    10);
 
-    final AchievementType type;
+    public enum PondSkaterAchievementType{
+        POINTS, MOSKITOS, OTHERS
+    }
 
-    private PondSkaterAchievement(AchievementType type){
+    public final AchievementType type;
+    public final PondSkaterAchievementType psaType;
+    public final int amount;
+
+    PondSkaterAchievement(AchievementType type, PondSkaterAchievementType psaType, int amount){
         this.type = type;
+        this.psaType = psaType;
+        this.amount = amount;
     }
     public AchievementType getType(){
         return type;
