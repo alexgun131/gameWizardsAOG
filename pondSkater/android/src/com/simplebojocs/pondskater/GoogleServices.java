@@ -14,22 +14,12 @@ import com.google.android.gms.games.Games;
 import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater.utils.iExternalServices;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 public class GoogleServices implements iExternalServices<PondSkaterAchievement>, ConnectionCallbacks, OnConnectionFailedListener{
     private iExternalServices.ConnectionStatus status;
     private Activity activity;
 
     public AdView adView;
     public GoogleApiClient googleApiClient;
-
-    //Not connected, failed to send
-    private int maxScore;
-    private Set<PondSkaterAchievement> unlockAchievements;
-    private Map<PondSkaterAchievement, Integer> incrementalAchievements;
 
     public GoogleServices(Activity activity){
         status = ConnectionStatus.DISCONNECTED;
@@ -45,10 +35,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                 .addOnConnectionFailedListener(this)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
-
-        maxScore = 0;
-        unlockAchievements = EnumSet.allOf(PondSkaterAchievement.class);
-        incrementalAchievements = new HashMap<>();
     }
 
     @Override
@@ -61,8 +47,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     public void submitScore(int score){
         if(googleApiClient.isConnected())
             Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_records), score);
-        else if(maxScore < score)
-            maxScore = score;
     }
     @Override
     public void showLeaderboard(){
@@ -91,19 +75,12 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     public void unlockAchievement(PondSkaterAchievement achievement){
         if(googleApiClient.isConnected())
             Games.Achievements.unlock(googleApiClient, getAchievementID(achievement));
-        else
-            unlockAchievements.add(achievement);
 
     }
     @Override
     public void incrementAchievement(PondSkaterAchievement achievement, int increment){
         if(googleApiClient.isConnected())
             Games.Achievements.increment(googleApiClient, getAchievementID(achievement), increment);
-        else {
-            Integer value = incrementalAchievements.get(achievement);
-            value = (value == null? 0 : 1) + increment;
-            incrementalAchievements.put(achievement, value);
-        }
     }
     @Override
     public void showAchievements(){
@@ -150,19 +127,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     @Override
     public void onConnected(Bundle connectionHint) {
         status = ConnectionStatus.CONNECTED;
-
-        if(maxScore > 0)
-            submitScore(maxScore);
-
-        for(PondSkaterAchievement achievement : unlockAchievements)
-            unlockAchievement(achievement);
-
-        for(Map.Entry<PondSkaterAchievement, Integer> achievement : incrementalAchievements.entrySet())
-            incrementAchievement(achievement.getKey(), achievement.getValue());
-
-        maxScore = 0;
-        unlockAchievements.clear();
-        incrementalAchievements.clear();
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
