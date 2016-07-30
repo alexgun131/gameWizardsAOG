@@ -102,7 +102,7 @@ public class CONSTANTS {
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金: ", "ボーナス: ", "보너스: ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
     public static final String[] BESTSCORE = {"NEW RECORD", "NUEVO RECORD",  "新纪录", "新記録", "새로운 기록", "رقم قياسي جديد"};
-    public static final String[] TOP = {"TOP", "TOP", "最佳", "上", "상단", "أعلى"};
+    public static final String[] TOP = {"TOP", "TOP", "前", "トップ", "상단 열", "أفضل عشرة"};
     public static final String[] NUM5 = {"5", "5", "五", "五", "五", "خمسة"};
     public static final String[] NUM10 = {"10", "10", "十", "十", "十", "عشرة"};
     public static final String[] MUSIC_LABEL  = {"Music", "Música", "音乐", "音楽", "음악", "موسيقى"};
