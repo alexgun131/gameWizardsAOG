@@ -37,7 +37,7 @@ public class GameScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
     SpriteBatch batch;
     ShaderProgram shader;
-    int languaje;
+    int language;
     int[] topScore;
     int[] topEaten;
     int currentTopScore;
@@ -192,7 +192,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         topScores = new Vector2(viewport.getWorldWidth()- CONSTANTS.HUD_MARGIN, viewport.getWorldHeight()- 2* CONSTANTS.HUD_MARGIN - CONSTANTS.ADD_BANNER_HEIGHT);
 
-        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
+        font.draw(batch, CONSTANTS.CURRENTSCORE[language] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[language] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
 
         final GlyphLayout musicLayout = new GlyphLayout(sbfont, topScorenow);
@@ -320,15 +320,15 @@ public class GameScreen extends InputAdapter implements Screen {
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
         if(currentScore >= topScore[0]){
             beatHighestScore = 1;
-            topScorenow = CONSTANTS.BESTSCORE[languaje];
+            topScorenow = CONSTANTS.BESTSCORE[language];
         }
         else if(currentScore >= topScore[4]){
             beatHighestScore = 2;
-            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM5[languaje];
+            topScorenow = CONSTANTS.TOP[language] + CONSTANTS.NUM5[language];
         }
         else if(currentScore >= topScore[9]) {
             beatHighestScore = 3;
-            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM10[languaje];
+            topScorenow = CONSTANTS.TOP[language] + CONSTANTS.NUM10[language];
         }
         //}
 
@@ -458,10 +458,10 @@ public class GameScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }

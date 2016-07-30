@@ -134,7 +134,7 @@ public class CONSTANTS {
     public static final String INVERTCONFIG_FILE_NAME = "INVERT_CONFIG";
     public static final String LANGUAJECONFIG_FILE_NAME = "LANGUAJE_CONFIG";
 
-    public static final String[] SELECT_LANGUAJE = {"ENGLISH", "ESPAÑOL", "中文", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
+    public static final String[] SELECT_LANGUAGE = {"ENGLISH", "ESPAÑOL", "中文", "日本の", "한국의", "العربية"}; //eng, esp, chi, jap, kor, arabe
 
 
     // Creditos

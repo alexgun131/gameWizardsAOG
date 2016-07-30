@@ -38,7 +38,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     int score;
     int eaten;
     int select = -1;
-    int languaje = 0;
+    int language = 0;
     Music musicDeath;
     Music soundDeath;
     Texture FlyButton;
@@ -175,25 +175,25 @@ public class DeadScreen extends InputAdapter implements Screen {
         DEAD_PLAYGAME = new Vector2(width / 2, height / 2.5f);
         DEAD_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score));
-        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score));
+        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
-        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten));
-        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y - eatenLayout.height, 0, Align.center, false);
+        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[language] + String.valueOf(eaten));
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[language] + String.valueOf(eaten), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y - eatenLayout.height, 0, Align.center, false);
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], DEAD_MENU.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_MENU.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], DEAD_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(FishButtonSprite[getFishSprite(delta)], DEAD_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.MENU_LABEL[languaje], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[language]);
+        font.draw(batch, CONSTANTS.MENU_LABEL[language], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[languaje], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[language]);
+        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[language], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[language]);
+        font.draw(batch, CONSTANTS.SCORES_LABEL[language], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -333,10 +333,10 @@ public class DeadScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }
