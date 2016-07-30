@@ -102,7 +102,7 @@ public class CONSTANTS {
     public static final String[] EATEN_LABEL = {"Bonus: ", "Bonus: ", "奖金: ", "ボーナス: ", "보너스: ", "علاو ة"};
     public static final String[] CURRENTSCORE = {"Score: ", "Puntuación: ",  "得分了: ", "スコア: ", "점수: ", "أحرز هدفاً " };
     public static final String[] BESTSCORE = {"NEW RECORD", "NUEVO RECORD",  "新纪录", "新記録", "새로운 기록", "رقم قياسي جديد"};
-    public static final String[] TOP = {"TOP", "TOP", "最佳", "上", "상단", "أعلى"};
+    public static final String[] TOP = {"TOP", "TOP", "前", "トップ", "상단 열", "أفضل عشرة"};
     public static final String[] NUM5 = {"5", "5", "五", "五", "五", "خمسة"};
     public static final String[] NUM10 = {"10", "10", "十", "十", "十", "عشرة"};
     public static final String[] MUSIC_LABEL  = {"Music", "Música", "音乐", "音楽", "음악", "موسيقى"};
@@ -119,8 +119,8 @@ public class CONSTANTS {
     public static final String[] TOP_EATEN_LABEL = {"TOP BONUS", "MEJORES BONUS", "頂級獎金", "トップボーナス", "최고 보너스", "أعلى مكافأة"};
     public static final String[] TOP_SCORES_LABEL = {"TOP SCORES", "MEJORES PUNTUACIONES", "最佳射手", "得点王", "득점 왕", "الاعلى نقاطا"};
 
-    public static final Color STRIPE1 = new Color(0.384f, 0.545f, 1.0f, 1);
-    public static final Color STRIPE2 = new Color(0.545f, 0.545f, 1.0f, 1);
+    public static final Color STRIPE1 = new Color(0.384f, 0.545f, 1.0f, 0.25f);
+    public static final Color STRIPE2 = new Color(0.545f, 0.545f, 1.0f, 0.25f);
 
     //CONFIG CONSTANTS
     public static final String[] INVERTXY_LABEL = {"InvertXY", "InvertirXY", "倒置XY", "反転XY", "거꾸로 하다XY", "عكسXY" } ;
