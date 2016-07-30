@@ -83,7 +83,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
             game.music.setLooping(true);                // will repeat playback until music.stop() is called
             game.music.play();
         }
-        game.externalServices.showLeaderboard(); //hacer boton especial para esto!
     }
 
     @Override
@@ -180,10 +179,10 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(CONSTANTS.LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            //Leadeborads logic
+            game.externalServices.showLeaderboard();
         }
         if (worldTouch.dst(CONSTANTS.ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            //Achievement logic
+            game.externalServices.showAchievements();
         }
         return true;
     }
