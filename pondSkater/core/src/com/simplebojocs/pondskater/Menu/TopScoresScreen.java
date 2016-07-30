@@ -66,6 +66,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         viewport = new ExtendViewport(CONSTANTS.DEAD_WORLD_SIZE, CONSTANTS.DEAD_WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
 
+        font = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
+                Gdx.files.internal("data/CuteFont2.png"), false);
+        font.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         fontScore = new BitmapFont(Gdx.files.internal("data/CuteFont.fnt"),
                 Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
@@ -128,6 +133,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
+        final GlyphLayout LeaderboardsLayout = new GlyphLayout(font, CONSTANTS.LEADERBOARDS_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], CONSTANTS.LEADERBOARDS_POSITION.x, CONSTANTS.LEADERBOARDS_POSITION.y + easyLayout.height / 2, 0, Align.center, false);
+
+        final GlyphLayout achievementLayout = new GlyphLayout(font, CONSTANTS.ACHIEVEMENTS_LABEL[languaje]);
+        font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], CONSTANTS.ACHIEVEMENTS_POSITION.x, CONSTANTS.ACHIEVEMENTS_POSITION.y + easyLayout.height / 2, 0, Align.center, false);
+
         batch.end();
 
     }
@@ -156,6 +167,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     public void dispose() {
         batch.dispose();
         renderer.dispose();
+        fontScore.dispose();
         font.dispose();
     }
 
@@ -167,6 +179,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
             game.showMenuScreen();
         }
 
+        if (worldTouch.dst(CONSTANTS.LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            //Leadeborads logic
+        }
+        if (worldTouch.dst(CONSTANTS.ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            //Achievement logic
+        }
         return true;
     }
 

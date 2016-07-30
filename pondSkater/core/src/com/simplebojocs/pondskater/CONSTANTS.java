@@ -112,12 +112,16 @@ public class CONSTANTS {
     //SCORES CONSTANTS
     public static final float SCORES_BUBBLE_RADIUS = DEAD_WORLD_SIZE / 15 * 1.5f;
     public static final Vector2 BACK_TO_MENU = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
+    public static final Vector2 LEADERBOARDS_POSITION = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT-SCORES_BUBBLE_RADIUS*2);
+    public static final Vector2 ACHIEVEMENTS_POSITION = new Vector2(DEAD_WORLD_SIZE /20 + SCORES_BUBBLE_RADIUS, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT - SCORES_BUBBLE_RADIUS*4);
     public static final Vector2 EATEN_SCORES = new Vector2(DEAD_WORLD_SIZE *10/ 20, DEAD_WORLD_SIZE * 18/20 - ADD_BANNER_HEIGHT);
     public static final Vector2 TOP_SCORES = new Vector2(DEAD_WORLD_SIZE *19/20, DEAD_WORLD_SIZE *18/20 - ADD_BANNER_HEIGHT);
     public static final float SCORE_LABEL_SCALE = 0.5f;
 
     public static final String[] TOP_EATEN_LABEL = {"TOP BONUS", "MEJORES BONUS", "頂級獎金", "トップボーナス", "최고 보너스", "أعلى مكافأة"};
     public static final String[] TOP_SCORES_LABEL = {"TOP SCORES", "MEJORES PUNTUACIONES", "最佳射手", "得点王", "득점 왕", "الاعلى نقاطا"};
+    public static final String[] ACHIEVEMENTS_LABEL = {"Achievements", "Logros", "成就", "実績", "업적", "الإنجازات"};
+    public static final String[] LEADERBOARDS_LABEL = {"Leaderboards", "Clasificación", "排行榜", "リーダーボード", "리더", "المتصدرين"};
 
     public static final Color STRIPE1 = new Color(0.384f, 0.545f, 1.0f, 0.25f);
     public static final Color STRIPE2 = new Color(0.545f, 0.545f, 1.0f, 0.25f);
