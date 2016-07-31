@@ -4,18 +4,18 @@ Google Play game services IDs.
 Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
-    <string name="app_id">724582053496</string>
-    <string name="package_name">com.simplebojocs.pondskater</string>
-    <string name="achievement_first_game">CgkI-OzSo4sVEAIQAQ</string>
-    <string name="achievement_100_points">CgkI-OzSo4sVEAIQAg</string>
-    <string name="achievement_1000_points">CgkI-OzSo4sVEAIQAw</string>
-    <string name="achievement_5000_points">CgkI-OzSo4sVEAIQBA</string>
-    <string name="achievement_10000_points">CgkI-OzSo4sVEAIQCw</string>
-    <string name="achievement_20000_points">CgkI-OzSo4sVEAIQBQ</string>
-    <string name="achievement_10_games_over_1000">CgkI-OzSo4sVEAIQBg</string>
-    <string name="achievement_10_games_over_10000">CgkI-OzSo4sVEAIQBw</string>
-    <string name="achievement_5_games_over_20000">CgkI-OzSo4sVEAIQCA</string>
-    <string name="achievement_first_moskito">CgkI-OzSo4sVEAIQCQ</string>
-    <string name="achievement_10_moskitos_in_a_game">CgkI-OzSo4sVEAIQCg</string>
-    <string name="leaderboard_pond_skater_records">CgkI-OzSo4sVEAIQAA</string>
+    <string name="app_id">606356392795</string>
+    <string name="package_name">com.simplebojocs.pondskater2</string>
+    <string name="achievement_first_game">CgkI25ah7dIREAIQAQ</string>
+    <string name="achievement_100_points">CgkI25ah7dIREAIQAg</string>
+    <string name="achievement_1000_points">CgkI25ah7dIREAIQAw</string>
+    <string name="achievement_5000_points">CgkI25ah7dIREAIQBA</string>
+    <string name="achievement_10000_points">CgkI25ah7dIREAIQBQ</string>
+    <string name="achievement_20000_points">CgkI25ah7dIREAIQBg</string>
+    <string name="achievement_10_games_over_1000">CgkI25ah7dIREAIQBw</string>
+    <string name="achievement_10_games_over_10000">CgkI25ah7dIREAIQCA</string>
+    <string name="achievement_5_games_over_20000">CgkI25ah7dIREAIQCQ</string>
+    <string name="achievement_first_moskito">CgkI25ah7dIREAIQCg</string>
+    <string name="achievement_10_moskitos_in_a_game">CgkI25ah7dIREAIQCw</string>
+    <string name="leaderboard_pond_skater_records">CgkI25ah7dIREAIQDg</string>
 </resources>
