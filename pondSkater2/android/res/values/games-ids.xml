@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <string name="app_id">724582053496</string>
+    <string name="package_name">com.simplebojocs.pondskater</string>
+    <string name="achievement_first_game">CgkI-OzSo4sVEAIQAQ</string>
+    <string name="achievement_100_points">CgkI-OzSo4sVEAIQAg</string>
+    <string name="achievement_1000_points">CgkI-OzSo4sVEAIQAw</string>
+    <string name="achievement_5000_points">CgkI-OzSo4sVEAIQBA</string>
+    <string name="achievement_10000_points">CgkI-OzSo4sVEAIQCw</string>
+    <string name="achievement_20000_points">CgkI-OzSo4sVEAIQBQ</string>
+    <string name="achievement_10_games_over_1000">CgkI-OzSo4sVEAIQBg</string>
+    <string name="achievement_10_games_over_10000">CgkI-OzSo4sVEAIQBw</string>
+    <string name="achievement_5_games_over_20000">CgkI-OzSo4sVEAIQCA</string>
+    <string name="achievement_first_moskito">CgkI-OzSo4sVEAIQCQ</string>
+    <string name="achievement_10_moskitos_in_a_game">CgkI-OzSo4sVEAIQCg</string>
+    <string name="leaderboard_pond_skater_records">CgkI-OzSo4sVEAIQAA</string>
+</resources>

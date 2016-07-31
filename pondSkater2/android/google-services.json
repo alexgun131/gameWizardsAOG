@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "606356392795",
+    "firebase_url": "https://pond-skater.firebaseio.com",
+    "project_id": "pond-skater",
+    "storage_bucket": "pond-skater.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606356392795:android:da98f1dad3bddcea",
+        "android_client_info": {
+          "package_name": "com.simplebojocs.pondskater2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606356392795-emm2pkgj02leqllo6km15btcpe212t7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSDht_FNCjsdoxCS9PbcX_YiRO2fMcQ9c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
