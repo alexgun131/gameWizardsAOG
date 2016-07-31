@@ -46,7 +46,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     @Override
     public void submitScore(int score){
         if(googleApiClient.isConnected())
-            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_records), score);
+            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_scores), score);
     }
     @Override
     public void showLeaderboard(){
@@ -54,7 +54,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
             activity.startActivityForResult(
                     Games.Leaderboards.getLeaderboardIntent(
                             googleApiClient,
-                            activity.getString(R.string.leaderboard_pond_skater_records)
+                            activity.getString(R.string.leaderboard_pond_skater_scores)
                     ),
                     1
             );
