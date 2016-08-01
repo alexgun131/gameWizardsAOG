@@ -349,21 +349,26 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
+        game.externalServices.submitScore(currentScore);
         write();
+
     }
 
     @Override
     public void resume() {
-        read();
+        game.showMenuScreen();
     }
 
     @Override
     public void hide() {
+        game.externalServices.submitScore(currentScore);
         write();
+
     }
 
     @Override
     public void dispose() {
+        game.externalServices.submitScore(currentScore);
         batch.dispose();
         font.dispose();
         sbfont.dispose();
