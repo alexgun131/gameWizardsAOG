@@ -2,12 +2,14 @@ package com.simplebojocs.pondskater;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.simplebojocs.pondskater.utils.EmptyExternalServices;
 import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater.utils.iExternalServices;
 
 public class PondSkater extends Game {
+	private Screen screen;
 	public final iExternalServices<PondSkaterAchievement> externalServices;
 
 	public static Music music;
@@ -26,22 +28,30 @@ public class PondSkater extends Game {
 	}
 
 	public void showMenuScreen(){
-		setScreen(new com.simplebojocs.pondskater.Menu.MenuScreen(this));
+		screen = new com.simplebojocs.pondskater.Menu.MenuScreen(this);
+		setScreen(screen);
 	}
 
 	public void showDeadScreen(int score, int eaten, Music soundDeath){
-		setScreen(new com.simplebojocs.pondskater.Menu.DeadScreen(this, score, eaten, soundDeath));
+		screen = new com.simplebojocs.pondskater.Menu.DeadScreen(this, score, eaten, soundDeath);
+		setScreen(screen);
 	}
 
 	public void showAccelerometerConfigScreen(){
-		setScreen(new com.simplebojocs.pondskater.Menu.AccelerometerConfigScreen(this));
+		screen = new com.simplebojocs.pondskater.Menu.AccelerometerConfigScreen(this);
+		setScreen(screen);
 	}
 
 	public void showTopScoreScreen(){
-		setScreen(new com.simplebojocs.pondskater.Menu.TopScoresScreen(this));
+		screen = new com.simplebojocs.pondskater.Menu.TopScoresScreen(this);
+		setScreen(screen);
 	}
 
 	public void showGameScreen(){
-		setScreen(new com.simplebojocs.pondskater.Game.GameScreen(this));
+		screen = new com.simplebojocs.pondskater.Game.GameScreen(this);
+		setScreen(screen);
+	}
+	public Screen getScreen(){
+		return screen;
 	}
 }
