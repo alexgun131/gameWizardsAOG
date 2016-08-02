@@ -218,8 +218,21 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
             } catch (Exception e) {
                 for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
-                    topEaten[i] = 0;
-                    topScore[i] = 0;
+                    if(i==0){
+                        topEaten[i] = 15;
+                        topScore[i] = 500;
+                    }
+                    else if(i<4){
+                        topEaten[i] = 10;
+                        topScore[i] = 200;
+                    }
+                    else if(i<9){
+                        topEaten[i] = 5;
+                        topScore[i] = 100;
+                    }else{
+                        topEaten[i] = 0;
+                        topScore[i] = 0;
+                    }
                 }
             }
         }

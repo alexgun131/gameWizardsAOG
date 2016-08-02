@@ -286,8 +286,12 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
+        FileHandle scoreDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
         Json json = new Json();
 
+        if (!scoreDataFile.exists()) {
+            //TODO: minitutorial
+        }
         if (topDataFile.exists()) {
             try {
                 String topAsCode = topDataFile.readString();
