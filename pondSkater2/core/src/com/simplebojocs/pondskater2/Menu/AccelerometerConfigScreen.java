@@ -63,6 +63,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 LANGUAJES_AR_TOUCH;
     Texture AUTO_AD;
     Texture Back_Button;
+    Texture INFO_BUTTON;
 
     Tutorial tutorial;
     boolean isTutorial;
@@ -78,6 +79,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     public void show() {
         AUTO_AD = new Texture("AutoAd_Words.png");
         Back_Button = new Texture("ArrowBackButton.png");
+        INFO_BUTTON = new Texture("info.png");
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
         batch = new SpriteBatch();
@@ -148,7 +150,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.GREEN);
         renderer.circle(SOUNDON.x, SOUNDON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
         renderer.setColor(Color.WHITE);
-        renderer.circle(TUTORIALON.x, TUTORIALON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+
          if(!invertXY)
             renderer.setColor(Color.RED);
         else
@@ -225,8 +227,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         final GlyphLayout soundLayout = new GlyphLayout(fontScore, CONSTANTS.SOUNDS_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.SOUNDS_LABEL[language], SOUNDON.x, SOUNDON.y + soundLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout tutorialLayout = new GlyphLayout(sbfont, "?");
-        sbfont.draw(batch, "?", TUTORIALON.x, TUTORIALON.y + tutorialLayout.height / 2, 0, Align.center, false);
+        batch.draw(INFO_BUTTON, TUTORIALON.x-CONSTANTS.SCORES_BUBBLE_RADIUS/2, TUTORIALON.y-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[language], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
