@@ -43,6 +43,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     Vector2 MUSICON;
     Vector2 SOUNDON;
+    Vector2 TUTORIALON;
     Vector2 INVERTXY;
     Vector2 INVERTX;
     Vector2 INVERTY;
@@ -62,6 +63,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     Vector2 LANGUAJES_AR_TOUCH;
     Texture AUTO_AD;
     Texture Back_Button;
+
+    Tutorial tutorial;
+    boolean isTutorial;
 
     float tamLan = 2.3f;
     Music music;
@@ -91,6 +95,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         ball = new com.simplebojocs.pondskater2.Menu.BouncingBall(viewport);
+
+        tutorial = null;
+        isTutorial = false;
     }
 
 
@@ -116,6 +123,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         MUSICON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         SOUNDON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
+        TUTORIALON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  6* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTXY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTX = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 - 2* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
         INVERTY = new Vector2(width - CONSTANTS.SCORES_BUBBLE_RADIUS*1.3f, height * 18/20 -  4* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
@@ -139,6 +147,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         else
             renderer.setColor(Color.GREEN);
         renderer.circle(SOUNDON.x, SOUNDON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.setColor(Color.WHITE);
+        renderer.circle(TUTORIALON.x, TUTORIALON.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
          if(!invertXY)
             renderer.setColor(Color.RED);
         else
@@ -215,6 +225,9 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         final GlyphLayout soundLayout = new GlyphLayout(fontScore, CONSTANTS.SOUNDS_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.SOUNDS_LABEL[language], SOUNDON.x, SOUNDON.y + soundLayout.height / 2, 0, Align.center, false);
 
+        final GlyphLayout tutorialLayout = new GlyphLayout(sbfont, "?");
+        sbfont.draw(batch, "?", TUTORIALON.x, TUTORIALON.y + tutorialLayout.height / 2, 0, Align.center, false);
+
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[language], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
@@ -242,6 +255,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
                         + CONSTANTS.MUSIC[language] + ":\nGuillermo Cámbara Ruiz",
                 LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, CONSTANTS.BACK_TO_MENU.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.left, false);
 
+
+        if (isTutorial) {
+            tutorial.draw(batch, width, height);
+        }
 
         batch.end();
 
@@ -287,6 +304,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
+        if (isTutorial) {
+            isTutorial = tutorial.drawNext();
+            return true;
+        }
         if (worldTouch.dst(CONSTANTS.BACK_TO_MENU) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.showMenuScreen();
         }
@@ -304,6 +325,13 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         if (worldTouch.dst(SOUNDON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             soundsON = !soundsON;
             writeConfig();
+        }
+        if (worldTouch.dst(TUTORIALON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            if (tutorial == null) {
+                tutorial = new Tutorial();
+            }
+            tutorial.start();
+            isTutorial = true;
         }
         if (worldTouch.dst(INVERTXY) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             invertXY = !invertXY;
@@ -335,6 +363,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         }
         if (worldTouch.dst(LANGUAJES_COR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             language =4;
+            writeConfig();
+        }
+        if (worldTouch.dst(LANGUAJES_AR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            language =5;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_AR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
