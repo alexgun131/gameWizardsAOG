@@ -37,7 +37,7 @@ public class GameScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
     SpriteBatch batch;
     ShaderProgram shader;
-    int language;
+    int language = 0;
     int[] topScore;
     int[] topEaten;
     int currentTopScore;

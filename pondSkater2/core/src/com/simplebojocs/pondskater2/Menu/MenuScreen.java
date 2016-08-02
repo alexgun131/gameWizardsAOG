@@ -28,7 +28,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     SpriteBatch batch;
     ExtendViewport viewport;
-    int language = 1;
+    int language = 0;
 
     BitmapFont font;
     BitmapFont sbfont;
