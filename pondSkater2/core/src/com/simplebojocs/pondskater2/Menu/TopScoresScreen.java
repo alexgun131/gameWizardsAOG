@@ -256,7 +256,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
             } catch (Exception e) {
                 languaje = 0;
-
             }
         }
     }
