@@ -37,6 +37,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     BitmapFont font;
     BitmapFont fontScore;
     Texture Back_Button;
+    Texture Back_Button_invert;
     Texture BackGround;
     Texture ScoreStripes;
     TextureRegion[] ScoreStripesSprites;
@@ -45,6 +46,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int[] topEaten;
     int[] topScore;
     int languaje = 0;
+    Vector2 LEADERBOARDS_POSITION;
+    Vector2 ACHIEVEMENTS_POSITION;
 
     boolean musicON = true;
     public TopScoresScreen(PondSkater game){
@@ -57,6 +60,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         batch = new SpriteBatch();
         Back_Button = new Texture("ArrowBackButton.png");
+        Back_Button_invert = new Texture("ArrowBackButtonInvert.png");
         BackGround = new Texture("ScoreBackground.png");
         ScoreStripes = new Texture("ScoreStripes.png");
         ScoreStripesSprites = new TextureRegion[2];
@@ -87,6 +91,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
+
+        LEADERBOARDS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.LEADERBOARDS_POSITION.y);
+        ACHIEVEMENTS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.ACHIEVEMENTS_POSITION.y);
 
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
@@ -132,11 +139,15 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
+        batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.LEADERBOARDS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
+
         final GlyphLayout LeaderboardsLayout = new GlyphLayout(font, CONSTANTS.LEADERBOARDS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], CONSTANTS.LEADERBOARDS_POSITION.x, CONSTANTS.LEADERBOARDS_POSITION.y + easyLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], LEADERBOARDS_POSITION.x, CONSTANTS.LEADERBOARDS_POSITION.y + LeaderboardsLayout.height / 3f, 0, Align.bottomRight, false);
+
+        batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
         final GlyphLayout achievementLayout = new GlyphLayout(font, CONSTANTS.ACHIEVEMENTS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], CONSTANTS.ACHIEVEMENTS_POSITION.x, CONSTANTS.ACHIEVEMENTS_POSITION.y + easyLayout.height / 2, 0, Align.center, false);
+        font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], ACHIEVEMENTS_POSITION.x, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f, 0, Align.right, false);
 
         batch.end();
 
@@ -178,10 +189,10 @@ public class TopScoresScreen extends InputAdapter implements Screen {
             game.showMenuScreen();
         }
 
-        if (worldTouch.dst(CONSTANTS.LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+        if (worldTouch.dst(LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.externalServices.showLeaderboard();
         }
-        if (worldTouch.dst(CONSTANTS.ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+        if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.externalServices.showAchievements();
         }
         return true;
