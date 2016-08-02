@@ -233,11 +233,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
                         topEaten[i] = 15;
                         topScore[i] = 500;
                     }
-                    else if(i<4){
+                    else if(i<5){
                         topEaten[i] = 10;
                         topScore[i] = 200;
                     }
-                    else if(i<9){
+                    else if(i<10){
                         topEaten[i] = 5;
                         topScore[i] = 100;
                     }else{
