@@ -58,6 +58,9 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
 
+    Tutorial tutorial;
+    boolean isTutorial;
+
     boolean musicON = true;
 
     public MenuScreen(PondSkater game) {
@@ -66,6 +69,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         flyFps = 0.0f;
         wormFps = 0.0f;
         fishFps = 0.0f;
+        tutorial = null;
+        isTutorial = false;
     }
 
     private void loadTextures() {
@@ -139,17 +144,20 @@ public class MenuScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(CONSTANTS.MENU_BACKGROUND_COLOR.r, CONSTANTS.MENU_BACKGROUND_COLOR.g, CONSTANTS.MENU_BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        float width = viewport.getWorldWidth();
+        float height = viewport.getWorldHeight();
+
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();
 
         drawBackground(delta, batch); // draw river with animation
 
-        MENU_OPTIONS = new Vector2(viewport.getWorldWidth() / 5, viewport.getWorldHeight() / 2.5f);
-        MENU_PLAYGAME = new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2.5f);
-        MENU_SCORES = new Vector2(viewport.getWorldWidth() * 4 / 5, viewport.getWorldHeight() / 2.5f);
+        MENU_OPTIONS = new Vector2(width / 5, height / 2.5f);
+        MENU_PLAYGAME = new Vector2(width/ 2, height / 2.5f);
+        MENU_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
-        float MENU_AUTO_AD_Y = viewport.getWorldHeight() / 1.6f;
+        float MENU_AUTO_AD_Y = height / 1.6f;
 
 
         batch.draw(AUTO_AD, MENU_PLAYGAME.x-CONSTANTS.MENU_AUTO_AD_WIDTH/2, MENU_AUTO_AD_Y, CONSTANTS.MENU_AUTO_AD_WIDTH, AUTO_AD.getHeight()*CONSTANTS.MENU_AUTO_AD_WIDTH/AUTO_AD.getWidth());
@@ -170,6 +178,10 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[language]);
         font.draw(batch, CONSTANTS.SCORES_LABEL[language], MENU_SCORES.x, MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+
+        if (isTutorial) {
+            tutorial.draw(batch, width, height);
+        }
 
         batch.end();
 
@@ -235,6 +247,10 @@ public class MenuScreen extends InputAdapter implements Screen {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         try {
+            if (isTutorial) {
+                isTutorial = tutorial.drawNext();
+                return true;
+            }
             Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
             if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
@@ -290,7 +306,10 @@ public class MenuScreen extends InputAdapter implements Screen {
         Json json = new Json();
 
         if (!scoreDataFile.exists()) {
-            //TODO: minitutorial
+            if (tutorial == null)
+                tutorial = new Tutorial();
+            tutorial.start();
+            isTutorial = true;
         }
         if (topDataFile.exists()) {
             try {
