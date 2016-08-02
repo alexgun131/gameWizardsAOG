@@ -249,6 +249,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         try {
             if (isTutorial) {
                 isTutorial = tutorial.drawNext();
+                if (!isTutorial)
+                    tutorial = null;
                 return true;
             }
             Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
@@ -307,7 +309,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         if (!scoreDataFile.exists()) {
             if (tutorial == null)
-                tutorial = new Tutorial();
+                tutorial = new Tutorial(1);
             tutorial.start();
             isTutorial = true;
         }

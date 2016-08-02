@@ -21,8 +21,11 @@ public class Tutorial {
     private static final int LOSE     = 0x05;
 
 
-    public Tutorial( ) {
-        loadTextures("Tutorial.png", 2, 3);
+    public Tutorial(int language ) {
+        if (language == 1)
+            loadTextures("TutorialES.png", 2, 3);
+        else
+            loadTextures("Tutorial.png", 2, 3);
         currentStep = GAME_AIM;
     }
 

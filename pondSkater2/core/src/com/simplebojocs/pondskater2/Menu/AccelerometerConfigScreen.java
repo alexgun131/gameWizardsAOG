@@ -307,6 +307,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         if (isTutorial) {
             isTutorial = tutorial.drawNext();
+            if (!isTutorial)
+                tutorial = null;
             return true;
         }
         if (worldTouch.dst(CONSTANTS.BACK_TO_MENU) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
@@ -328,9 +330,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             writeConfig();
         }
         if (worldTouch.dst(TUTORIALON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            if (tutorial == null) {
-                tutorial = new Tutorial();
-            }
+            tutorial = new Tutorial(language);
             tutorial.start();
             isTutorial = true;
         }
