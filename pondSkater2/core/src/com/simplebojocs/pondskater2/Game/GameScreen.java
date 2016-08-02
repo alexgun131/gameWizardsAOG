@@ -236,16 +236,16 @@ public class GameScreen extends InputAdapter implements Screen {
                 scoreBeforeMult = 0;
                 eatenPoints = 0;
                 isAlive = true;
-             }
+            }
             else
             {
                 float timeElapsed = (float)(TimeUtils.nanoTime()*1E-9 - timeSinceDead*1E-9);
                 float gray = 0;
-                        if(timeElapsed < 1.1f) {
-                            gray = (float) (TimeUtils.nanoTime() * 1E-9 - timeSinceDead * 1E-9) + 0.1f;
-                        }else{
-                            gray = 1.1f;
-                        }
+                if(timeElapsed < 1.1f) {
+                    gray = (float) (TimeUtils.nanoTime() * 1E-9 - timeSinceDead * 1E-9) + 0.1f;
+                }else{
+                    gray = 1.1f;
+                }
                 shader.begin();
                 shader.setUniformf("gray", gray);
                 shader.end();
@@ -440,37 +440,36 @@ public class GameScreen extends InputAdapter implements Screen {
                 soundsON = true;
             }
         }
-        if (topDataFile.exists()) {
-            try {
-                String topAsCode = topDataFile.readString();
-                String topAsText = Base64Coder.decodeString(topAsCode);
-                Vector2[] av = json.fromJson(Vector2[].class, topAsText);
-                for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
-                    Vector2 v = av[i];
-                    topEaten[i] = (int)v.x;
-                    topScore[i] = (int)v.y;
-                }
+        try {
+            String topAsCode = topDataFile.readString();
+            String topAsText = Base64Coder.decodeString(topAsCode);
+            Vector2[] av = json.fromJson(Vector2[].class, topAsText);
+            for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+                Vector2 v = av[i];
+                topEaten[i] = (int)v.x;
+                topScore[i] = (int)v.y;
+            }
 
-            } catch (Exception e) {
-                for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
-                    if(i==0){
-                        topEaten[i] = 15;
-                        topScore[i] = 500;
-                    }
-                    else if(i<4){
-                        topEaten[i] = 10;
-                        topScore[i] = 200;
-                    }
-                    else if(i<9){
-                        topEaten[i] = 5;
-                        topScore[i] = 100;
-                    }else{
-                        topEaten[i] = 0;
-                        topScore[i] = 0;
-                    }
+        } catch (Exception e) {
+            for (int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
+                if(i==0){
+                    topEaten[i] = 15;
+                    topScore[i] = 500;
+                }
+                else if(i<4){
+                    topEaten[i] = 10;
+                    topScore[i] = 200;
+                }
+                else if(i<9){
+                    topEaten[i] = 5;
+                    topScore[i] = 100;
+                }else{
+                    topEaten[i] = 0;
+                    topScore[i] = 0;
                 }
             }
         }
+
 
         if (languajeDataFile.exists()) {
             try {

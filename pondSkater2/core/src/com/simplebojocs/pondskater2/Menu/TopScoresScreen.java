@@ -92,8 +92,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
 
-        LEADERBOARDS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.LEADERBOARDS_POSITION.y);
-        ACHIEVEMENTS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.ACHIEVEMENTS_POSITION.y);
+        LEADERBOARDS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.LEADERBOARDS_POSITION.y);
+        ACHIEVEMENTS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.ACHIEVEMENTS_POSITION.y);
 
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
@@ -142,12 +142,12 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.LEADERBOARDS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
         final GlyphLayout LeaderboardsLayout = new GlyphLayout(font, CONSTANTS.LEADERBOARDS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], LEADERBOARDS_POSITION.x, CONSTANTS.LEADERBOARDS_POSITION.y + LeaderboardsLayout.height / 3f, 0, Align.bottomRight, false);
+        font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.LEADERBOARDS_POSITION.y + LeaderboardsLayout.height / 3f, 0, Align.bottomRight, false);
 
         batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
         final GlyphLayout achievementLayout = new GlyphLayout(font, CONSTANTS.ACHIEVEMENTS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], ACHIEVEMENTS_POSITION.x, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f, 0, Align.right, false);
+        font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f, 0, Align.right, false);
 
         batch.end();
 
@@ -190,6 +190,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+
             game.externalServices.showLeaderboard();
         }
         if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
@@ -216,7 +217,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
                 musicON = true;
             }
         }
-        if (topDataFile.exists()) {
             try {
                 String topAsCode = topDataFile.readString();
                 String topAsText = Base64Coder.decodeString(topAsCode);
@@ -246,7 +246,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
                     }
                 }
             }
-        }
+
 
         if (languajeDataFile.exists()) {
             try {
