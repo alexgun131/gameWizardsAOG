@@ -312,6 +312,7 @@ public class MenuScreen extends InputAdapter implements Screen {
                 tutorial = new Tutorial(1);
             tutorial.start();
             isTutorial = true;
+            scoreDataFile.writeString( "notFirstTime", false );
         }
         if (topDataFile.exists()) {
             try {
