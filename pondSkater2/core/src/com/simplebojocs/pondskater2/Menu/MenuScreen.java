@@ -19,6 +19,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.simplebojocs.pondskater2.CONSTANTS;
 import com.simplebojocs.pondskater2.PondSkater;
 
+import java.util.Locale;
+
 /**
  * Created by Alex on 04/07/2016.
  */
@@ -307,13 +309,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         FileHandle scoreDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
         Json json = new Json();
 
-        if (!scoreDataFile.exists()) {
-            if (tutorial == null)
-                tutorial = new Tutorial(1);
-            tutorial.start();
-            isTutorial = true;
-            scoreDataFile.writeString( "notFirstTime", false );
-        }
+
         if (topDataFile.exists()) {
             try {
                 String topAsCode = topDataFile.readString();
@@ -336,6 +332,32 @@ public class MenuScreen extends InputAdapter implements Screen {
                 language = 0;
 
             }
+        } else {
+            String idioma = Locale.getDefault().getLanguage();
+            if (idioma.equals("es")){
+                language = 1;
+            } else if (idioma.equals("zh")){
+                language = 2;
+            } else if (idioma.equals("ja")){
+                language = 3;
+            } else if (idioma.equals("ko")){
+                language = 4;
+            } else if (idioma.equals("ar")){
+                language = 5;
+            } else{
+                language = 0;
+            }
+            String languajeAsText = json.toJson(language);
+            String languajeAsCode = Base64Coder.encodeString( languajeAsText );
+            languajeDataFile.writeString( languajeAsCode, false );
+        }
+
+        if (!scoreDataFile.exists()) {
+            if (tutorial == null)
+                tutorial = new Tutorial(language);
+            tutorial.start();
+            isTutorial = true;
+            scoreDataFile.writeString( "notFirstTime", false );
         }
     }
 
