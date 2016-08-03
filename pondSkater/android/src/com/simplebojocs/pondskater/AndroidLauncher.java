@@ -67,8 +67,7 @@ public class AndroidLauncher extends AndroidApplication {
 	public void onBackPressed(){
 		if(ps != null &&
 				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Game.GameScreen) &&
-				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Menu.MenuScreen) &&
-				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Menu.TopScoresScreen)){
+				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Menu.MenuScreen)){
 			Gdx.app.postRunnable(new Runnable() {
 				@Override
 				public void run() {
