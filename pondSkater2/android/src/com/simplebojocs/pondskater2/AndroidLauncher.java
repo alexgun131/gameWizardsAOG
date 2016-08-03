@@ -1,14 +1,17 @@
 package com.simplebojocs.pondskater2;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AndroidApplication {
 	GoogleServices externalServices;
+	PondSkater ps;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -18,8 +21,10 @@ public class AndroidLauncher extends AndroidApplication {
 
 		externalServices = new GoogleServices(this);
 
+		ps = new PondSkater(externalServices);
+
 		View gameView = initializeForView(
-				new PondSkater(externalServices),
+				ps,
 				new AndroidApplicationConfiguration()
 		);
 
@@ -47,5 +52,32 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onStop() {
 		super.onStop();
 		externalServices.disconnect();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onBackPressed(){
+		if(ps != null) {
+			if (!(ps.getScreen() instanceof com.simplebojocs.pondskater2.Game.GameScreen) &&
+					!(ps.getScreen() instanceof com.simplebojocs.pondskater2.Menu.MenuScreen)) {
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						ps.showMenuScreen();
+					}
+				});
+			}
+			if (ps.getScreen() instanceof com.simplebojocs.pondskater2.Menu.MenuScreen){
+				Gdx.app.exit();
+			}
+		}
 	}
 }
