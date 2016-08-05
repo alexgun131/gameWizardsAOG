@@ -106,9 +106,9 @@ public class Player {
                 jumpSound.play();
             }
             if (!invertY)
-                velocity.y = CONSTANTS.JUMP_VELOCITY;
+                velocity.y = CONSTANTS.JUMP_VELOCITY * viewport.getWorldHeight()/480.0f ;
             else
-                velocity.y = -CONSTANTS.JUMP_VELOCITY;
+                velocity.y = -CONSTANTS.JUMP_VELOCITY * viewport.getWorldHeight()/480.0f;
 
             playerJumpFPS = delta;
         } else {
