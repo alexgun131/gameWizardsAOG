@@ -1,7 +1,10 @@
 package com.simplebojocs.pondskater2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -13,15 +16,19 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.games.Games;
 import com.simplebojocs.pondskater2.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater2.utils.iExternalServices;
+import com.simplebojocs.pondskater2.utils.iToaster;
 
-public class GoogleServices implements iExternalServices<PondSkaterAchievement>, ConnectionCallbacks, OnConnectionFailedListener{
+public class GoogleServices implements iExternalServices<PondSkaterAchievement>, ConnectionCallbacks, OnConnectionFailedListener, iToaster{
     private iExternalServices.ConnectionStatus status;
     private Activity activity;
 
     public AdView adView;
     public GoogleApiClient googleApiClient;
 
-    public GoogleServices(Activity activity){
+    Handler handler;
+    Context context;
+
+    public GoogleServices(Activity activity, Context context){
         status = ConnectionStatus.DISCONNECTED;
         this.activity = activity;
 
@@ -35,6 +42,9 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                 .addOnConnectionFailedListener(this)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
+
+        handler = new Handler();
+        this.context = context;
     }
 
     @Override
@@ -45,19 +55,23 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
 
     @Override
     public void submitScore(int score){
-        if(googleApiClient.isConnected())
+        if(googleApiClient.isConnected()){
             Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_scores), score);
+        }
     }
     @Override
     public void showLeaderboard(){
-        if(googleApiClient.isConnected())
+        if(googleApiClient.isConnected()){
             activity.startActivityForResult(
                     Games.Leaderboards.getLeaderboardIntent(
                             googleApiClient,
                             activity.getString(R.string.leaderboard_pond_skater_scores)
                     ),
                     1
-            );
+            );}
+        else{
+            showToast("Google Play Games must be connected");
+        }
     }
 
     @Override
@@ -84,11 +98,15 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     }
     @Override
     public void showAchievements(){
-        if(googleApiClient.isConnected())
+        if(googleApiClient.isConnected()){
             activity.startActivityForResult(
                     Games.Achievements.getAchievementsIntent(googleApiClient),
                     1
             );
+        }
+        else{
+            showToast("Google Play Games must be connected");
+        }
     }
     private String getAchievementID(PondSkaterAchievement achievement){
         int id;
@@ -136,4 +154,15 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     public void onConnectionSuspended(int i) {
         status = ConnectionStatus.DISCONNECTED;
     }
+
+
+    public void showToast(final CharSequence text) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

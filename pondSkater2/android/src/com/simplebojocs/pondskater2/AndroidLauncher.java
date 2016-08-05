@@ -8,10 +8,12 @@ import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.simplebojocs.pondskater2.utils.iToaster;
 
 public class AndroidLauncher extends AndroidApplication {
 	GoogleServices externalServices;
 	PondSkater ps;
+	iToaster itoaster;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		RelativeLayout layout = new RelativeLayout(this);
 
-		externalServices = new GoogleServices(this);
+		externalServices = new GoogleServices(this, getApplicationContext());
 
 		ps = new PondSkater(externalServices);
 
