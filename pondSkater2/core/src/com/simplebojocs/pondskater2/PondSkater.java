@@ -6,11 +6,14 @@ import com.badlogic.gdx.audio.Music;
 import com.simplebojocs.pondskater2.utils.EmptyExternalServices;
 import com.simplebojocs.pondskater2.utils.PondSkaterAchievement;
 import com.simplebojocs.pondskater2.utils.iExternalServices;
+import com.simplebojocs.pondskater2.utils.iToaster;
 
 public class PondSkater extends Game {
 	public final iExternalServices<PondSkaterAchievement> externalServices;
 
 	public static Music music;
+
+	public iToaster itoaster;
 
 	public PondSkater(){
 		externalServices = new EmptyExternalServices();
@@ -18,6 +21,7 @@ public class PondSkater extends Game {
 	public PondSkater(iExternalServices<PondSkaterAchievement> externalServices){
 		this.externalServices = externalServices;
 	}
+
 
 	@Override
 	public void create() {

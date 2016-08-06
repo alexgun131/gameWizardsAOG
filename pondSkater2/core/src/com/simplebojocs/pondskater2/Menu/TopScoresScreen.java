@@ -190,11 +190,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-
-            game.externalServices.showLeaderboard();
+                game.externalServices.showLeaderboard();
         }
         if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            game.externalServices.showAchievements();
+                game.externalServices.showAchievements();
+
         }
         return true;
     }
