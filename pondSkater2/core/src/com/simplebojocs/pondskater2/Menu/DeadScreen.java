@@ -246,6 +246,8 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
+        if (musicON)
+            musicDeath.dispose();
 
     }
 
@@ -255,6 +257,8 @@ public class DeadScreen extends InputAdapter implements Screen {
         fontScore.dispose();
         font.dispose();
         shader.dispose();
+        if (musicON)
+            musicDeath.dispose();
     }
 
     @Override
@@ -264,20 +268,14 @@ public class DeadScreen extends InputAdapter implements Screen {
 
             if (worldTouch.dst(DEAD_MENU) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showMenuScreen();
-                if (musicON)
-                    musicDeath.dispose();
             }
 
             if (worldTouch.dst(DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showGameScreen();
-                if (musicON)
-                    musicDeath.dispose();
             }
 
             if (worldTouch.dst(DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
-                if (musicON)
-                    musicDeath.dispose();
             }
         } catch (Exception e) {
 

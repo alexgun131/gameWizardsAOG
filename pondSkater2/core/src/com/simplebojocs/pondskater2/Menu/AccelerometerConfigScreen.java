@@ -321,7 +321,8 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
                 game.music.setLooping(true);                // will repeat playback until music.stop() is called
                 game.music.play();
             }else{
-                game.music.stop();
+                game.music.setLooping(false);
+                game.music.pause();
             }
             writeConfig();
         }
