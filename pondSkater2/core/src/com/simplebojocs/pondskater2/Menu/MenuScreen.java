@@ -236,7 +236,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override

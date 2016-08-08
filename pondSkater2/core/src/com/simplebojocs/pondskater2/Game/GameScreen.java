@@ -363,6 +363,7 @@ public class GameScreen extends InputAdapter implements Screen {
     public void hide() {
         game.externalServices.submitScore(currentScore);
         write();
+        dispose();
 
     }
 

@@ -290,7 +290,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override

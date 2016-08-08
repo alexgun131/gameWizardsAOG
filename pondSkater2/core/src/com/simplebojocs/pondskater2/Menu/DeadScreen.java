@@ -248,7 +248,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     public void hide() {
         if (musicON)
             musicDeath.dispose();
-
+        dispose();
     }
 
     @Override
