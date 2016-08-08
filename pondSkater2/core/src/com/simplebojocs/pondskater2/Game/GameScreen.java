@@ -124,15 +124,12 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(soundsON) {
             moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
-            moskitoMusic.setLooping(true);
             moskitoMusic.setVolume(0.15f);
 
             eatLarvae = Gdx.audio.newMusic(Gdx.files.internal("eatLarvae.mp3"));
-            eatLarvae.setLooping(false);
             eatLarvae.setVolume(0.18f);
 
             eatMoskito = Gdx.audio.newMusic(Gdx.files.internal("eatMoskito.mp3"));
-            eatMoskito.setLooping(false);
             eatMoskito.setVolume(0.18f);
         }
 
@@ -206,13 +203,11 @@ public class GameScreen extends InputAdapter implements Screen {
             game.externalServices.submitScore(currentScore);
             timeSinceDead = TimeUtils.nanoTime();
             if(soundsON) {
-                moskitoMusic.setLooping(false);
                 moskitoMusic.pause();
                 moskitoMusic.setPosition(0);
             }
             if(musicON) {
                 soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
-                soundDeath.setLooping(false);
                 soundDeath.setVolume(0.6f);
                 soundDeath.play();
             }
@@ -272,9 +267,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
             if(soundsON){
                 eatMoskito.play();
-                moskitoMusic.setLooping(false);
-                moskitoMusic.pause();
-                moskitoMusic.setPosition(0);
+                if(moskitoMusic.isPlaying()) {
+                    moskitoMusic.pause();
+                    moskitoMusic.setPosition(0);
+                }
             }
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
@@ -287,9 +283,10 @@ public class GameScreen extends InputAdapter implements Screen {
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
             if(soundsON) {
-                moskitoMusic.setLooping(false);
-                moskitoMusic.pause();
-                moskitoMusic.setPosition(0);
+                if(moskitoMusic.isPlaying()) {
+                    moskitoMusic.pause();
+                    moskitoMusic.setPosition(0);
+                }
             }
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
@@ -303,7 +300,6 @@ public class GameScreen extends InputAdapter implements Screen {
         if(!isSuperPoint){
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
                 if(soundsON) {
-                    moskitoMusic.setLooping(true);
                     moskitoMusic.setPosition(0);
                     moskitoMusic.play();
                 }
@@ -353,9 +349,10 @@ public class GameScreen extends InputAdapter implements Screen {
         game.externalServices.submitScore(currentScore);
         write();
         if(soundsON) {
-            moskitoMusic.setLooping(false);
-            moskitoMusic.pause();
-            moskitoMusic.setPosition(0);
+            if (moskitoMusic.isPlaying()) {
+                moskitoMusic.pause();
+                moskitoMusic.setPosition(0);
+            }
         }
 
     }
@@ -370,7 +367,6 @@ public class GameScreen extends InputAdapter implements Screen {
         game.externalServices.submitScore(currentScore);
         if(soundsON) {
             if(moskitoMusic.isPlaying()){
-                moskitoMusic.setLooping(false);
                 moskitoMusic.pause();
                 moskitoMusic.setPosition(0);
             }
