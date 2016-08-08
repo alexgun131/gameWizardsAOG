@@ -369,9 +369,11 @@ public class GameScreen extends InputAdapter implements Screen {
     public void hide() {
         game.externalServices.submitScore(currentScore);
         if(soundsON) {
-            moskitoMusic.setLooping(false);
-            moskitoMusic.pause();
-            moskitoMusic.setPosition(0);
+            if(moskitoMusic.isPlaying()){
+                moskitoMusic.setLooping(false);
+                moskitoMusic.pause();
+                moskitoMusic.setPosition(0);
+            }
         }
 
         write();
