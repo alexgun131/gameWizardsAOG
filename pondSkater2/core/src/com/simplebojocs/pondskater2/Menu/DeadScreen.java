@@ -145,7 +145,8 @@ public class DeadScreen extends InputAdapter implements Screen {
     public void render(float delta) {
         if (musicON) {
             if (!soundDeath.isPlaying()) {
-                soundDeath.dispose();
+                soundDeath.pause();
+                soundDeath.setPosition(0);
                     musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
                     musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
                     musicDeath.play();
@@ -246,9 +247,11 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        if (musicON)
-            musicDeath.dispose();
-        dispose();
+        if (musicON) {
+            musicDeath.pause();
+            musicDeath.setPosition(0);
+        }
+
     }
 
     @Override

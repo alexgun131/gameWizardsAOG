@@ -290,7 +290,6 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        dispose();
     }
 
     @Override
@@ -323,6 +322,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             }else{
                 game.music.setLooping(false);
                 game.music.pause();
+                game.music.setPosition(0);
             }
             writeConfig();
         }

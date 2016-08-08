@@ -204,13 +204,12 @@ public class GameScreen extends InputAdapter implements Screen {
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
             game.externalServices.submitScore(currentScore);
-            if(soundsON) {
-                moskitoMusic.dispose();
-                eatLarvae.dispose();
-                eatMoskito.dispose();
-                player.jumpSound.dispose();
-            }
             timeSinceDead = TimeUtils.nanoTime();
+            if(soundsON) {
+                moskitoMusic.setLooping(false);
+                moskitoMusic.pause();
+                moskitoMusic.setPosition(0);
+            }
             if(musicON) {
                 soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
                 soundDeath.setLooping(false);
@@ -275,6 +274,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 eatMoskito.play();
                 moskitoMusic.setLooping(false);
                 moskitoMusic.pause();
+                moskitoMusic.setPosition(0);
             }
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
@@ -289,6 +289,7 @@ public class GameScreen extends InputAdapter implements Screen {
             if(soundsON) {
                 moskitoMusic.setLooping(false);
                 moskitoMusic.pause();
+                moskitoMusic.setPosition(0);
             }
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
@@ -351,6 +352,11 @@ public class GameScreen extends InputAdapter implements Screen {
     public void pause() {
         game.externalServices.submitScore(currentScore);
         write();
+        if(soundsON) {
+            moskitoMusic.setLooping(false);
+            moskitoMusic.pause();
+            moskitoMusic.setPosition(0);
+        }
 
     }
 
@@ -362,8 +368,13 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void hide() {
         game.externalServices.submitScore(currentScore);
+        if(soundsON) {
+            moskitoMusic.setLooping(false);
+            moskitoMusic.pause();
+            moskitoMusic.setPosition(0);
+        }
+
         write();
-        dispose();
 
     }
 
@@ -519,7 +530,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 batch.draw(RIVER_BANK_BOTTOM, -riverBankPosition + i * imageWidth, 0.0f, imageWidth, CONSTANTS.FRAME_THIKNESS * 5);
             }
         }
-        batch.draw(AUTO_AD, 0, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
+        batch.draw(AUTO_AD, 0, 0, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
     }
 
     private void checkForAchievement(int oldValue, int newValue, PondSkaterAchievement.PondSkaterAchievementType psaType){
