@@ -12,6 +12,8 @@ public class Tutorial {
 
     private Texture tutorialTexture;
     private TextureRegion[] tutorialSprites;
+    private Texture forwardButton;
+    private Texture backwardButton;
     private int currentStep;
 
     private static final int GAME_AIM = 0x01;
@@ -40,6 +42,9 @@ public class Tutorial {
                 tutorialSprites[i+j*animationColumns] = new TextureRegion(tutorialTexture, texuretWidth * i, textureHeigth*j, texuretWidth, textureHeigth);
             }
         }
+
+        forwardButton = new Texture("ForwardButton.png");
+        backwardButton = new Texture("BackwardButton.png");
     }
 
     public void draw(SpriteBatch batch, float worldWidth, float worldHeight){
@@ -47,6 +52,11 @@ public class Tutorial {
         float imageHeight = tutorialSprites[0].getRegionHeight()*imageWidth/tutorialSprites[0].getRegionWidth();
         batch.draw(tutorialSprites[0], (worldWidth-imageWidth)/2, (worldHeight-imageHeight)/2, imageWidth, imageHeight);
         batch.draw(tutorialSprites[currentStep], (worldWidth-imageWidth)/2, (worldHeight-imageHeight)/2, imageWidth, imageHeight);
+
+        float buttonWidth = worldWidth*1/8;
+        float buttonHeight = worldWidth*2/7;;
+        batch.draw(forwardButton, (worldWidth*9/10-buttonWidth*1/6), (worldHeight-buttonHeight)/2, buttonWidth, buttonHeight);
+        batch.draw(backwardButton, (worldWidth*1/10-buttonWidth*5/6), (worldHeight-buttonHeight)/2, buttonWidth, buttonHeight);
     }
 
     public void start(){
