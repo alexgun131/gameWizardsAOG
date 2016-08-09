@@ -305,7 +305,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
         if (isTutorial) {
-            isTutorial = tutorial.drawNext();
+            if ((screenX<<1)<viewport.getWorldWidth())
+                isTutorial = tutorial.drawPrevious();
+            else
+                isTutorial = tutorial.drawNext();
             if (!isTutorial)
                 tutorial = null;
             return true;

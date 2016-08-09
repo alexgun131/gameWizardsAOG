@@ -256,7 +256,10 @@ public class MenuScreen extends InputAdapter implements Screen {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         try {
             if (isTutorial) {
-                isTutorial = tutorial.drawNext();
+                if ((screenX<<1)<viewport.getWorldWidth())
+                    isTutorial = tutorial.drawPrevious();
+                else
+                    isTutorial = tutorial.drawNext();
                 if (!isTutorial)
                     tutorial = null;
                 return true;

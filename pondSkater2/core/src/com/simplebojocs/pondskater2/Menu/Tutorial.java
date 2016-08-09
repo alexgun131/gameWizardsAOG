@@ -61,4 +61,13 @@ public class Tutorial {
         }
         return continueTutorial;
     }
+
+    public boolean drawPrevious(){
+        boolean continueTutorial = true;
+        currentStep -= 1;
+        if (currentStep < GAME_AIM ) {
+            currentStep = GAME_AIM;
+        }
+        return continueTutorial;
+    }
 }
