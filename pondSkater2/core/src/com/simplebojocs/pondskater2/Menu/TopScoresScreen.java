@@ -83,9 +83,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         read();
         if(musicON) {
-            game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-            game.music.setLooping(true);                // will repeat playback until music.stop() is called
-            game.music.play();
+            game.gamemusic.play();
         }
     }
 
@@ -178,6 +176,14 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         renderer.dispose();
         fontScore.dispose();
         font.dispose();
+        game.musicDeath.dispose();
+        game.soundDeath.dispose();
+        game.gamemusic.dispose();
+        game.soundDeath.dispose();
+        game.musicDeath.dispose();
+        game.moskitoMusic.dispose();
+        game.eatLarvae.dispose();
+        game.eatMoskito.dispose();
     }
 
     @Override

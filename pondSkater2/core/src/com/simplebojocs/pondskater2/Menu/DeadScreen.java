@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,8 +38,6 @@ public class DeadScreen extends InputAdapter implements Screen {
     int eaten;
     int select = -1;
     int language = 0;
-    Music musicDeath;
-    Music soundDeath;
     Texture FlyButton;
     Texture WormButton;
     Texture FishButton;
@@ -67,11 +64,10 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     boolean musicON = true;
 
-    public DeadScreen(PondSkater game, int score, int eaten, Music soundDeath) {
+    public DeadScreen(PondSkater game, int score, int eaten) {
         this.game = game;
         this.score = score;
         this.eaten = eaten;
-        this.soundDeath = soundDeath;
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
@@ -134,8 +130,6 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         game.externalServices.showAd(true);
         readConfig();
-        if (musicON)
-            musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_theme_2.mid"));
 
 
         timeSinceDead = TimeUtils.nanoTime();
@@ -144,12 +138,12 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         if (musicON) {
-            if (!soundDeath.isPlaying()) {
-                soundDeath.pause();
-                soundDeath.setPosition(0);
-                    musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
-                    musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
-                    musicDeath.play();
+            if (!game.soundDeath.isPlaying()) {
+                game.soundDeath.pause();
+                game.soundDeath.setPosition(0);
+
+
+                game.musicDeath.play();
             }
         }
 
@@ -248,8 +242,8 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void hide() {
         if (musicON) {
-            musicDeath.pause();
-            musicDeath.setPosition(0);
+            game.musicDeath.pause();
+            game.musicDeath.setPosition(0);
         }
 
     }
@@ -260,8 +254,15 @@ public class DeadScreen extends InputAdapter implements Screen {
         fontScore.dispose();
         font.dispose();
         shader.dispose();
-        if (musicON)
-            musicDeath.dispose();
+        game.musicDeath.dispose();
+        game.soundDeath.dispose();
+        game.gamemusic.dispose();
+        game.soundDeath.dispose();
+        game.musicDeath.dispose();
+        game.moskitoMusic.dispose();
+        game.eatLarvae.dispose();
+        game.eatMoskito.dispose();
+
     }
 
     @Override

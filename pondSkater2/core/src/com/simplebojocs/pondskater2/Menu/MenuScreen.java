@@ -135,9 +135,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         readConfig();
         if(musicON) {
-            game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-            game.music.setLooping(true);                // will repeat playback until music.stop() is called
-            game.music.play();
+            game.gamemusic.play();                 // sets the volume to half the maximum volume
         }
 
     }
@@ -250,6 +248,14 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch.dispose();
         font.dispose();
         sbfont.dispose();
+        game.musicDeath.dispose();
+        game.soundDeath.dispose();
+        game.gamemusic.dispose();
+        game.soundDeath.dispose();
+        game.musicDeath.dispose();
+        game.moskitoMusic.dispose();
+        game.eatLarvae.dispose();
+        game.eatMoskito.dispose();
     }
 
     @Override
