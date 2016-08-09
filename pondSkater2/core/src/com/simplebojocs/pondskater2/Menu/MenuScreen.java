@@ -261,8 +261,11 @@ public class MenuScreen extends InputAdapter implements Screen {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         try {
+
+            Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
+
             if (isTutorial) {
-                if ((screenX<<1)<viewport.getWorldWidth())
+                if ((worldTouch.x<viewport.getWorldWidth()/2))
                     isTutorial = tutorial.drawPrevious();
                 else
                     isTutorial = tutorial.drawNext();
@@ -270,8 +273,6 @@ public class MenuScreen extends InputAdapter implements Screen {
                     tutorial = null;
                 return true;
             }
-            Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
-
             if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showAccelerometerConfigScreen();
             }
