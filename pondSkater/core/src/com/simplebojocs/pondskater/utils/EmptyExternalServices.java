@@ -4,7 +4,7 @@ package com.simplebojocs.pondskater.utils;
  * esta "maravilla" de android no deja, asi que baja reusabilidad de esta clase
  * public class EmptyExternalServices<V> implements iExternalServices<iAchievement>
  */
-public class EmptyExternalServices implements iExternalServices<PondSkaterAchievement>{
+public class EmptyExternalServices implements com.simplebojocs.utils.externalServices.iExternalServices<PondSkaterAchievement> {
     public void showAd(boolean visibility){}
 
     public void submitScore(int score){}

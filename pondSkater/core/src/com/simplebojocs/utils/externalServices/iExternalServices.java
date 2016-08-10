@@ -1,6 +1,6 @@
-package com.simplebojocs.pondskater.utils;
+package com.simplebojocs.utils.externalServices;
 
-public interface iExternalServices<V extends iAchievement> {
+public interface iExternalServices<K extends iAchievement> {
     enum ConnectionStatus{
         DISCONNECTED, CONNECTED, CONNECTING
     }
@@ -14,9 +14,9 @@ public interface iExternalServices<V extends iAchievement> {
      * - Si @achievement.type = INCREMENT llama a incrementAchievement en 1
      * @param achievement
      */
-    void submitAchievement(V achievement);
-    void unlockAchievement(V achievement);
-    void incrementAchievement(V achievement, int increment);
+    void submitAchievement(K achievement);
+    void unlockAchievement(K achievement);
+    void incrementAchievement(K achievement, int increment);
     void showAchievements();
 
     ConnectionStatus getConnectionStatus();

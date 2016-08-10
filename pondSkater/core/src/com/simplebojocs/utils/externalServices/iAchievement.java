@@ -1,4 +1,4 @@
-package com.simplebojocs.pondskater.utils;
+package com.simplebojocs.utils.externalServices;
 
 public interface iAchievement {
     enum AchievementType{

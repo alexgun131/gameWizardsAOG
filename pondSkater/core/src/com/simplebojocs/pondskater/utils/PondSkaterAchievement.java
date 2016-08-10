@@ -1,9 +1,6 @@
 package com.simplebojocs.pondskater.utils;
 
-import java.util.EnumSet;
-import java.util.Set;
-
-public enum PondSkaterAchievement implements iAchievement{
+public enum PondSkaterAchievement implements com.simplebojocs.utils.externalServices.iAchievement {
     FIRST_GAME      (AchievementType.UNLOCK,      PondSkaterAchievementType.OTHERS,       0),
     POINTS_100      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,     100),
     POINTS_1K       (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    1000),

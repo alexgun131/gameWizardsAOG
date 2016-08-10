@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.simplebojocs.pondskater.utils.EmptyExternalServices;
 import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
-import com.simplebojocs.pondskater.utils.iExternalServices;
+import com.simplebojocs.utils.externalServices.iExternalServices;
 
 public class PondSkater extends Game {
 	public final iExternalServices<PondSkaterAchievement> externalServices;

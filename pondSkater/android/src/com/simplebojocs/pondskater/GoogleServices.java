@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.games.Games;
 import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
-import com.simplebojocs.pondskater.utils.iExternalServices;
+import com.simplebojocs.utils.externalServices.iExternalServices;
 
 public class GoogleServices implements iExternalServices<PondSkaterAchievement>, ConnectionCallbacks, OnConnectionFailedListener{
     private iExternalServices.ConnectionStatus status;
