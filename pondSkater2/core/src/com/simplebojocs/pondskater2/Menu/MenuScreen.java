@@ -49,6 +49,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     Vector2 MENU_OPTIONS;
     Vector2 MENU_PLAYGAME;
     Vector2 MENU_SCORES;
+    Vector2 TUTORIALON;
 
 
     float riverPosition;
@@ -59,6 +60,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
+    Texture INFO_BUTTON;
 
     Tutorial tutorial;
     boolean isTutorial;
@@ -85,6 +87,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         FlyButton = new Texture("FlyButton.png");
         WormButton = new Texture("WormButton.png");
         FishButton = new Texture("FishButton.png");
+        INFO_BUTTON = new Texture("infoBlack.png");
 
         FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
         WormButtonSprite = new TextureRegion[animationColumns * animationRows];
@@ -132,9 +135,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         readConfig();
         if(musicON) {
-            game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-            game.music.setLooping(true);                // will repeat playback until music.stop() is called
-            game.music.play();
+            game.gamemusic.play();                 // sets the volume to half the maximum volume
         }
 
     }
@@ -148,6 +149,8 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         float width = viewport.getWorldWidth();
         float height = viewport.getWorldHeight();
+
+        TUTORIALON = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, height * 18/20 -  6* CONSTANTS.SCORES_BUBBLE_RADIUS - CONSTANTS.ADD_BANNER_HEIGHT);
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -180,6 +183,8 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[language]);
         font.draw(batch, CONSTANTS.SCORES_LABEL[language], MENU_SCORES.x, MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+
+        batch.draw(INFO_BUTTON, TUTORIALON.x-CONSTANTS.SCORES_BUBBLE_RADIUS/2, TUTORIALON.y-CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         if (isTutorial) {
             tutorial.draw(batch, width, height);
@@ -236,7 +241,6 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-
     }
 
     @Override
@@ -244,19 +248,31 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch.dispose();
         font.dispose();
         sbfont.dispose();
+        game.musicDeath.dispose();
+        game.soundDeath.dispose();
+        game.gamemusic.dispose();
+        game.soundDeath.dispose();
+        game.musicDeath.dispose();
+        game.moskitoMusic.dispose();
+        game.eatLarvae.dispose();
+        game.eatMoskito.dispose();
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         try {
+
+            Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
+
             if (isTutorial) {
-                isTutorial = tutorial.drawNext();
+                if ((worldTouch.x<viewport.getWorldWidth()/2))
+                    isTutorial = tutorial.drawPrevious();
+                else
+                    isTutorial = tutorial.drawNext();
                 if (!isTutorial)
                     tutorial = null;
                 return true;
             }
-            Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
-
             if (worldTouch.dst(MENU_OPTIONS) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showAccelerometerConfigScreen();
             }
@@ -267,6 +283,11 @@ public class MenuScreen extends InputAdapter implements Screen {
 
             if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
+            }
+            if (worldTouch.dst(TUTORIALON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+                tutorial = new Tutorial(language);
+                tutorial.start();
+                isTutorial = true;
             }
         } catch (Exception e) {
 

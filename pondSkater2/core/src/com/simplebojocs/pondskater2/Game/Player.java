@@ -47,7 +47,7 @@ public class Player {
         if(soundsON) {
             jumpSound = Gdx.audio.newMusic(Gdx.files.internal("Jump.mp3"));
             jumpSound.setLooping(false);
-            jumpSound.setVolume(0.16f);
+            jumpSound.setVolume(0.32f);
         }
     }
 
@@ -106,9 +106,9 @@ public class Player {
                 jumpSound.play();
             }
             if (!invertY)
-                velocity.y = CONSTANTS.JUMP_VELOCITY;
+                velocity.y = CONSTANTS.JUMP_VELOCITY * viewport.getWorldHeight()/480.0f ;
             else
-                velocity.y = -CONSTANTS.JUMP_VELOCITY;
+                velocity.y = -CONSTANTS.JUMP_VELOCITY * viewport.getWorldHeight()/480.0f;
 
             playerJumpFPS = delta;
         } else {

@@ -290,7 +290,6 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-
     }
 
     @Override
@@ -299,6 +298,14 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         fontScore.dispose();
         sbfont.dispose();
         renderer.dispose();
+        game.musicDeath.dispose();
+        game.soundDeath.dispose();
+        game.gamemusic.dispose();
+        game.soundDeath.dispose();
+        game.musicDeath.dispose();
+        game.moskitoMusic.dispose();
+        game.eatLarvae.dispose();
+        game.eatMoskito.dispose();
     }
 
     @Override
@@ -306,7 +313,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
         if (isTutorial) {
-            isTutorial = tutorial.drawNext();
+            if ((screenX<viewport.getWorldWidth()/2))
+                isTutorial = tutorial.drawPrevious();
+            else
+                isTutorial = tutorial.drawNext();
             if (!isTutorial)
                 tutorial = null;
             return true;
@@ -317,11 +327,13 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         if (worldTouch.dst(MUSICON) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             musicON = !musicON;
             if(musicON){
-                game.music.setVolume(0.3f);                 // sets the volume to half the maximum volume
-                game.music.setLooping(true);                // will repeat playback until music.stop() is called
-                game.music.play();
+                game.gamemusic.setVolume(0.3f);                 // sets the volume to half the maximum volume
+                game.gamemusic.setLooping(true);                // will repeat playback until music.stop() is called
+                game.gamemusic.play();
             }else{
-                game.music.stop();
+                game.gamemusic.setLooping(false);
+                game.gamemusic.pause();
+                game.gamemusic.setPosition(0);
             }
             writeConfig();
         }
