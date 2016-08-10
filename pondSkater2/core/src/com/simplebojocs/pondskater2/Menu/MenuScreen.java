@@ -87,7 +87,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         FlyButton = new Texture("FlyButton.png");
         WormButton = new Texture("WormButton.png");
         FishButton = new Texture("FishButton.png");
-        INFO_BUTTON = new Texture("info.png");
+        INFO_BUTTON = new Texture("infoBlack.png");
 
         FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
         WormButtonSprite = new TextureRegion[animationColumns * animationRows];
