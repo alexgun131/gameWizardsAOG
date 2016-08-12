@@ -22,8 +22,8 @@ android {
         applicationId "com.simplebojocs.pondskater2"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 11
-        versionName "1.0.3"
+        versionCode 12
+        versionName "1.0.4"
         multiDexEnabled true
     }
 }
