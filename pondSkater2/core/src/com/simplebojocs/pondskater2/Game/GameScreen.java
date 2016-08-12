@@ -75,6 +75,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+
+        game.externalServices.showAd(false);
         viewport = new ExtendViewport(CONSTANTS.WORLD_SIZE, CONSTANTS.WORLD_SIZE);
         Gdx.input.setInputProcessor(this);
         loadTextures();
