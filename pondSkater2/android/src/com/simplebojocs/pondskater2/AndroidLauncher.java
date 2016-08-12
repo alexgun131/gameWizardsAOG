@@ -22,7 +22,6 @@ public class AndroidLauncher extends AndroidApplication {
 		RelativeLayout layout = new RelativeLayout(this);
 
 		externalServices = new GoogleServices(this, getApplicationContext());
-
 		ps = new PondSkater(externalServices);
 
 		View gameView = initializeForView(
@@ -41,6 +40,7 @@ public class AndroidLauncher extends AndroidApplication {
 		layout.addView(externalServices.adView, adParams);
 
 		setContentView(layout);
+
 	}
 
 	@Override
@@ -48,6 +48,7 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onStart();
 		externalServices.connect();
 	}
+
 
 	@Override
 	protected void onStop() {
