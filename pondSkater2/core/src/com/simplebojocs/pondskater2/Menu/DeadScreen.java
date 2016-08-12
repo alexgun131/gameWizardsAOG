@@ -109,7 +109,7 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        game.externalServices.showToastFromGame("Click on the add to destroy it");
+        game.externalServices.showToastFromGame("Click on the add and it will disappear");
         batch = new SpriteBatch();
 
         shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
