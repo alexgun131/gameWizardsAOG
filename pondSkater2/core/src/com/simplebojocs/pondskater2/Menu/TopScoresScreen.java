@@ -55,6 +55,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     }
     @Override
     public void show() {
+        game.externalServices.showAd(true);
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
 

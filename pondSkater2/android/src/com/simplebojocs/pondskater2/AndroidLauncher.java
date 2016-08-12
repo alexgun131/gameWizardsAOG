@@ -62,6 +62,11 @@ public class AndroidLauncher extends AndroidApplication {
 			onBackPressed();
 			return true;
 		}
+		if (!(ps.getScreen() instanceof com.simplebojocs.pondskater2.Game.GameScreen)) {
+			externalServices.adView.setVisibility(View.GONE);
+		} else {
+			externalServices.showAd(true);
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 

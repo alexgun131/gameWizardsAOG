@@ -77,6 +77,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        game.externalServices.showAd(true);
         AUTO_AD = new Texture("AutoAd_Words.png");
         Back_Button = new Texture("ArrowBackButton.png");
         INFO_BUTTON = new Texture("info.png");
