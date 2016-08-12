@@ -18,8 +18,8 @@ public interface iExternalServices<V extends iAchievement> {
     void unlockAchievement(V achievement);
     void incrementAchievement(V achievement, int increment);
     void showAchievements();
-
     ConnectionStatus getConnectionStatus();
     void connect();
     void disconnect();
+    void showToastFromGame(CharSequence text);
 }

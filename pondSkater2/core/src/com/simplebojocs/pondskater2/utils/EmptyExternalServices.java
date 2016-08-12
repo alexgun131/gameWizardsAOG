@@ -13,6 +13,7 @@ public class EmptyExternalServices implements iExternalServices<com.simplebojocs
     public void submitAchievement(com.simplebojocs.pondskater2.utils.PondSkaterAchievement achievement){}
     public void unlockAchievement(com.simplebojocs.pondskater2.utils.PondSkaterAchievement achievement){}
     public void incrementAchievement(com.simplebojocs.pondskater2.utils.PondSkaterAchievement achievement, int increment){}
+    public void showToastFromGame(CharSequence text){}
     public void showAchievements(){}
 
     public ConnectionStatus getConnectionStatus(){

@@ -124,6 +124,9 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
             showToast("Google Play Games must be connected");
         }
     }
+
+
+
     private String getAchievementID(PondSkaterAchievement achievement){
         int id;
         switch(achievement){
@@ -171,7 +174,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
         status = ConnectionStatus.DISCONNECTED;
     }
 
-
+    @Override
     public void showToast(final CharSequence text) {
         handler.post(new Runnable() {
             @Override
@@ -179,6 +182,11 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+@Override
+ public void showToastFromGame(CharSequence text){
+        if(adView.isActivated())
+            showToast(text);
     }
 
 }
