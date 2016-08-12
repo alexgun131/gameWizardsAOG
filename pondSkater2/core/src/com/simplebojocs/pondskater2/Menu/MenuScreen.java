@@ -115,8 +115,6 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        game.externalServices.showToastFromGame("Click on the add and it will disappear");
-
         batch = new SpriteBatch();
 
         viewport = new ExtendViewport(CONSTANTS.MENU_WORLD_SIZE, CONSTANTS.MENU_WORLD_SIZE);

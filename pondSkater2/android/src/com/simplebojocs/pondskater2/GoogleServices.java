@@ -59,7 +59,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                 // Save app state before going to the ad overlay.
                  if (adView != null) {
                      adView.destroy();
-                     isPause = true;
                     }
             }
         });
@@ -188,8 +187,11 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     }
 @Override
  public void showToastFromGame(CharSequence text){
-        if(!isPause)
+        if(!isPause){
             showToast(text);
+            isPause = true;
+        }
+
     }
 
 }
