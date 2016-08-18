@@ -263,7 +263,10 @@ public class GameScreen extends InputAdapter implements Screen {
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
             isSuperPoint = false;
-            eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS;
+            if(!hardMode)
+                eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS;
+            else
+                eatenPoints = eatenPoints + CONSTANTS.VALUE_SCORE_SPAWN_SUPERPOINTS*2;
             scoreBeforeMult = currentScore;
             enemies.enemiesCounter = 0;
         }
