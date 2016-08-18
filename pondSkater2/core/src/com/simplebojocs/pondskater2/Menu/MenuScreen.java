@@ -41,10 +41,12 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture WormButton;
     Texture FishButton;
     Texture PondButton;
+    Texture PondLockedButton; //For locked version
     TextureRegion[] FlyButtonSprite;
     TextureRegion[] WormButtonSprite;
     TextureRegion[] FishButtonSprite;
     TextureRegion[] PondButtonSprite;
+    TextureRegion[] PondLockedButtonSprite;
     float flyFps;
     float wormFps;
     float fishFps;
@@ -70,6 +72,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     boolean isTutorial;
 
     boolean musicON = true;
+    boolean isHardModeUnlocked;
 
     public MenuScreen(PondSkater game) {
         this.game = game;
@@ -80,6 +83,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         pondFps = 0.0f;
         tutorial = null;
         isTutorial = false;
+        isHardModeUnlocked = true;
     }
 
     private void loadTextures() {
@@ -93,18 +97,21 @@ public class MenuScreen extends InputAdapter implements Screen {
         WormButton = new Texture("WormButton.png");
         FishButton = new Texture("FishButton.png");
         PondButton = new Texture("PondButton.png");
+        PondLockedButton = new Texture("PondButtonLocked.png");
         INFO_BUTTON = new Texture("infoBlack.png");
 
         FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
         WormButtonSprite = new TextureRegion[animationColumns * animationRows];
         FishButtonSprite = new TextureRegion[animationColumns * animationRows];
         PondButtonSprite = new TextureRegion[animationColumns * animationRows];
+        PondLockedButtonSprite = new TextureRegion[animationColumns * animationRows];
 
         for (int i = 0; i < animationColumns; i++) {
             FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize * i, 0, buttonSize, buttonSize);
             WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize * i, 0, buttonSize, buttonSize);
             FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize * i, 0, buttonSize, buttonSize);
             PondButtonSprite[i] = new TextureRegion(PondButton, buttonSize * i, 0, buttonSize, buttonSize);
+            PondLockedButtonSprite[i] = new TextureRegion(PondLockedButton, buttonSize * i, 0, buttonSize, buttonSize);
         }
 
         // TEXTURES
@@ -180,7 +187,10 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
-        batch.draw(PondButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        if (isHardModeUnlocked)
+            batch.draw(PondButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        else
+            batch.draw(PondLockedButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
@@ -237,7 +247,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         pondFps += delta;
         pondFps %= 100;
         int sprite = 0;
-        if ((pondFps % 1) > 0.1) {
+        if ((pondFps % 1) > 0.9) {
             sprite = 1;
         }
         return sprite;
@@ -300,7 +310,10 @@ public class MenuScreen extends InputAdapter implements Screen {
                 game.showGameScreen();
             }
             if (worldTouch.dst(MENU_PLAYHARD) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
-                game.showHardModeScreen();
+                if (isHardModeUnlocked)
+                    game.showHardModeScreen();
+                //else
+                    //toast
             }
             if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
