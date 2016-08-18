@@ -56,6 +56,7 @@ public class GameScreen extends InputAdapter implements Screen {
     Point point;
     com.simplebojocs.pondskater2.Game.SuperPoint superPoint;
     long timePointElapsed;
+    long timeLifeElapsed;
     long timeSuperPointElapsed;
     boolean isPoint;
     boolean isSuperPoint;
@@ -74,6 +75,8 @@ public class GameScreen extends InputAdapter implements Screen {
     boolean soundsON = true;
     String topScorenow;
     Vector2 topScores;
+
+    int kindLarvae;
 
     @Override
     public void show() {
@@ -108,6 +111,7 @@ public class GameScreen extends InputAdapter implements Screen {
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         currentTopScore = 0;
         read();
+        kindLarvae = 1;
         currentScore = 0;
         scoreBeforeMult = 0;
         eatenPoints = 0;
@@ -122,7 +126,6 @@ public class GameScreen extends InputAdapter implements Screen {
         isSuperPoint = false;
         game.externalServices.showAd(false);
         if (musicON) {
-
             game.gamemusic.play();
         }
 
@@ -182,12 +185,16 @@ public class GameScreen extends InputAdapter implements Screen {
         final GlyphLayout musicLayout = new GlyphLayout(sbfont, topScorenow);
         sbfont.draw(batch, topScorenow, topScores.x, topScores.y + musicLayout.height / 2, 0, Align.right, false);
 
-        point.render(batch);
+        point.render(batch, kindLarvae);
         superPoint.render(batch);
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
-            game.externalServices.submitScore(currentScore);
+            if(hardMode == false){
+                game.externalServices.submitStandardScore(currentScore);
+            } else {
+                game.externalServices.submitCompetitiveScore(currentScore);
+            }
             timeSinceDead = TimeUtils.nanoTime();
             if (soundsON) {
                 game.moskitoMusic.pause();
@@ -205,7 +212,10 @@ public class GameScreen extends InputAdapter implements Screen {
                 enemies.init();
                 player.init();
                 game.showDeadScreen(currentScore, eatenPoints);
-                game.externalServices.submitScore(currentScore);
+                if(!hardMode)
+                    game.externalServices.submitStandardScore(currentScore);
+                else
+                    game.externalServices.submitCompetitiveScore(currentScore);
                 write();
                 currentScore = 0;
                 currentTopScore = 0;
@@ -235,7 +245,7 @@ public class GameScreen extends InputAdapter implements Screen {
             point.disappear();
             timePointElapsed = TimeUtils.nanoTime();
             isPoint = false;
-            eatenPoints++;
+            eatenPoints = eatenPoints + kindLarvae;
             scoreBeforeMult = currentScore;
             enemies.enemiesCounter = 0;
         }
@@ -271,9 +281,30 @@ public class GameScreen extends InputAdapter implements Screen {
             if ((TimeUtils.nanoTime() - timePointElapsed) * 1E-9 > CONSTANTS.TIME_SPAWN_POINTS * MathUtils.random(0.3f, 1.2f)) {
                 point.newPosition();
                 isPoint = true;
+                timePointElapsed = TimeUtils.nanoTime();
+                if(hardMode) {
+                    float probability = MathUtils.random(0.0f, 1.0f);
+                    if(probability < 0.5f) {
+                        kindLarvae = 1;
+                    }else if (probability < 0.75f) {
+                        kindLarvae = 2;
+                    }else if (probability < 0.9f) {
+                        kindLarvae = 3;
+                    }else {
+                        kindLarvae = 4;
+                    }
+                }
+            }
+        } else {
+            if(hardMode) {
+                if ((TimeUtils.nanoTime() - timePointElapsed) * 1E-9 > (CONSTANTS.TIME_SPAWN_POINTS +  (CONSTANTS.TIME_LIFE_POINTS / kindLarvae))) {
+                    point.disappear();
+                    timePointElapsed = TimeUtils.nanoTime();
+                    Gdx.app.log("hola", "entrando");
+                    isPoint = false;
+                }
             }
         }
-
         if (!isSuperPoint) {
             if ((TimeUtils.nanoTime() - timeSuperPointElapsed) * 1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS * MathUtils.random(1.0f, 1.5f)) {
                 if (soundsON) {
@@ -320,7 +351,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
-        game.externalServices.submitScore(currentScore);
+        if(!hardMode)
+            game.externalServices.submitStandardScore(currentScore);
+        else
+            game.externalServices.submitCompetitiveScore(currentScore);
         write();
         if (soundsON) {
             if (game.moskitoMusic.isPlaying()) {
@@ -337,7 +371,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        game.externalServices.submitScore(currentScore);
+        if(!hardMode)
+            game.externalServices.submitStandardScore(currentScore);
+        else
+            game.externalServices.submitCompetitiveScore(currentScore);
         if (soundsON) {
             if (game.moskitoMusic.isPlaying()) {
                 game.moskitoMusic.pause();
@@ -350,7 +387,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-        game.externalServices.submitScore(currentScore);
+        if(!hardMode)
+            game.externalServices.submitStandardScore(currentScore);
+        else
+            game.externalServices.submitCompetitiveScore(currentScore);
         batch.dispose();
         font.dispose();
         sbfont.dispose();

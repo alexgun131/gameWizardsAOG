@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -81,18 +80,39 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     }
 
     @Override
-    public void submitScore(int score){
+    public void submitStandardScore(int score){
         if(googleApiClient.isConnected()){
-            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_scores), score);
+            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_standard_scores), score);
         }
     }
     @Override
-    public void showLeaderboard(){
+    public void showStandardLeaderboard(){
         if(googleApiClient.isConnected()){
             activity.startActivityForResult(
                     Games.Leaderboards.getLeaderboardIntent(
                             googleApiClient,
-                            activity.getString(R.string.leaderboard_pond_skater_scores)
+                            activity.getString(R.string.leaderboard_pond_skater_standard_scores)
+                    ),
+                    1
+            );}
+        else{
+            showToast("Google Play Games must be connected");
+        }
+    }
+
+    @Override
+    public void submitCompetitiveScore(int score){
+        if(googleApiClient.isConnected()){
+            Games.Leaderboards.submitScore(googleApiClient, activity.getString(R.string.leaderboard_pond_skater_competitive_scores), score);
+        }
+    }
+    @Override
+    public void showCompetitiveLeaderboard(){
+        if(googleApiClient.isConnected()){
+            activity.startActivityForResult(
+                    Games.Leaderboards.getLeaderboardIntent(
+                            googleApiClient,
+                            activity.getString(R.string.leaderboard_pond_skater_competitive_scores)
                     ),
                     1
             );}
@@ -145,6 +165,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
             case POINTS_100:      id = R.string.achievement_100_points;            break;
             case POINTS_1K:       id = R.string.achievement_1000_points;           break;
             case POINTS_5K:       id = R.string.achievement_5000_points;           break;
+            case HARDMODE_UNLOCK:       id = R.string.achievement_competitive_mode_unlocked;           break;
             case POINTS_10K:      id = R.string.achievement_10000_points;          break;
             case POINTS_20K:      id = R.string.achievement_20000_points;          break;
             case POINTS_1K_x_10:  id = R.string.achievement_10_games_over_1000;    break;

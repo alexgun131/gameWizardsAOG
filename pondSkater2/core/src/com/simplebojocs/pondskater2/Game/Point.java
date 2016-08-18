@@ -58,7 +58,7 @@ public class Point {
         animationFps %= 100;
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch, int kindLarvae){
         //renderer.setColor(CONSTANTS.POINT_COLOR);
         //renderer.circle(position.x, position.y + CONSTANTS.POINT_WIDTH, CONSTANTS.POINT_WIDTH);
 

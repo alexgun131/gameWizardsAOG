@@ -44,6 +44,7 @@ public class CONSTANTS {
     public static final float FRAME_THIKNESS = 35.0f * WORLD_SIZE/480.0f;
 
     public static final float TIME_SPAWN_POINTS = 2;
+    public static final float TIME_LIFE_POINTS = 10;
     public static final float TIME_SPAWN_SUPERPOINTS = 10;
     public static final int VALUE_SCORE_SPAWN_SUPERPOINTS = 5;
     public static final float TIME_SHOW_DEATH = 1.2f;

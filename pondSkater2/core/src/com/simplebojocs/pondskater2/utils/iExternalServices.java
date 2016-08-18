@@ -6,8 +6,11 @@ public interface iExternalServices<V extends iAchievement> {
     }
     void showAd(boolean visibility);
 
-    void submitScore(int score);
-    void showLeaderboard();
+    void submitStandardScore(int score);
+    void showStandardLeaderboard();
+
+    void submitCompetitiveScore(int score);
+    void showCompetitiveLeaderboard();
 
     /**
      * - Si @achievement.type = UNLOCK llama a unlockAchievement

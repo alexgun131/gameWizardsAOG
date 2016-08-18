@@ -69,7 +69,7 @@ public class PondSkater extends Game {
 	}
 
 	public void showGameScreen(){
-		setScreen(new com.simplebojocs.pondskater2.Game.GameScreen(this, true));
+		setScreen(new com.simplebojocs.pondskater2.Game.GameScreen(this, false));
 	}
 
 	public void showHardModeScreen(){

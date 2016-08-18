@@ -7,8 +7,11 @@ package com.simplebojocs.pondskater2.utils;
 public class EmptyExternalServices implements iExternalServices<com.simplebojocs.pondskater2.utils.PondSkaterAchievement>{
     public void showAd(boolean visibility){}
 
-    public void submitScore(int score){}
-    public void showLeaderboard(){}
+    public void submitStandardScore(int score){}
+    public void showStandardLeaderboard(){}
+
+    public void submitCompetitiveScore(int score){}
+    public void showCompetitiveLeaderboard(){}
 
     public void submitAchievement(com.simplebojocs.pondskater2.utils.PondSkaterAchievement achievement){}
     public void unlockAchievement(com.simplebojocs.pondskater2.utils.PondSkaterAchievement achievement){}

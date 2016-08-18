@@ -10,6 +10,7 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="achievement_100_points">CgkI2tavy6MMEAIQAg</string>
     <string name="achievement_1000_points">CgkI2tavy6MMEAIQAw</string>
     <string name="achievement_5000_points">CgkI2tavy6MMEAIQBA</string>
+    <string name="achievement_competitive_mode_unlocked">CgkI2tavy6MMEAIQDg</string>
     <string name="achievement_10000_points">CgkI2tavy6MMEAIQBQ</string>
     <string name="achievement_20000_points">CgkI2tavy6MMEAIQBg</string>
     <string name="achievement_10_games_over_1000">CgkI2tavy6MMEAIQBw</string>
@@ -17,5 +18,6 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="achievement_5_games_over_20000">CgkI2tavy6MMEAIQCQ</string>
     <string name="achievement_first_moskito">CgkI2tavy6MMEAIQCg</string>
     <string name="achievement_10_moskitos_in_a_game">CgkI2tavy6MMEAIQCw</string>
-    <string name="leaderboard_pond_skater_scores">CgkI2tavy6MMEAIQDA</string>
+    <string name="leaderboard_pond_skater_standard_scores">CgkI2tavy6MMEAIQDA</string>
+    <string name="leaderboard_pond_skater_competitive_scores">CgkI2tavy6MMEAIQDQ</string>
 </resources>
