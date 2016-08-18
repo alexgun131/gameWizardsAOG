@@ -40,14 +40,18 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture FlyButton;
     Texture WormButton;
     Texture FishButton;
+    Texture PondButton;
     TextureRegion[] FlyButtonSprite;
     TextureRegion[] WormButtonSprite;
     TextureRegion[] FishButtonSprite;
+    TextureRegion[] PondButtonSprite;
     float flyFps;
     float wormFps;
     float fishFps;
+    float pondFps;
     Vector2 MENU_OPTIONS;
     Vector2 MENU_PLAYGAME;
+    Vector2 MENU_PLAYHARD;
     Vector2 MENU_SCORES;
     Vector2 TUTORIALON;
 
@@ -73,6 +77,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         flyFps = 0.0f;
         wormFps = 0.0f;
         fishFps = 0.0f;
+        pondFps = 0.0f;
         tutorial = null;
         isTutorial = false;
     }
@@ -87,16 +92,19 @@ public class MenuScreen extends InputAdapter implements Screen {
         FlyButton = new Texture("FlyButton.png");
         WormButton = new Texture("WormButton.png");
         FishButton = new Texture("FishButton.png");
+        PondButton = new Texture("PondButton.png");
         INFO_BUTTON = new Texture("infoBlack.png");
 
         FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
         WormButtonSprite = new TextureRegion[animationColumns * animationRows];
         FishButtonSprite = new TextureRegion[animationColumns * animationRows];
+        PondButtonSprite = new TextureRegion[animationColumns * animationRows];
 
         for (int i = 0; i < animationColumns; i++) {
             FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize * i, 0, buttonSize, buttonSize);
             WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize * i, 0, buttonSize, buttonSize);
             FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize * i, 0, buttonSize, buttonSize);
+            PondButtonSprite[i] = new TextureRegion(PondButton, buttonSize * i, 0, buttonSize, buttonSize);
         }
 
         // TEXTURES
@@ -127,7 +135,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
                 Gdx.files.internal("data/CuteFont2.png"), false);
-        sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.6f);
+        sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.8f);
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         game.externalServices.showAd(true);
@@ -157,9 +165,10 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         drawBackground(delta, batch); // draw river with animation
 
-        MENU_OPTIONS = new Vector2(width / 5, height / 2.5f);
-        MENU_PLAYGAME = new Vector2(width/ 2, height / 2.5f);
-        MENU_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
+        MENU_OPTIONS = new Vector2(width *1/8, height / 2.5f);
+        MENU_PLAYGAME = new Vector2(width *3/8 , height / 2.5f);
+        MENU_PLAYHARD = new Vector2(width *5/8 , height / 2.5f);
+        MENU_SCORES = new Vector2(width *7/8, height / 2.5f);
 
         float MENU_AUTO_AD_Y = height / 1.6f;
 
@@ -171,6 +180,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        batch.draw(PondButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
@@ -215,9 +225,19 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     private int getFishSprite(float delta) {
         fishFps += delta;
-        wormFps %= 100;
+        fishFps %= 100;
         int sprite = 0;
-        if ((wormFps % 0.5) > 0.25) {
+        if ((fishFps % 0.5) > 0.25) {
+            sprite = 1;
+        }
+        return sprite;
+    }
+
+    private int getPondSprite(float delta) {
+        pondFps += delta;
+        pondFps %= 100;
+        int sprite = 0;
+        if ((pondFps % 1) > 0.1) {
             sprite = 1;
         }
         return sprite;
@@ -279,7 +299,9 @@ public class MenuScreen extends InputAdapter implements Screen {
             if (worldTouch.dst(MENU_PLAYGAME) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showGameScreen();
             }
-
+            if (worldTouch.dst(MENU_PLAYHARD) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
+                game.showHardModeScreen();
+            }
             if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
             }

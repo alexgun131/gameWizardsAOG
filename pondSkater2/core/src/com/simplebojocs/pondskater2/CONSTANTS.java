@@ -71,8 +71,8 @@ public class CONSTANTS {
     public static final Color MENU_BACKGROUND_COLOR = Color.YELLOW;
 
     public static final float MENU_WORLD_SIZE = 480.0f;
-    public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 9;
-    public static final float MENU_LABEL_SCALE = 1.0f;
+    public static final float MENU_BUBBLE_RADIUS = MENU_WORLD_SIZE / 12;
+    public static final float MENU_LABEL_SCALE = 0.8f;
 
     public static final float MENU_AUTO_AD_WIDTH = MENU_WORLD_SIZE*1.1f;
 
