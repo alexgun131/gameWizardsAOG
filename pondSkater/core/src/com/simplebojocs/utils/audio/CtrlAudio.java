@@ -127,9 +127,11 @@ public class CtrlAudio extends FileLoader {
             playlist.add(audio, music);
         }
 
-        if(audio.getAudioType() == iAudio.AudioType.BGM && playingBGM != audio){
+        if(audio.getAudioType() == iAudio.AudioType.BGM && playingBGM != audio && autoPlay){
             if(disposeOnLoadBGM)
                 playlist.remove(playingBGM);
+            else
+                playlist.pause(playingBGM);
             playingBGM = audio;
         }
 

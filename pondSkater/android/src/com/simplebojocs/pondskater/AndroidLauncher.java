@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.simplebojocs.pondskater.mainmenu2.MenuScreen2;
 
 public class AndroidLauncher extends AndroidApplication {
 	GoogleServices externalServices;
@@ -71,7 +72,7 @@ public class AndroidLauncher extends AndroidApplication {
 			Gdx.app.postRunnable(new Runnable() {
 				@Override
 				public void run() {
-					ps.showMenuScreen();
+					ps.setScreen(new MenuScreen2(ps));
 				}
 			});
 		}
