@@ -56,8 +56,8 @@ public class PondSkater extends Game {
 		setScreen(new com.simplebojocs.pondskater2.Menu.MenuScreen(this));
 	}
 
-	public void showDeadScreen(int score, int eaten){
-		setScreen(new com.simplebojocs.pondskater2.Menu.DeadScreen(this, score, eaten));
+	public void showDeadScreen(int score, int eaten, boolean hardmode){
+		setScreen(new com.simplebojocs.pondskater2.Menu.DeadScreen(this, score, eaten, hardmode));
 	}
 
 	public void showAccelerometerConfigScreen(){

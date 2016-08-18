@@ -211,7 +211,7 @@ public class GameScreen extends InputAdapter implements Screen {
             if ((TimeUtils.nanoTime() - timeSinceDead) * 1E-9 > CONSTANTS.TIME_SHOW_DEATH) {
                 enemies.init();
                 player.init();
-                game.showDeadScreen(currentScore, eatenPoints);
+                game.showDeadScreen(currentScore, eatenPoints, hardMode);
                 if(!hardMode)
                     game.externalServices.submitStandardScore(currentScore);
                 else

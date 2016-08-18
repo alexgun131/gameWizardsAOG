@@ -64,10 +64,13 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     boolean musicON = true;
 
-    public DeadScreen(PondSkater game, int score, int eaten) {
+    boolean hardMode;
+
+    public DeadScreen(PondSkater game, int score, int eaten, boolean hardMode) {
         this.game = game;
         this.score = score;
         this.eaten = eaten;
+        this.hardMode = hardMode;
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
@@ -274,7 +277,10 @@ public class DeadScreen extends InputAdapter implements Screen {
             }
 
             if (worldTouch.dst(DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
-                game.showGameScreen();
+                if (hardMode)
+                    game.showHardModeScreen();
+                else
+                    game.showGameScreen();
             }
 
             if (worldTouch.dst(DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
