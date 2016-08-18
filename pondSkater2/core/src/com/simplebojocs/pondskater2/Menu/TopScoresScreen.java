@@ -42,6 +42,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     Texture ScoreStripes;
     TextureRegion[] ScoreStripesSprites;
 
+    boolean hardMode;
+
 
     int[] topEaten;
     int[] topScore;
@@ -209,6 +211,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         FileHandle configDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
+        if(hardMode)
+            topDataFile = Gdx.files.local(CONSTANTS.TOP_COMPETITIVE_NAME);
         FileHandle languajeDataFile = Gdx.files.local( CONSTANTS.LANGUAJECONFIG_FILE_NAME );
         Json json = new Json();
 

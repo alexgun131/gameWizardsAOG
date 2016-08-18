@@ -436,6 +436,8 @@ public class GameScreen extends InputAdapter implements Screen {
     public void write() {
         Json json = new Json();
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
+        if(hardMode)
+            topDataFile = Gdx.files.local(CONSTANTS.TOP_COMPETITIVE_NAME);
         addToTopScoresList();
         Vector2[] av = new Vector2[15];
         for (int i = 0; i < CONSTANTS.NUMBER_TOPSCORES; i++) {
@@ -450,6 +452,8 @@ public class GameScreen extends InputAdapter implements Screen {
     public void read() {
 
         FileHandle topDataFile = Gdx.files.local(CONSTANTS.TOP_FILE_NAME);
+        if(hardMode)
+            topDataFile = Gdx.files.local(CONSTANTS.TOP_COMPETITIVE_NAME);
         FileHandle languajeDataFile = Gdx.files.local(CONSTANTS.LANGUAJECONFIG_FILE_NAME);
         FileHandle configDataFile = Gdx.files.local(CONSTANTS.INVERTCONFIG_FILE_NAME);
         Json json = new Json();
