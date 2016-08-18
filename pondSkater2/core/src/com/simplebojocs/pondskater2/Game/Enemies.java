@@ -21,10 +21,16 @@ public class Enemies {
 
     static Texture enemyTexture;
     static TextureRegion[] enemySprites;
+    int multHardMode;
 
-    public Enemies(Viewport viewport) {
+    public Enemies(Viewport viewport, boolean hardMode) {
         this.viewport = viewport;
         init();
+        if(hardMode == true){
+            multHardMode = 2;
+        } else {
+            multHardMode = 1;
+        }
 
         loadTextures();
     }
@@ -49,13 +55,16 @@ public class Enemies {
     }
 
     public void update(float delta, int points) {
-        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points/50+1)/3.0f))) {
+        if(multHardMode == 2){
+            points += CONSTANTS.ENEMY_POINTS_HARDMODE;
+        }
+        if (MathUtils.random() < delta * CONSTANTS.SPAWN_RATE * (1+((float)Math.log10((double)points*multHardMode/50+1)/3.0f))) {
             Vector2 newEnemyPosition = new Vector2(
                     viewport.getWorldWidth(),
                     MathUtils.random(0.15f*viewport.getWorldHeight(),viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT-CONSTANTS.ENEMY_HEIGHT)
             );
 
-            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + 0.3f*(float)Math.log10((double)points/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);
+            Vector2 newEnemyVelocity = new Vector2(- MathUtils.random((float)0.3 + 0.3f*(float)Math.log10((double)points*multHardMode/10+1)/3.0f, (float) 1.0 + (float)Math.log10((double)points*multHardMode/10+1)/3.0f) * CONSTANTS.ENEMY_VELOCITY, 0);
 
             com.simplebojocs.pondskater2.Game.Enemy newEnemy = new com.simplebojocs.pondskater2.Game.Enemy(newEnemyPosition, newEnemyVelocity);
             enemyList.add(newEnemy);

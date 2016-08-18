@@ -28,9 +28,11 @@ import com.simplebojocs.pondskater2.utils.PondSkaterAchievement;
 public class GameScreen extends InputAdapter implements Screen {
 
     PondSkater game;
+    boolean hardMode;
 
-    public GameScreen(PondSkater game) {
+    public GameScreen(PondSkater game, boolean hardMode) {
         this.game = game;
+        this.hardMode = hardMode;
     }
 
     ExtendViewport viewport;
@@ -95,7 +97,7 @@ public class GameScreen extends InputAdapter implements Screen {
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         player = new com.simplebojocs.pondskater2.Game.Player(viewport);
-        enemies = new Enemies(viewport);
+        enemies = new Enemies(viewport, hardMode);
 
         point = new Point(viewport);
         superPoint = new com.simplebojocs.pondskater2.Game.SuperPoint(viewport);
@@ -118,7 +120,7 @@ public class GameScreen extends InputAdapter implements Screen {
         isAlive = true;
         isPoint = false;
         isSuperPoint = false;
-
+        game.externalServices.showAd(false);
         if (musicON) {
 
             game.gamemusic.play();
