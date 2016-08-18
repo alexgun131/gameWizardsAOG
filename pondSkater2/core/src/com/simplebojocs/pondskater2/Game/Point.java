@@ -24,11 +24,13 @@ public class Point {
     private void loadTextures() {
         int pointImgSize = 128;
         int animationColumns = 2;
-        int animationRows = 1;
+        int animationRows = 4;
         pointTexture = new Texture("points.png");
         pointSprites = new TextureRegion[animationColumns * animationRows];
-        for (int i = 0; i < animationColumns; i++) {
-            pointSprites[i] = new TextureRegion(pointTexture, pointImgSize * i, 0, pointImgSize, pointImgSize);
+        for (int j = 0; j< animationRows; j++) {
+            for (int i = 0; i < animationColumns; i++) {
+                pointSprites[j*animationColumns+i] = new TextureRegion(pointTexture, pointImgSize * i, pointImgSize*(1+j), pointImgSize, pointImgSize);
+            }
         }
     }
 
@@ -65,7 +67,7 @@ public class Point {
         int sprite = getAnimationSprite();
         //TODO Sprites causes unalignment, why?
         //TODO Bonus texture has some glaring
-        batch.draw(pointSprites[sprite], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
+        batch.draw(pointSprites[(kindLarvae-1)*2 + sprite], position.x-(int)(CONSTANTS.POINT_WIDTH*1.5), position.y-(int)(CONSTANTS.POINT_WIDTH*0.5) , CONSTANTS.POINT_WIDTH*3, CONSTANTS.POINT_WIDTH*3);
     }
 
     private int getAnimationSprite() {
