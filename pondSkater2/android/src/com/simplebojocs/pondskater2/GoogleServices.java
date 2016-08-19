@@ -29,7 +29,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     Handler handler;
     Context context;
     AdRequest add;
-    boolean isPause;
 
     public GoogleServices(Activity activity, Context context){
         status = ConnectionStatus.DISCONNECTED;
@@ -49,7 +48,6 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
 
         handler = new Handler();
         this.context = context;
-        isPause = false;
 
         //if (adView != null) {
         //}
@@ -217,10 +215,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     }
 @Override
  public void showToastFromGame(CharSequence text){
-        if(!isPause){
             showToast(text);
-            isPause = true;
-        }
 
     }
 
