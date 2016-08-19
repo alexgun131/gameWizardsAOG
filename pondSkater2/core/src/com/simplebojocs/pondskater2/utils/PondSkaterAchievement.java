@@ -5,7 +5,7 @@ public enum PondSkaterAchievement implements iAchievement{
     POINTS_100      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,     100),
     POINTS_1K       (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    1000),
     POINTS_5K       (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    5000),
-    HARDMODE_UNLOCK (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    7500),
+    HARDMODE_UNLOCK (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,    5000),
     POINTS_10K      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,   10000),
     POINTS_20K      (AchievementType.UNLOCK,      PondSkaterAchievementType.POINTS,   20000),
     POINTS_1K_x_10  (AchievementType.INCREMENTAL, PondSkaterAchievementType.POINTS,    1000),

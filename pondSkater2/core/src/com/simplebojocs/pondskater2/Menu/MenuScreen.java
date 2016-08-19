@@ -312,8 +312,8 @@ public class MenuScreen extends InputAdapter implements Screen {
             if (worldTouch.dst(MENU_PLAYHARD) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 if (isHardModeUnlocked)
                     game.showHardModeScreen();
-                //else
-                    //toast
+                else
+                    game.externalServices.showToastFromGame("5000 points to unlock");
             }
             if (worldTouch.dst(MENU_SCORES) < CONSTANTS.MENU_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
@@ -413,6 +413,19 @@ public class MenuScreen extends InputAdapter implements Screen {
             tutorial.start();
             isTutorial = true;
             scoreDataFile.writeString( "notFirstTime", false );
+            isHardModeUnlocked = false;
+        } else {
+            try {
+                String topAsCode = topDataFile.readString();
+                String topAsText = Base64Coder.decodeString(topAsCode);
+                Vector2[] av = json.fromJson(Vector2[].class, topAsText);
+                if (av[0].x > CONSTANTS.SCORE_TO_UNLOCK_COMPETITIVE)
+                    isHardModeUnlocked = true;
+                else
+                    isHardModeUnlocked = false;
+            } catch (Exception e){
+                isHardModeUnlocked = false;
+            }
         }
     }
 

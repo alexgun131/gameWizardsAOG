@@ -57,6 +57,7 @@ public class CONSTANTS {
 
     public static final String TOP_FILE_NAME = "TOP_SCORES2";
     public static final String TOP_COMPETITIVE_NAME = "TOP_SCORES_COMPETITIVE";
+    public static final int SCORE_TO_UNLOCK_COMPETITIVE = 5000;
 
 
     // Background animation
