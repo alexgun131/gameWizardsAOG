@@ -42,6 +42,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     Texture FishButton;
     Texture PondButton;
     Texture PondLockedButton; //For locked version
+    Texture PondSkull;
     TextureRegion[] FlyButtonSprite;
     TextureRegion[] WormButtonSprite;
     TextureRegion[] FishButtonSprite;
@@ -99,6 +100,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         PondButton = new Texture("PondButton.png");
         PondLockedButton = new Texture("PondButtonLocked.png");
         INFO_BUTTON = new Texture("infoBlack.png");
+        PondSkull = new Texture("PondSkull.png");
 
         FlyButtonSprite = new TextureRegion[animationColumns * animationRows];
         WormButtonSprite = new TextureRegion[animationColumns * animationRows];
@@ -191,6 +193,7 @@ public class MenuScreen extends InputAdapter implements Screen {
             batch.draw(PondButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         else
             batch.draw(PondLockedButtonSprite[getPondSprite(delta)], MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
+        batch.draw(PondSkull, MENU_PLAYHARD.x - CONSTANTS.MENU_BUBBLE_RADIUS, MENU_PLAYHARD.y - CONSTANTS.MENU_BUBBLE_RADIUS, CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 2);
         batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
