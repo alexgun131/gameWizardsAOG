@@ -41,6 +41,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     Texture BackGround;
     Texture ScoreStripes;
     TextureRegion[] ScoreStripesSprites;
+    Texture PondSkull;
 
     boolean hardMode;
 
@@ -50,6 +51,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     int languaje = 0;
     Vector2 LEADERBOARDS_POSITION;
     Vector2 ACHIEVEMENTS_POSITION;
+    Vector2 HARDMODE_POISITION;
 
     boolean musicON = true;
     public TopScoresScreen(PondSkater game){
@@ -66,6 +68,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         Back_Button_invert = new Texture("ArrowBackButtonInvert.png");
         BackGround = new Texture("ScoreBackground.png");
         ScoreStripes = new Texture("ScoreStripes.png");
+        PondSkull = new Texture("PondSkull.png");
         ScoreStripesSprites = new TextureRegion[2];
         ScoreStripesSprites[0] = new TextureRegion(ScoreStripes, 0, 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
         ScoreStripesSprites[1] = new TextureRegion(ScoreStripes, ScoreStripes.getWidth(), 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
@@ -95,6 +98,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         LEADERBOARDS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.LEADERBOARDS_POSITION.y);
         ACHIEVEMENTS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.ACHIEVEMENTS_POSITION.y);
+
+        HARDMODE_POISITION = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, (CONSTANTS.ACHIEVEMENTS_POSITION.y+CONSTANTS.LEADERBOARDS_POSITION.y)/2);
 
         viewport.apply();
         Gdx.gl.glClearColor(CONSTANTS.DEAD_BACKGROUND_COLOR.r, CONSTANTS.DEAD_BACKGROUND_COLOR.g, CONSTANTS.DEAD_BACKGROUND_COLOR.b, 1);
@@ -130,10 +135,16 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
 
             final GlyphLayout eatenScoresLayout = new GlyphLayout(fontScore, String.valueOf(topEaten[i]));
-            fontScore.draw(batch, String.valueOf(topEaten[i]), CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
+            if (hardMode)
+                font.draw(batch, String.valueOf(topEaten[i]), CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
+            else
+                fontScore.draw(batch, String.valueOf(topEaten[i]), CONSTANTS.EATEN_SCORES.x, CONSTANTS.EATEN_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
 
             final GlyphLayout scoreScoresLayout = new GlyphLayout(fontScore, String.valueOf(topScore[i]));
-            fontScore.draw(batch, String.valueOf(topScore[i]), CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
+            if (hardMode)
+                font.draw(batch, String.valueOf(topScore[i]), CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
+            else
+                fontScore.draw(batch, String.valueOf(topScore[i]), CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y - scoreLayout.height*2*i, 0, Align.center, false);
 
         }
 
@@ -149,6 +160,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         final GlyphLayout achievementLayout = new GlyphLayout(font, CONSTANTS.ACHIEVEMENTS_LABEL[languaje]);
         font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f, 0, Align.right, false);
+
+        batch.draw(PondSkull, CONSTANTS.SCORES_BUBBLE_RADIUS, HARDMODE_POISITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         batch.end();
 
@@ -203,6 +216,10 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
                 game.externalServices.showAchievements();
 
+        }
+        if (worldTouch.dst(HARDMODE_POISITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            hardMode ^= true;
+            read();
         }
         return true;
     }
