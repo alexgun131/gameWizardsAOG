@@ -416,10 +416,11 @@ public class MenuScreen extends InputAdapter implements Screen {
             isHardModeUnlocked = false;
         } else {
             try {
-                String topAsCode = topDataFile.readString();
+                String topAsCode = scoreDataFile.readString();
                 String topAsText = Base64Coder.decodeString(topAsCode);
                 Vector2[] av = json.fromJson(Vector2[].class, topAsText);
-                if (av[0].x >= CONSTANTS.SCORE_TO_UNLOCK_COMPETITIVE)
+                Gdx.app.log("hola", ""+ av[0].y);
+                if (av[0].y >= CONSTANTS.SCORE_TO_UNLOCK_COMPETITIVE)
                     isHardModeUnlocked = true;
                 else
                     isHardModeUnlocked = false;
