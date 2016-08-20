@@ -43,6 +43,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     Texture ScoreStripes;
     TextureRegion[] ScoreStripesSprites;
     Texture PondSkull;
+    Texture PondSkull2;
 
     boolean hardMode;
 
@@ -71,6 +72,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         BackGround = new Texture("ScoreBackground.png");
         ScoreStripes = new Texture("ScoreStripes.png");
         PondSkull = new Texture("PondSkull.png");
+        PondSkull2 = new Texture("PondSkull2.png");
         ScoreStripesSprites = new TextureRegion[2];
         ScoreStripesSprites[0] = new TextureRegion(ScoreStripes, 0, 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
         ScoreStripesSprites[1] = new TextureRegion(ScoreStripes, ScoreStripes.getWidth(), 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
@@ -157,7 +159,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.LEADERBOARDS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
         if(hardMode)
-            batch.draw(PondSkull, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.LEADERBOARDS_POSITION.y + easyLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*0.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
+            batch.draw(PondSkull2, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.LEADERBOARDS_POSITION.y + easyLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*0.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         final GlyphLayout LeaderboardsLayout = new GlyphLayout(font, CONSTANTS.LEADERBOARDS_LABEL[languaje]);
         font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.LEADERBOARDS_POSITION.y + LeaderboardsLayout.height / 3f, 0, Align.bottomRight, false);
@@ -166,18 +168,11 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         final GlyphLayout achievementLayout = new GlyphLayout(font, CONSTANTS.ACHIEVEMENTS_LABEL[languaje]);
         font.draw(batch, CONSTANTS.ACHIEVEMENTS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f, 0, Align.right, false);
-        batch.end();
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        if (hardMode)
-            renderer.setColor(Color.FOREST);
-        else
-            renderer.setColor(Color.BLACK);
-        renderer.circle(HARDMODE_SWITCH_POSITION.x + CONSTANTS.SCORES_BUBBLE_RADIUS/2, HARDMODE_SWITCH_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS/2, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        renderer.end();
 
-        batch.begin();
-        batch.draw(PondSkull, CONSTANTS.SCORES_BUBBLE_RADIUS, HARDMODE_SWITCH_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        if (hardMode)
+            batch.draw(PondSkull2, CONSTANTS.SCORES_BUBBLE_RADIUS, HARDMODE_SWITCH_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        else
+            batch.draw(PondSkull, CONSTANTS.SCORES_BUBBLE_RADIUS, HARDMODE_SWITCH_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         //batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
