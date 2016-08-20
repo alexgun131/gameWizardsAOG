@@ -190,6 +190,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
+            game.externalServices.showAd(true);
             if(hardMode == false){
                 game.externalServices.submitStandardScore(currentScore);
             } else {
