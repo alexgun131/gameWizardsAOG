@@ -53,7 +53,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     Vector2 LEADERBOARDS_POSITION;
     Vector2 ACHIEVEMENTS_POSITION;
     Vector2 HARDMODE_SWITCH_POSITION;
-    Vector2 HARDMODE_LEADERBOARD_POSITION;
+    //Vector2 HARDMODE_LEADERBOARD_POSITION;
 
     boolean musicON = true;
     public TopScoresScreen(PondSkater game){
@@ -100,7 +100,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         LEADERBOARDS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.LEADERBOARDS_POSITION.y);
         ACHIEVEMENTS_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.ACHIEVEMENTS_POSITION.y);
-        HARDMODE_LEADERBOARD_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2);
+        //HARDMODE_LEADERBOARD_POSITION = new Vector2(viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2);
         HARDMODE_SWITCH_POSITION = new Vector2(CONSTANTS.SCORES_BUBBLE_RADIUS, (CONSTANTS.ACHIEVEMENTS_POSITION.y+CONSTANTS.LEADERBOARDS_POSITION.y)/2);
 
         viewport.apply();
@@ -134,8 +134,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         fontScore.draw(batch, CONSTANTS.TOP_SCORES_LABEL[languaje], CONSTANTS.TOP_SCORES.x, CONSTANTS.TOP_SCORES.y + scoreLayout.height*2, 0, Align.center, false);
 
-        if(hardMode)
-            batch.draw(PondSkull, CONSTANTS.TOP_SCORES.x + scoreLayout.width, CONSTANTS.TOP_SCORES.y, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        //if(hardMode)
+            //batch.draw(PondSkull, CONSTANTS.TOP_SCORES.x + scoreLayout.width, CONSTANTS.TOP_SCORES.y, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
         for(int i=0; i<CONSTANTS.NUMBER_TOPSCORES; i++){
 
             final GlyphLayout eatenScoresLayout = new GlyphLayout(fontScore, String.valueOf(topEaten[i]));
@@ -156,6 +156,8 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
         batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.LEADERBOARDS_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
+        if(hardMode)
+            batch.draw(PondSkull, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.LEADERBOARDS_POSITION.y + easyLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*0.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         final GlyphLayout LeaderboardsLayout = new GlyphLayout(font, CONSTANTS.LEADERBOARDS_LABEL[languaje]);
         font.draw(batch, CONSTANTS.LEADERBOARDS_LABEL[languaje], viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*0.6f, CONSTANTS.LEADERBOARDS_POSITION.y + LeaderboardsLayout.height / 3f, 0, Align.bottomRight, false);
@@ -177,9 +179,9 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         batch.begin();
         batch.draw(PondSkull, CONSTANTS.SCORES_BUBBLE_RADIUS, HARDMODE_SWITCH_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
-        batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
+        //batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
-        batch.draw(PondSkull, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*2.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        //batch.draw(PondSkull, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*2.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         batch.end();
 
@@ -231,11 +233,14 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         }
 
         if (worldTouch.dst(LEADERBOARDS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+            if(!hardMode)
                 game.externalServices.showStandardLeaderboard();
+            else
+                game.externalServices.showCompetitiveLeaderboard();
         }
-        if (worldTouch.dst(HARDMODE_LEADERBOARD_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            game.externalServices.showCompetitiveLeaderboard();
-        }
+        //if (worldTouch.dst(HARDMODE_LEADERBOARD_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
+          //  game.externalServices.showCompetitiveLeaderboard();
+        //}
         if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.externalServices.showAchievements();
         }
