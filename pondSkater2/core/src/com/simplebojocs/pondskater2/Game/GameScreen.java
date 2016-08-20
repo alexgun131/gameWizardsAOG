@@ -303,7 +303,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 if ((TimeUtils.nanoTime() - timePointElapsed) * 1E-9 > (CONSTANTS.TIME_SPAWN_POINTS +  (CONSTANTS.TIME_LIFE_POINTS / kindLarvae))) {
                     point.disappear();
                     timePointElapsed = TimeUtils.nanoTime();
-                    Gdx.app.log("hola", "entrando");
                     isPoint = false;
                 }
             }

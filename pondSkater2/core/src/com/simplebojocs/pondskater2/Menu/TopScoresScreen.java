@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -44,6 +43,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     TextureRegion[] ScoreStripesSprites;
     Texture PondSkull;
     Texture PondSkull2;
+    Texture circleButton;
 
     boolean hardMode;
 
@@ -73,6 +73,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
         ScoreStripes = new Texture("ScoreStripes.png");
         PondSkull = new Texture("PondSkull.png");
         PondSkull2 = new Texture("PondSkull2.png");
+        circleButton = new Texture("circleButton.png");
         ScoreStripesSprites = new TextureRegion[2];
         ScoreStripesSprites[0] = new TextureRegion(ScoreStripes, 0, 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
         ScoreStripesSprites[1] = new TextureRegion(ScoreStripes, ScoreStripes.getWidth(), 0, ScoreStripes.getWidth()/2, ScoreStripes.getHeight());
@@ -176,8 +177,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
 
         //batch.draw(Back_Button_invert, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.ACHIEVEMENTS_POSITION.y - CONSTANTS.SCORES_BUBBLE_RADIUS*2-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS), CONSTANTS.SCORES_BUBBLE_RADIUS*4f, CONSTANTS.SCORES_BUBBLE_RADIUS*2);
 
-        //batch.draw(PondSkull, viewport.getWorldWidth()-CONSTANTS.SCORES_BUBBLE_RADIUS*2.4f, CONSTANTS.ACHIEVEMENTS_POSITION.y + achievementLayout.height / 3f - CONSTANTS.SCORES_BUBBLE_RADIUS*2.8f, CONSTANTS.SCORES_BUBBLE_RADIUS, CONSTANTS.SCORES_BUBBLE_RADIUS);
-
+        batch.draw(circleButton, CONSTANTS.SCORES_BUBBLE_RADIUS*0.75f, HARDMODE_SWITCH_POSITION.y-(int)(CONSTANTS.SCORES_BUBBLE_RADIUS*1.2f), CONSTANTS.SCORES_BUBBLE_RADIUS*1.5f, CONSTANTS.SCORES_BUBBLE_RADIUS*1.5f);
         batch.end();
 
 
@@ -233,9 +233,6 @@ public class TopScoresScreen extends InputAdapter implements Screen {
             else
                 game.externalServices.showCompetitiveLeaderboard();
         }
-        //if (worldTouch.dst(HARDMODE_LEADERBOARD_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-          //  game.externalServices.showCompetitiveLeaderboard();
-        //}
         if (worldTouch.dst(ACHIEVEMENTS_POSITION) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
             game.externalServices.showAchievements();
         }
