@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -64,7 +65,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
 
     @Override
     public void showAd(final boolean visibility){
-        /*activity.runOnUiThread(
+        activity.runOnUiThread(
             new Runnable(){
                 public void run(){
                     if (visibility) {
@@ -74,7 +75,7 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
                     }
                 }
             }
-        );*/
+        );
     }
 
     @Override
