@@ -9,7 +9,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
@@ -37,6 +39,9 @@ public class BouncingBall extends InputAdapter {
     boolean invertX = false;
     boolean invertY = false;
 
+    Texture playerTexture;
+    TextureRegion[] playerSprites;
+
 
     public BouncingBall(Viewport viewport) {
         this.viewport = viewport;
@@ -50,6 +55,23 @@ public class BouncingBall extends InputAdapter {
         ballTarget = new Vector2();
         baseRadius = RADIUS_FACTOR * Math.min(viewport.getWorldWidth(), viewport.getWorldHeight());
         radiusMultiplier = 1;
+        loadTextures();
+    }
+
+    private void loadTextures() {
+        int playerImgSize = 128;
+        int animationColumns = 3;
+        int animationRows = 4;
+
+        //Load Textures
+        playerTexture = new Texture("player.png");
+        playerSprites = new TextureRegion[animationColumns * animationRows];
+        for (int i = 0; i < animationColumns; i++) {
+            playerSprites[i] = new TextureRegion(playerTexture, playerImgSize * i, 0, playerImgSize, playerImgSize);
+            playerSprites[3 + i] = new TextureRegion(playerTexture, playerImgSize * i, playerImgSize, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan!
+            playerSprites[6 + i] = new TextureRegion(playerTexture, playerImgSize * i, playerImgSize * 2, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan2!
+            playerSprites[9 + i] = new TextureRegion(playerTexture, playerImgSize * i, playerImgSize * 3, playerImgSize, playerImgSize); //Bonus, You are on Super Saiyan3!
+        }
     }
 
     public void update(float delta){
@@ -116,10 +138,13 @@ public class BouncingBall extends InputAdapter {
         }
     }
 
-    public void render(ShapeRenderer renderer) {
-        renderer.set(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(COLOR);
-        renderer.circle(position.x, position.y, baseRadius * radiusMultiplier);
+    public void render(SpriteBatch batch) {
+        int sprite = 0;
+        int jumpsprite = 0;
+        batch.begin();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.draw(playerSprites[jumpsprite], position.x - CONSTANTS.PLAYER_RAD * 2, position.y - CONSTANTS.PLAYER_RAD, CONSTANTS.PLAYER_RAD * 4, CONSTANTS.PLAYER_RAD * 4);
+        batch.end();
     }
 
     public void readConfig() {

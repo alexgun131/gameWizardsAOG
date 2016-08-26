@@ -138,7 +138,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         LANGUAJES_COR = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*5/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
         LANGUAJES_AR = new Vector2((width - CONSTANTS.SCORES_BUBBLE_RADIUS)*6/8 + CONSTANTS.SCORES_BUBBLE_RADIUS, height * 1/20);
 
-        ball.render(renderer);
+        ball.render(batch);
 
         if(!musicON)
             renderer.setColor(Color.RED);
