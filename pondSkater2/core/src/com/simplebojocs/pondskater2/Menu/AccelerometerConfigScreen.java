@@ -156,19 +156,19 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             renderer.setColor(Color.RED);
         else
             renderer.setColor(Color.GREEN);
-        renderer.circle(INVERTXY.x, INVERTXY.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.rect(INVERTXY.x - CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, INVERTXY.y - CONSTANTS.SCORES_BUBBLE_RADIUS/2, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         if(!invertX)
             renderer.setColor(Color.RED);
         else
             renderer.setColor(Color.GREEN);
-        renderer.circle(INVERTX.x, INVERTX.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.rect(INVERTX.x - CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, INVERTX.y - CONSTANTS.SCORES_BUBBLE_RADIUS/2, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         if(!invertY)
             renderer.setColor(Color.RED);
         else
             renderer.setColor(Color.GREEN);
-        renderer.circle(INVERTY.x, INVERTY.y, CONSTANTS.SCORES_BUBBLE_RADIUS);
+        renderer.rect(INVERTY.x - CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, INVERTY.y - CONSTANTS.SCORES_BUBBLE_RADIUS/2, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
 
         renderer.set(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.BLACK);
