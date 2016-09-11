@@ -109,7 +109,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         PondLockedButtonSprite = new TextureRegion[animationColumns * animationRows];
 
         for (int i = 0; i < animationColumns; i++) {
-            FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize * i, 0, buttonSize, buttonSize);
+            FlyButtonSprite[i] = new TextureRegion(FlyButton, buttonSize * i - 10, 0, buttonSize, buttonSize);
             WormButtonSprite[i] = new TextureRegion(WormButton, buttonSize * i, 0, buttonSize, buttonSize);
             FishButtonSprite[i] = new TextureRegion(FishButton, buttonSize * i, 0, buttonSize, buttonSize);
             PondButtonSprite[i] = new TextureRegion(PondButton, buttonSize * i, 0, buttonSize, buttonSize);
