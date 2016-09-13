@@ -223,7 +223,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         if((!game.firstTime) & (game.externalServices.getShowAd())) {
             final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
-            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT*0.25f, 0, Align.bottomLeft, false);
         }
         final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[language], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);

@@ -187,7 +187,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         sbfont.draw(batch, "by SimpleBojocs", MENU_SCORES.x,  viewport.getWorldHeight() / 1.5f, 0, Align.bottomRight, false);
         if((!game.firstTime) & (game.externalServices.getShowAd())) {
             final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
-            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT*0.25f, 0, Align.bottomLeft, false);
         }
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);

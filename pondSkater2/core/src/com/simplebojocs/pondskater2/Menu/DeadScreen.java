@@ -182,7 +182,7 @@ public class DeadScreen extends InputAdapter implements Screen {
 
         if((!game.firstTime) & (game.externalServices.getShowAd())) {
             final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
-            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT *0.25f, 0, Align.bottomLeft, false);
         }
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score));
         fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
