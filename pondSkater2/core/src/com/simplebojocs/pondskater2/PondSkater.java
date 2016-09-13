@@ -19,6 +19,7 @@ public class PondSkater extends Game {
 	public static Music moskitoMusic;
 	public static Sound eatLarvae;
 	public static Sound eatMoskito;
+	public static boolean firstTime;
 
 
 	public iToaster itoaster;
@@ -33,6 +34,7 @@ public class PondSkater extends Game {
 
 	@Override
 	public void create() {
+		firstTime = true;
 		gamemusic = Gdx.audio.newMusic(Gdx.files.getFileHandle("PondSkaterTheme.mid", Files.FileType.Internal));
         gamemusic.setVolume(1.2f);
         gamemusic.setLooping(true);

@@ -35,6 +35,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
 
     BitmapFont font;
+    BitmapFont sbfont;
     BitmapFont fontScore;
     Texture Back_Button;
     Texture Back_Button_invert;
@@ -90,6 +91,7 @@ public class TopScoresScreen extends InputAdapter implements Screen {
                 Gdx.files.internal("data/CuteFont.png"), false);
         fontScore.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
         fontScore.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         topEaten = new int[CONSTANTS.NUMBER_TOPSCORES];
         topScore = new int[CONSTANTS.NUMBER_TOPSCORES];
         read();

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 public class CONSTANTS {
 
     //GAME CONSTANTS
+    public static final String SUPPORT =  "<-Click on the ad\nto support Developers";
     public static final float WORLD_SIZE = 480.0f;
     public static final float PLAYER_RAD = WORLD_SIZE/35;
     public static final float ENEMY_WIDTH = WORLD_SIZE/20;
@@ -50,7 +51,7 @@ public class CONSTANTS {
     public static final float TIME_SHOW_DEATH = 1.2f;
 
     public static final float ADD_BANNER_HEIGHT = 50;
-    public static final float ADD_BANNER_WIDTH = 320;
+    public static final float ADD_BANNER_WIDTH = 430;
     public static final float HUD_FONT_REFERENCE_SCREEN_SIZE = WORLD_SIZE/1.5f;
 
     public static final float HUD_MARGIN = 20.0f * WORLD_SIZE/480.0f;

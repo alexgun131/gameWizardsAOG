@@ -94,7 +94,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
 
         sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
                 Gdx.files.internal("data/CuteFont2.png"), false);
-        sbfont.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE*0.6f);
+        sbfont.getData().setScale(CONSTANTS.SCORE_LABEL_SCALE);
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         ball = new com.simplebojocs.pondskater2.Menu.BouncingBall(viewport);
@@ -221,7 +221,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         //final GlyphLayout simpleBojocsLayout = new GlyphLayout(fontScore, "by SimpleBojocs");
         //sbfont.draw(batch, "by SimpleBojocs", autoAdEndX,  height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, 0, Align.right, false);
 
-
+        if((!game.firstTime) & (game.externalServices.getShowAd())) {
+            final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+        }
         final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[language]);
         fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[language], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);
 

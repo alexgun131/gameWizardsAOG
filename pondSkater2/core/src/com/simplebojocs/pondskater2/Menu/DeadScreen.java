@@ -32,6 +32,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
 
     BitmapFont font;
+    BitmapFont sbfont;
     BitmapFont fontScore;
 
     int score;
@@ -75,6 +76,7 @@ public class DeadScreen extends InputAdapter implements Screen {
         flyFps = 0.0f;
         wormFps = 0.0f;
         fishFps = 0.0f;
+        game.firstTime = false;
     }
 
     private void loadTextures() {
@@ -130,6 +132,12 @@ public class DeadScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.DEAD_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        sbfont = new BitmapFont(Gdx.files.internal("data/CuteFont2.fnt"),
+                Gdx.files.internal("data/CuteFont2.png"), false);
+        sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.8f);
+        sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
         game.externalServices.showAd(true);
         readConfig();
 
@@ -172,6 +180,10 @@ public class DeadScreen extends InputAdapter implements Screen {
         DEAD_PLAYGAME = new Vector2(width / 2, height / 2.5f);
         DEAD_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
+        if((!game.firstTime) & (game.externalServices.getShowAd())) {
+            final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+        }
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score));
         fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
 

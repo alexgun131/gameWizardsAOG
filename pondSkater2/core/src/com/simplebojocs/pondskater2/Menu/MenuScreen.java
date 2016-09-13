@@ -185,7 +185,10 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch.draw(AUTO_AD, MENU_PLAYGAME.x-CONSTANTS.MENU_AUTO_AD_WIDTH/2, MENU_AUTO_AD_Y, CONSTANTS.MENU_AUTO_AD_WIDTH, AUTO_AD.getHeight()*CONSTANTS.MENU_AUTO_AD_WIDTH/AUTO_AD.getWidth());
         final GlyphLayout simpleBojocsLayout = new GlyphLayout(sbfont, "by SimpleBojocs");
         sbfont.draw(batch, "by SimpleBojocs", MENU_SCORES.x,  viewport.getWorldHeight() / 1.5f, 0, Align.bottomRight, false);
-
+        if((!game.firstTime) & (game.externalServices.getShowAd())) {
+            final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
+            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT / 2, 0, Align.bottomLeft, false);
+        }
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], MENU_OPTIONS.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_OPTIONS.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], MENU_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
