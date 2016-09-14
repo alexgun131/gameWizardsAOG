@@ -44,6 +44,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+        compile "com.amazon.android:mobile-ads:5.+"
         compile "com.android.support:multidex:1.0.1"
         compile "com.google.android.gms:play-services-games:$googleServicesVersion"
         compile "com.google.firebase:firebase-ads:$googleServicesVersion"

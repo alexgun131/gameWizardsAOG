@@ -21,29 +21,32 @@ public class AmazonServices implements iExternalServices<PondSkaterAchievement> 
     private String amazonKey = "sample-app-v1_pub-2";
     private Activity activity;
     private Context context;
+    private boolean showAd;
 
 
     public AdLayout adView;
 
     public AmazonServices(Activity activity, Context context){
-        status = ConnectionStatus.DISCONNECTED;
+        this.status = ConnectionStatus.DISCONNECTED;
+        this.showAd = true;
         this.activity = activity;
         this.context = context;
         AdRegistration.enableTesting(debugMode);
         AdRegistration.setAppKey(amazonKey);
-        this.adView = new AdLayout(activity, AdSize.SIZE_320x50);
+        this.adView = new AdLayout(activity, AdSize.SIZE_AUTO);
+
     }
 
     @Override
     public void showAd(final boolean visibility){
         if (visibility) {
-            AdTargetingOptions adOptions = new AdTargetingOptions();
-            adView.loadAd(adOptions);
-            adView.enableAutoShow();
+            adView.loadAd(new AdTargetingOptions()); //refresh ad
+            //adView.enableAutoShow();
         } else {
-            adView.disableAutoShow();
+            //adView.disableAutoShow();
         }
-        adView.showAd();
+        //adView.showAd();
+
         /*activity.runOnUiThread(
                 new Runnable(){
                     public void run(){
@@ -90,6 +93,12 @@ public class AmazonServices implements iExternalServices<PondSkaterAchievement> 
 
     @Override
     public void showToastFromGame(CharSequence text){}
+
+    @Override
+    public boolean getShowAd()
+    {
+        return showAd;
+    }
 
     public void dispose(){
         this.adView.destroy();
