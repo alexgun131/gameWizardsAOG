@@ -31,6 +31,8 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
     Context context;
     AdRequest add;
 
+    boolean showAd = true;
+
     public GoogleServices(Activity activity, Context context){
         status = ConnectionStatus.DISCONNECTED;
         this.activity = activity;
@@ -57,7 +59,9 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
             public void onAdOpened() {
                 // Save app state before going to the ad overlay.
                  if (adView != null) {
+                     showToast("Thank you! Karma destroyed the ads!");
                      adView.destroy();
+                     showAd = false;
                     }
             }
         });
@@ -214,10 +218,13 @@ public class GoogleServices implements iExternalServices<PondSkaterAchievement>,
             }
         });
     }
-@Override
- public void showToastFromGame(CharSequence text){
+    @Override
+    public void showToastFromGame(CharSequence text){
             showToast(text);
-
     }
 
+    @Override
+    public boolean getShowAd(){
+        return showAd;
+    }
 }

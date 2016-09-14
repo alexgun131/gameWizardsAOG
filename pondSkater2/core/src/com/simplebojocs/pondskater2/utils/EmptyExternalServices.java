@@ -5,6 +5,7 @@ package com.simplebojocs.pondskater2.utils;
  * public class EmptyExternalServices<V> implements iExternalServices<iAchievement>
  */
 public class EmptyExternalServices implements iExternalServices<com.simplebojocs.pondskater2.utils.PondSkaterAchievement>{
+    boolean showAd;
     public void showAd(boolean visibility){}
 
     public void submitStandardScore(int score){}
@@ -22,7 +23,7 @@ public class EmptyExternalServices implements iExternalServices<com.simplebojocs
     public ConnectionStatus getConnectionStatus(){
         return ConnectionStatus.DISCONNECTED;
     }
-
+    public boolean getShowAd(){return showAd;}
     public void connect(){}
     public void disconnect(){}
 }

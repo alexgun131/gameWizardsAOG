@@ -25,4 +25,5 @@ public interface iExternalServices<V extends iAchievement> {
     void connect();
     void disconnect();
     void showToastFromGame(CharSequence text);
+    boolean getShowAd();
 }
