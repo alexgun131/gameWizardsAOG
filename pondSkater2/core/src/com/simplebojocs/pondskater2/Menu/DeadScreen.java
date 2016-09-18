@@ -28,6 +28,7 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     PondSkater game;
 
+    SpriteBatch batchcolor;
     SpriteBatch batch;
     ExtendViewport viewport;
 
@@ -115,6 +116,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
+        batchcolor = new SpriteBatch();
 
         shader = new ShaderProgram(CONSTANTS.vertexShader, CONSTANTS.fragmentShader);
 
@@ -163,9 +165,10 @@ public class DeadScreen extends InputAdapter implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
+        batchcolor.setProjectionMatrix(viewport.getCamera().combined);
+
 
         batch.begin();
-
         float gray = 1 + 0.1f;
         shader.begin();
         shader.setUniformf("gray", gray);
@@ -180,10 +183,8 @@ public class DeadScreen extends InputAdapter implements Screen {
         DEAD_PLAYGAME = new Vector2(width / 2, height / 2.5f);
         DEAD_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
-        if((!game.firstTime) & (game.externalServices.getShowAd())) {
-            final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
-            sbfont.draw(batch, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT *0.25f, 0, Align.bottomLeft, false);
-        }
+
+
         final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score));
         fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[language] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
@@ -205,6 +206,12 @@ public class DeadScreen extends InputAdapter implements Screen {
         font.draw(batch, CONSTANTS.SCORES_LABEL[language], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
+        batchcolor.begin();
+        if((!game.firstTime) & (game.externalServices.getShowAd())) {
+            final GlyphLayout musicLayout = new GlyphLayout(sbfont, CONSTANTS.SUPPORT);
+            sbfont.draw(batchcolor, CONSTANTS.SUPPORT, CONSTANTS.ADD_BANNER_WIDTH, viewport.getWorldHeight() - CONSTANTS.ADD_BANNER_HEIGHT *0.25f, 0, Align.bottomLeft, false);
+        }
+        batchcolor.end();
 
     }
 
@@ -265,6 +272,7 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        batchcolor.dispose();
         fontScore.dispose();
         font.dispose();
         shader.dispose();

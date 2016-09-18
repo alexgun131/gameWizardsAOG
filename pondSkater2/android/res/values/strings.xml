@@ -7,7 +7,8 @@
     <!--AdMob-->
     <string name="banner_ad_unit_id">ca-app-pub-9401292122550373/3606029643</string>
     <!--DFP-->
-    <!--string name="banner_ad_unit_id">/6499/example/banner</string-->
+    <!--ca-app-pub-3940256099942544/6300978111">/6499/example/banner</string-->
+    <!--ca-app-pub-9401292122550373/3606029643">/6499/example/banner</string-->
 
     <string name="leaderboard_id">724582053496</string>
 
