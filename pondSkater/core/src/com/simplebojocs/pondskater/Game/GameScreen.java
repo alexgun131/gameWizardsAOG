@@ -21,6 +21,9 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.simplebojocs.pondskater.CONSTANTS;
 import com.simplebojocs.pondskater.PondSkater;
+import com.simplebojocs.pondskater.utils.Audio;
+import com.simplebojocs.pondskater.utils.PondSkaterAchievement;
+import com.simplebojocs.utils.audio.CtrlAudio;
 
 /**
  * Created by Alex on 29/06/2016.
@@ -36,7 +39,7 @@ public class GameScreen extends InputAdapter implements Screen {
     ExtendViewport viewport;
     SpriteBatch batch;
     ShaderProgram shader;
-    int languaje;
+    int language;
     int[] topScore;
     int[] topEaten;
     int currentTopScore;
@@ -45,6 +48,7 @@ public class GameScreen extends InputAdapter implements Screen {
     int scoreBeforeMult;
     int eatenPoints;
     int beatHighestScore;
+    int moskitoEatCount;
     BitmapFont font;
     BitmapFont sbfont;
 
@@ -66,9 +70,10 @@ public class GameScreen extends InputAdapter implements Screen {
     Texture RIVER_BANK_TOP;
     Texture RIVER_BANK_BOTTOM;
     Texture AUTO_AD;
-    Music moskitoMusic;
+    /*Music moskitoMusic;
     Music eatLarvae;
-    Music eatMoskito;
+    Music eatMoskito;*/
+    private CtrlAudio cAudio = CtrlAudio.getInstance();
 
     boolean musicON = true;
     boolean soundsON = true;
@@ -111,6 +116,7 @@ public class GameScreen extends InputAdapter implements Screen {
         scoreBeforeMult = 0;
         eatenPoints = 0;
         beatHighestScore = 0;
+        moskitoEatCount = 0;
 
         riverPosition = 0.0f;
         riverBankPosition = 0.0f;
@@ -119,7 +125,7 @@ public class GameScreen extends InputAdapter implements Screen {
         isPoint = false;
         isSuperPoint = false;
 
-        if(soundsON) {
+        /*if(soundsON) {
             moskitoMusic = Gdx.audio.newMusic(Gdx.files.internal("Kito_the_Moskito.mid"));
             moskitoMusic.setLooping(true);
             moskitoMusic.setVolume(0.15f);
@@ -134,11 +140,17 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(musicON) {
-            game.showAd(false);
             game.music.setVolume(0.4f);
             game.music.play();
-        }
+        }*/
 
+        cAudio.loadAudio(Audio.MOSKITO, false);
+        cAudio.loadAudio(Audio.EAT_LARVAE, false);
+        cAudio.loadAudio(Audio.EAT_MOSKITO, false);
+        cAudio.disposeOnLoadBGM = false;
+        cAudio.loadAudio(Audio.POND_SKATER, true);
+
+        game.externalServices.submitAchievement(PondSkaterAchievement.FIRST_GAME);
     }
 
     private void loadTextures(){
@@ -189,7 +201,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         topScores = new Vector2(viewport.getWorldWidth()- CONSTANTS.HUD_MARGIN, viewport.getWorldHeight()- 2* CONSTANTS.HUD_MARGIN - CONSTANTS.ADD_BANNER_HEIGHT);
 
-        font.draw(batch, CONSTANTS.CURRENTSCORE[languaje] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[languaje] + eatenPoints ,
+        font.draw(batch, CONSTANTS.CURRENTSCORE[language] + currentScore +"\n"+ CONSTANTS.EATEN_LABEL[language] + eatenPoints ,
                 CONSTANTS.HUD_MARGIN, viewport.getWorldHeight() - 2*CONSTANTS.FRAME_THIKNESS); //scores down to point but up to fishes
 
         final GlyphLayout musicLayout = new GlyphLayout(sbfont, topScorenow);
@@ -200,22 +212,32 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if ((player.hitByIcicle(enemies) || player.ensureInBounds()) && isAlive) {
             isAlive = false;
+            game.externalServices.submitScore(currentScore);
             if(soundsON) {
-                moskitoMusic.dispose();
+                /*moskitoMusic.dispose();
                 eatLarvae.dispose();
-                eatMoskito.dispose();
+                eatMoskito.dispose();*/
+                cAudio.SFX.clearList();
                 player.jumpSound.dispose();
             }
             timeSinceDead = TimeUtils.nanoTime();
             if(musicON) {
-                soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
+                /*soundDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_sound_2.mp3"));
                 soundDeath.setLooping(false);
                 soundDeath.setVolume(0.6f);
-                soundDeath.play();
+                soundDeath.play();*/
+                cAudio.loadAudio(Audio.DEATH, true, new Music.OnCompletionListener(){
+                    @Override
+                    public void onCompletion(Music music) {
+                        cAudio.remove(Audio.DEATH);
+                        cAudio.loadAudio(Audio.DEATH_THEME, true);
+                    }
+                });
             }
             if(musicON) {
-                game.music.pause();
-                game.music.setPosition(0);
+                //game.music.pause();
+                //game.music.setPosition(0);
+                cAudio.stop();
             }
         }
         if(!isAlive) {
@@ -224,6 +246,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 enemies.init();
                 player.init();
                 game.showDeadScreen(currentScore, eatenPoints, soundDeath);
+                game.externalServices.submitScore(currentScore);
                 write();
                 currentScore = 0;
                 currentTopScore = 0;
@@ -251,8 +274,9 @@ public class GameScreen extends InputAdapter implements Screen {
         if(player.getPoint(point)){
             //eatLarvae.stop(); //covering eat some larvaes in a short time
             if(soundsON) {
-                eatLarvae.setPosition(0.1f); // si no parece que vaya retrasado
-                eatLarvae.play();
+                /*eatLarvae.setPosition(0.1f); // si no parece que vaya retrasado
+                eatLarvae.play();*/
+                cAudio.play(Audio.EAT_LARVAE);
             }
             point.disappear();
             timePointElapsed = TimeUtils.nanoTime();
@@ -263,10 +287,14 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(player.getSuperPoint(superPoint)){
+            int oldMoskitoEatCount = moskitoEatCount++;
+            checkForAchievement(oldMoskitoEatCount, moskitoEatCount, PondSkaterAchievement.PondSkaterAchievementType.MOSKITOS);
+
             if(soundsON){
-                eatMoskito.play();
+                /*eatMoskito.play();
                 moskitoMusic.setLooping(false);
-                moskitoMusic.pause();
+                moskitoMusic.pause();*/
+                cAudio.play(Audio.EAT_MOSKITO);
             }
             superPoint.disappear();
             timeSuperPointElapsed = TimeUtils.nanoTime();
@@ -279,8 +307,9 @@ public class GameScreen extends InputAdapter implements Screen {
         if(superPoint.ensureInBounds() && isSuperPoint){
             isSuperPoint = false;
             if(soundsON) {
-                moskitoMusic.setLooping(false);
-                moskitoMusic.pause();
+                /*moskitoMusic.setLooping(false);
+                moskitoMusic.pause();*/
+                cAudio.stop(Audio.MOSKITO);
             }
             timeSuperPointElapsed = TimeUtils.nanoTime();
         }
@@ -294,30 +323,34 @@ public class GameScreen extends InputAdapter implements Screen {
         if(!isSuperPoint){
             if((TimeUtils.nanoTime() - timeSuperPointElapsed)*1E-9 > CONSTANTS.TIME_SPAWN_SUPERPOINTS*MathUtils.random(1.0f,1.5f)){
                 if(soundsON) {
-                    moskitoMusic.setLooping(true);
+                    /*moskitoMusic.setLooping(true);
                     moskitoMusic.setPosition(0);
-                    moskitoMusic.play();
+                    moskitoMusic.play();*/
+                    cAudio.play(Audio.MOSKITO);
                 }
                 superPoint.newPosition();
                 isSuperPoint = true;
             }
         }
 
+        int oldScore = currentScore;
         currentScore = scoreBeforeMult + enemies.enemiesCounter*eatenPoints;
+        checkForAchievement(oldScore, currentScore, PondSkaterAchievement.PondSkaterAchievementType.POINTS);
+
         //for(int i = 0; i<CONSTANTS.NUMBER_TOPSCORES; i++) {
         currentTopScore = Math.max(topScore[0], currentScore);
         currentTopEaten = Math.max(topEaten[0], eatenPoints);
         if(currentScore >= topScore[0]){
             beatHighestScore = 1;
-            topScorenow = CONSTANTS.BESTSCORE[languaje];
+            topScorenow = CONSTANTS.BESTSCORE[language];
         }
         else if(currentScore >= topScore[4]){
             beatHighestScore = 2;
-            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM5[languaje];
+            topScorenow = CONSTANTS.TOP[language] + CONSTANTS.NUM5[language];
         }
         else if(currentScore >= topScore[9]) {
             beatHighestScore = 3;
-            topScorenow = CONSTANTS.TOP[languaje] + CONSTANTS.NUM10[languaje];
+            topScorenow = CONSTANTS.TOP[language] + CONSTANTS.NUM10[language];
         }
         //}
 
@@ -358,9 +391,10 @@ public class GameScreen extends InputAdapter implements Screen {
         sbfont.dispose();
         shader.dispose();
         if(soundsON) {
-            moskitoMusic.dispose();
+            /*moskitoMusic.dispose();
             eatLarvae.dispose();
-            eatMoskito.dispose();
+            eatMoskito.dispose();*/
+            cAudio.SFX.clearList();
             player.jumpSound.dispose();
         }
         write();
@@ -447,10 +481,10 @@ public class GameScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }
@@ -491,5 +525,11 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
         batch.draw(AUTO_AD, 0, screenHeight - CONSTANTS.FRAME_THIKNESS * 2, AUTO_AD.getWidth()*CONSTANTS.FRAME_THIKNESS * 2/AUTO_AD.getHeight(), CONSTANTS.FRAME_THIKNESS * 2); //TODO: very hardcoded difficult to follow
+    }
+
+    private void checkForAchievement(int oldValue, int newValue, PondSkaterAchievement.PondSkaterAchievementType psaType){
+        for(PondSkaterAchievement achievement : PondSkaterAchievement.values())
+            if(achievement.psaType == psaType && oldValue < achievement.amount && newValue >= achievement.amount)
+                game.externalServices.submitAchievement(achievement);
     }
 }

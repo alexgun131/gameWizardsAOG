@@ -1,17 +1,18 @@
 package com.simplebojocs.pondskater;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+import com.simplebojocs.pondskater.mainmenu2.MenuScreen2;
 
 public class AndroidLauncher extends AndroidApplication {
-	AdView adView;
+	GoogleServices externalServices;
+	PondSkater ps;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -19,19 +20,14 @@ public class AndroidLauncher extends AndroidApplication {
 
 		RelativeLayout layout = new RelativeLayout(this);
 
+		externalServices = new GoogleServices(this);
+
+		ps = new PondSkater(externalServices);
+
 		View gameView = initializeForView(
-				new PondSkater(){
-					@Override public void showAd(boolean visibility){
-						AndroidLauncher.this.showAd(visibility);
-					}
-				},
+				ps,
 				new AndroidApplicationConfiguration()
 		);
-
-		adView = new AdView(this);
-		adView.setAdUnitId(getString(R.string.banner_ad_unit_id)); // ca-app-pub-9401292122550373/3606029643 esta mal, falta el 3 para que no nos baneen
-		adView.setAdSize(AdSize.BANNER); // el de pau era ca-app-pub-3940256099942544/6300978111
-		adView.loadAd(new AdRequest.Builder().build());
 
 		RelativeLayout.LayoutParams adParams =
 				new RelativeLayout.LayoutParams(
@@ -42,12 +38,43 @@ public class AndroidLauncher extends AndroidApplication {
 		adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
 		layout.addView(gameView);
-		layout.addView(adView, adParams);
+		layout.addView(externalServices.adView, adParams);
 
 		setContentView(layout);
 	}
-	private void showAd(boolean visibility){
-		//adView.setVisibility(visibility?View.VISIBLE:View.GONE);
-		//adView.setVisibility(View.VISIBLE);
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		externalServices.connect();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		externalServices.disconnect();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onBackPressed(){
+		if(ps != null &&
+				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Game.GameScreen) &&
+				!(ps.getScreen() instanceof com.simplebojocs.pondskater.Menu.MenuScreen)){
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					ps.setScreen(new MenuScreen2(ps));
+				}
+			});
+		}
 	}
 }

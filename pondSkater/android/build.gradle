@@ -22,6 +22,7 @@ android {
         applicationId "com.simplebojocs.pondskater"
         minSdkVersion 9
         targetSdkVersion 24
+        multiDexEnabled true
     }
 }
 

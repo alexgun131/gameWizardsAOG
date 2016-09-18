@@ -39,7 +39,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
     boolean invertY = false;
     boolean musicON = true;
     boolean soundsON = true;
-    int languaje = 0;
+    int language = 0;
 
     Vector2 MUSICON;
     Vector2 SOUNDON;
@@ -160,32 +160,32 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         renderer.set(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES.x, LANGUAJES.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==0)
+        if(language ==0)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_ENG.x, LANGUAJES_ENG.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==1)
+        if(language ==1)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_ESP.x, LANGUAJES_ESP.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==2)
+        if(language ==2)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_CHI.x, LANGUAJES_CHI.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==3)
+        if(language ==3)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_JAP.x, LANGUAJES_JAP.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==4)
+        if(language ==4)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
         renderer.rect(LANGUAJES_COR.x, LANGUAJES_COR.y, CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan, CONSTANTS.SCORES_BUBBLE_RADIUS);
-        if(languaje==5)
+        if(language ==5)
             renderer.setColor(Color.WHITE);
         else
             renderer.setColor(Color.BLACK);
@@ -209,37 +209,37 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         sbfont.draw(batch, "by SimpleBojocs", autoAdEndX,  height*2/3-(AUTO_AD.getHeight()*width*8/10/AUTO_AD.getWidth())/2, 0, Align.right, false);
 
 
-        final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[languaje], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout musicLayout = new GlyphLayout(fontScore, CONSTANTS.MUSIC_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.MUSIC_LABEL[language], MUSICON.x, MUSICON.y + musicLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout soundLayout = new GlyphLayout(fontScore, CONSTANTS.SOUNDS_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.SOUNDS_LABEL[languaje], SOUNDON.x, SOUNDON.y + soundLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout soundLayout = new GlyphLayout(fontScore, CONSTANTS.SOUNDS_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.SOUNDS_LABEL[language], SOUNDON.x, SOUNDON.y + soundLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.MENU_LABEL[languaje], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(fontScore, CONSTANTS.MENU_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.MENU_LABEL[language], CONSTANTS.BACK_TO_MENU.x, CONSTANTS.BACK_TO_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertXYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTXY_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.INVERTXY_LABEL[languaje], INVERTXY.x, INVERTXY.y + invertXYLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertXYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTXY_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.INVERTXY_LABEL[language], INVERTXY.x, INVERTXY.y + invertXYLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertXLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTX_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.INVERTX_LABEL[languaje], INVERTX.x, INVERTX.y + invertXLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertXLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTX_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.INVERTX_LABEL[language], INVERTX.x, INVERTX.y + invertXLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout invertYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTY_LABEL[languaje]);
-        fontScore.draw(batch, CONSTANTS.INVERTY_LABEL[languaje], INVERTY.x, INVERTY.y + invertYLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout invertYLayout = new GlyphLayout(fontScore, CONSTANTS.INVERTY_LABEL[language]);
+        fontScore.draw(batch, CONSTANTS.INVERTY_LABEL[language], INVERTY.x, INVERTY.y + invertYLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout languajeLayout = new GlyphLayout(fontScore, CONSTANTS.SELECT_LANGUAJE[0]);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[0], LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ENG.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[1], LANGUAJES_ESP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ESP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[2], LANGUAJES_CHI.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_CHI.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[3], LANGUAJES_JAP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_JAP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[4], LANGUAJES_COR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_COR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
-        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAJE[5], LANGUAJES_AR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_AR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        final GlyphLayout languajeLayout = new GlyphLayout(fontScore, CONSTANTS.SELECT_LANGUAGE[0]);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[0], LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ENG.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[1], LANGUAJES_ESP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_ESP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[2], LANGUAJES_CHI.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_CHI.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[3], LANGUAJES_JAP.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_JAP.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[4], LANGUAJES_COR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_COR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
+        fontScore.draw(batch, CONSTANTS.SELECT_LANGUAGE[5], LANGUAJES_AR.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, LANGUAJES_AR.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.center, false);
 
         fontScore.draw(batch,
-                CONSTANTS.LEADER_PROGRAMMER[languaje] + ":\nAlex Gonzalez Gonzalez\n\n"
-                        + CONSTANTS.ART[languaje] + ":\nOriol Chiou Wang\n\n"
-                        + CONSTANTS.PROGRAMMERS[languaje] + ":\nAlex Gonzalez Gonzalez\nOriol Chiou Wang\nPau Chiou Wang\n\n"
-                        + CONSTANTS.MUSIC[languaje] + ":\nGuillermo Cámbara Ruiz",
+                CONSTANTS.LEADER_PROGRAMMER[language] + ":\nAlex Gonzalez Gonzalez\n\n"
+                        + CONSTANTS.ART[language] + ":\nOriol Chiou Wang\n\n"
+                        + CONSTANTS.PROGRAMMERS[language] + ":\nAlex Gonzalez Gonzalez\nOriol Chiou Wang\nPau Chiou Wang\n\n"
+                        + CONSTANTS.MUSIC[language] + ":\nGuillermo Cámbara Ruiz",
                 LANGUAJES_ENG.x+CONSTANTS.SCORES_BUBBLE_RADIUS*tamLan/2, CONSTANTS.BACK_TO_MENU.y + languajeLayout.height / 2 + CONSTANTS.SCORES_BUBBLE_RADIUS/2, 0, Align.left, false);
 
 
@@ -318,27 +318,27 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_ENG_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=0;
+            language =0;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_ESP_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=1;
+            language =1;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_CHI_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=2;
+            language =2;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_JAP_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=3;
+            language =3;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_COR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=4;
+            language =4;
             writeConfig();
         }
         if (worldTouch.dst(LANGUAJES_AR_TOUCH) < CONSTANTS.SCORES_BUBBLE_RADIUS) {
-            languaje=5;
+            language =5;
             writeConfig();
         }
 
@@ -359,7 +359,7 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
         String topAsCode = Base64Coder.encodeString( topAsText );
         topDataFile.writeString( topAsCode, false );
 
-        String languajeAsText = json.toJson( languaje );
+        String languajeAsText = json.toJson(language);
         String languajeAsCode = Base64Coder.encodeString( languajeAsText );
         languajeDataFile.writeString( languajeAsCode, false );
     }
@@ -394,10 +394,10 @@ public class AccelerometerConfigScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }

@@ -20,7 +20,10 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.simplebojocs.pondskater.CONSTANTS;
+import com.simplebojocs.pondskater.utils.Language;
 import com.simplebojocs.pondskater.PondSkater;
+import com.simplebojocs.utils.audio.CtrlAudio;
+import com.simplebojocs.utils.lang.CtrlLanguage;
 
 /**
  * Created by Alex on 04/07/2016.
@@ -38,9 +41,9 @@ public class DeadScreen extends InputAdapter implements Screen {
     int score;
     int eaten;
     int select = -1;
-    int languaje = 0;
-    Music musicDeath;
-    Music soundDeath;
+    int language = 0;
+    //Music musicDeath;
+    //Music soundDeath;
     Texture FlyButton;
     Texture WormButton;
     Texture FishButton;
@@ -67,15 +70,34 @@ public class DeadScreen extends InputAdapter implements Screen {
 
     boolean musicON = true;
 
+    CtrlLanguage lang = CtrlLanguage.getInstance();
+
     public DeadScreen(PondSkater game, int score, int eaten, Music soundDeath) {
         this.game = game;
         this.score = score;
         this.eaten = eaten;
-        this.soundDeath = soundDeath;
+        //this.soundDeath = soundDeath;
         loadTextures();
         flyFps = 0.0f;
         wormFps = 0.0f;
         fishFps = 0.0f;
+
+        readConfig();
+        Language lang = Language.en_US;
+        if (language == 0) {
+            lang = Language.en_US;
+        } else if (language == 1) {
+            lang = Language.es_ES;
+        } else if (language == 2) {
+            lang = Language.zh_CN;
+        } else if (language == 3) {
+            lang = Language.ja_JP;
+        } else if (language == 4) {
+            lang = Language.ko_KR;
+        } else if (language == 5) {
+            lang = Language.ar_SA;
+        }
+        this.lang.setLanguage(lang);
     }
 
     private void loadTextures() {
@@ -132,10 +154,10 @@ public class DeadScreen extends InputAdapter implements Screen {
         font.getData().setScale(CONSTANTS.DEAD_LABEL_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        game.showAd(true);
+        game.externalServices.showAd(true);
         readConfig();
-        if (musicON)
-            musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_theme_2.mid"));
+        //if (musicON)
+        //    musicDeath = Gdx.audio.newMusic(Gdx.files.internal("Death_theme_2.mid"));
 
 
         timeSinceDead = TimeUtils.nanoTime();
@@ -144,12 +166,12 @@ public class DeadScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         if (musicON) {
-            if (!soundDeath.isPlaying()) {
+            /*if (!soundDeath.isPlaying()) {
                 soundDeath.dispose();
                     musicDeath.setVolume(0.3f);                 // sets the volume to half the maximum volume
                     musicDeath.setLooping(true);                // will repeat playback until music.stop() is called
                     musicDeath.play();
-            }
+            }*/
         }
 
 
@@ -175,25 +197,25 @@ public class DeadScreen extends InputAdapter implements Screen {
         DEAD_PLAYGAME = new Vector2(width / 2, height / 2.5f);
         DEAD_SCORES = new Vector2(width * 4 / 5, height / 2.5f);
 
-        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score));
-        fontScore.draw(batch, CONSTANTS.YOUR_SCORE_LABEL[languaje] + String.valueOf(score), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
+        final GlyphLayout scoreLayout = new GlyphLayout(fontScore, lang.get("dead.score", String.valueOf(score)));
+        fontScore.draw(batch, lang.get("dead.score", String.valueOf(score)), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y + scoreLayout.height, 0, Align.center, false);
 
-        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten));
-        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[languaje] + String.valueOf(eaten), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y - eatenLayout.height, 0, Align.center, false);
+        final GlyphLayout eatenLayout = new GlyphLayout(fontScore, CONSTANTS.EATEN_LABEL[language] + String.valueOf(eaten));
+        fontScore.draw(batch, CONSTANTS.EATEN_LABEL[language] + String.valueOf(eaten), DEAD_SHOW_SCORE.x, DEAD_SHOW_SCORE.y - eatenLayout.height, 0, Align.center, false);
 
         batch.draw(FlyButtonSprite[getFlySprite(delta)], DEAD_MENU.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_MENU.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(WormButtonSprite[getWormSprite(delta)], DEAD_PLAYGAME.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_PLAYGAME.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
         batch.draw(FishButtonSprite[getFishSprite(delta)], DEAD_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, DEAD_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.MENU_LABEL[languaje], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[language]);
+        font.draw(batch, CONSTANTS.MENU_LABEL[language], DEAD_MENU.x, DEAD_MENU.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAYAGAIN_LABEL[languaje], DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout mediumLayout = new GlyphLayout(font, lang.get("button.playAgain"));
+        font.draw(batch, lang.get("button.playAgain"), DEAD_PLAYGAME.x, DEAD_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[language]);
+        font.draw(batch, CONSTANTS.SCORES_LABEL[language], DEAD_SCORES.x, DEAD_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -265,19 +287,22 @@ public class DeadScreen extends InputAdapter implements Screen {
             if (worldTouch.dst(DEAD_MENU) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showMenuScreen();
                 if (musicON)
-                    musicDeath.dispose();
+                    //musicDeath.dispose();
+                    CtrlAudio.getInstance().stop();
             }
 
             if (worldTouch.dst(DEAD_PLAYGAME) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showGameScreen();
                 if (musicON)
-                    musicDeath.dispose();
+                    //musicDeath.dispose();
+                    CtrlAudio.getInstance().stop();
             }
 
             if (worldTouch.dst(DEAD_SCORES) < CONSTANTS.DEAD_BUBBLE_RADIUS * 2) {
                 game.showTopScoreScreen();
                 if (musicON)
-                    musicDeath.dispose();
+                    //musicDeath.dispose();
+                    CtrlAudio.getInstance().stop();
             }
         } catch (Exception e) {
 
@@ -333,10 +358,10 @@ public class DeadScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }

@@ -28,7 +28,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     SpriteBatch batch;
     ExtendViewport viewport;
-    int languaje = 1;
+    int language = 1;
 
     BitmapFont font;
     BitmapFont sbfont;
@@ -121,7 +121,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         sbfont.getData().setScale(CONSTANTS.MENU_LABEL_SCALE*0.6f);
         sbfont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        game.showAd(true);
+        game.externalServices.showAd(true);
 
         readConfig();
         if(musicON) {
@@ -129,6 +129,7 @@ public class MenuScreen extends InputAdapter implements Screen {
             game.music.setLooping(true);                // will repeat playback until music.stop() is called
             game.music.play();
         }
+
     }
 
     @Override
@@ -161,14 +162,14 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch.draw(FishButtonSprite[getFishSprite(delta)], MENU_SCORES.x - CONSTANTS.MENU_BUBBLE_RADIUS * 2, MENU_SCORES.y - CONSTANTS.MENU_BUBBLE_RADIUS * 2, CONSTANTS.MENU_BUBBLE_RADIUS * 4, CONSTANTS.MENU_BUBBLE_RADIUS * 4);
 
 
-        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.OPTIONS_LABEL[languaje], MENU_OPTIONS.x, MENU_OPTIONS.y + easyLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout easyLayout = new GlyphLayout(font, CONSTANTS.OPTIONS_LABEL[language]);
+        font.draw(batch, CONSTANTS.OPTIONS_LABEL[language], MENU_OPTIONS.x, MENU_OPTIONS.y + easyLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.PLAY_LABEL[languaje], MENU_PLAYGAME.x, MENU_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout mediumLayout = new GlyphLayout(font, CONSTANTS.PLAY_LABEL[language]);
+        font.draw(batch, CONSTANTS.PLAY_LABEL[language], MENU_PLAYGAME.x, MENU_PLAYGAME.y + mediumLayout.height / 2, 0, Align.center, false);
 
-        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[languaje]);
-        font.draw(batch, CONSTANTS.SCORES_LABEL[languaje], MENU_SCORES.x, MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
+        final GlyphLayout hardLayout = new GlyphLayout(font, CONSTANTS.SCORES_LABEL[language]);
+        font.draw(batch, CONSTANTS.SCORES_LABEL[language], MENU_SCORES.x, MENU_SCORES.y + hardLayout.height / 2, 0, Align.center, false);
 
         batch.end();
 
@@ -303,10 +304,10 @@ public class MenuScreen extends InputAdapter implements Screen {
             try {
                 String languajeAsCode = languajeDataFile.readString();
                 String languajeAsText = Base64Coder.decodeString(languajeAsCode);
-                languaje = json.fromJson(int.class, languajeAsText);
+                language = json.fromJson(int.class, languajeAsText);
 
             } catch (Exception e) {
-                languaje = 0;
+                language = 0;
 
             }
         }
