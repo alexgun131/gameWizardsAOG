@@ -11,7 +11,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.simplebojocs.pondskater2.utils.iToaster;
 
 public class AndroidLauncher extends AndroidApplication {
-	GoogleServices externalServices;
+	ServicesManager externalServices;
 	PondSkater ps;
 	iToaster itoaster;
 
@@ -21,7 +21,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		RelativeLayout layout = new RelativeLayout(this);
 
-		externalServices = new GoogleServices(this, getApplicationContext());
+		externalServices = new ServicesManager(this, getApplicationContext());
 		ps = new PondSkater(externalServices);
 
 		View gameView = initializeForView(
